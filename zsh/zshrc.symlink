@@ -162,7 +162,7 @@ export LESS_TERMCAP_mh=$(tput dim)
 
 # user env vars
 export GO111MODULE="on"
-export GOPATH="~/go"
+export GOPATH="$HOME/go"
 export TEZOS_ALPHANET_DO_NOT_PULL=yes
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
