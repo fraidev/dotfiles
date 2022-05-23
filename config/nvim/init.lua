@@ -96,6 +96,7 @@ opt.timeoutlen = 500
 ---------------------------------------------------------
 o.termguicolors = true
 opt.number = true -- show line numbers
+opt.rnu = true
 opt.wrap = true -- turn on line wrapping
 opt.wrapmargin = 8 -- wrap lines when coming within n characters from side
 opt.linebreak = true -- set soft wrapping
@@ -149,12 +150,15 @@ opt.listchars = {
 }
 
 -- Mappings
+--nnoremap("<space>", "<nop>")
 g.mapleader = ","
 opt.pastetoggle = "<leader>v"
+nnoremap("<leader>k", ":source $MYVIMRC<CR>")
 
 nnoremap("Q", "<nop>")
-imap("jk", "<Esc>")
+imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>")
+
 nmap("<space>", ":set hlsearch! hlsearch?<cr>")
 
 nmap("<leader><space>", [[:%s/\s\+$<cr>]])
@@ -210,7 +214,7 @@ nmap("<leader>i", ":set cursorline!")
 nnoremap("<C-e>", "3<c-e>")
 nnoremap("<C-y>", "3<c-y>")
 
--- moving up and down work as you would expect
+--moving up and down work as you would expect
 nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
 nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
 nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})

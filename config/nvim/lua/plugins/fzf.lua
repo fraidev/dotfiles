@@ -8,6 +8,8 @@ local nmap = utils.nmap
 local xmap = utils.xmap
 local omap = utils.omap
 local imap = utils.imap
+--local theme = require("theme")
+--local colors = theme.colors
 
 if (fn.isdirectory(".git")) then
   nmap("<leader>t", ":GitFiles --cached --others --exclude-standard<cr>")
@@ -61,7 +63,7 @@ end
 local fzf_opts = {
   env.FZF_DEFAULT_OPTS or "",
   " --layout=reverse",
-  ' --pointer=" "',
+  ' --pointer=","',
   " --info=hidden",
   " --border=rounded",
   " --bind å:select-all+accept"

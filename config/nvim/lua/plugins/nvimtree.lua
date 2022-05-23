@@ -43,7 +43,7 @@ function NvimTreeConfig.find_toggle()
   end
 end
 
-nnoremap("<leader>k", "<CMD>lua NvimTreeConfig.find_toggle()<CR>")
+nnoremap("<leader>m", "<CMD>lua NvimTreeConfig.find_toggle()<CR>")
 
 nvimtree.setup {
   disable_netrw = false,

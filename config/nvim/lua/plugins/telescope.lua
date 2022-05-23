@@ -10,8 +10,8 @@ telescope.setup(
           ["<Esc>"] = actions.close, -- don't go into normal mode, just close
           ["<C-j>"] = actions.move_selection_next, -- scroll the list with <c-j>
           ["<C-k>"] = actions.move_selection_previous, -- scroll the list with <c-k>
-          -- ["<C-\\->"] = actions.select_horizontal, -- open selection in new horizantal split
-          -- ["<C-\\|>"] = actions.select_vertical, -- open selection in new vertical split
+          ["<C-s->"] = actions.select_horizontal, -- open selection in new horizantal split
+          ["<C-v>"] = actions.select_vertical, -- open selection in new vertical split
           ["<C-t>"] = actions.select_tab, -- open selection in new tab
           ["<C-y>"] = actions.preview_scrolling_up,
           ["<C-e>"] = actions.preview_scrolling_down

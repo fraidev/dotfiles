@@ -14,6 +14,9 @@ plugBegin("~/.config/nvim/plugged")
 
 -- NOTE: the argument passed to Plug has to be wrapped with single-quotes
 
+-- colorscheme
+Plug "tomasiser/vim-code-dark"
+
 -- a set of lua helpers that are used by other plugins
 Plug "nvim-lua/plenary.nvim"
 
@@ -92,8 +95,8 @@ Plug "udalov/kotlin-vim"
 
 -- Open markdown files in Marked.app - mapped to <leader>m
 Plug("itspriddle/vim-marked", {["for"] = "markdown", on = "MarkedOpen"})
-nmap("<leader>m", ":MarkedOpen!<cr>")
-nmap("<leader>mq", ":MarkedQuit<cr>")
+nmap("<leader>n", ":MarkedOpen!<cr>")
+nmap("<leader>nq", ":MarkedQuit<cr>")
 nmap("<leader>*", "*<c-o>:%s///gn<cr>")
 
 Plug("elzr/vim-json", {["for"] = "json"})
@@ -167,7 +170,11 @@ Plug "alvarosevilla95/luatab.nvim"
 
 -- enable copilot support for Neovim
 Plug "github/copilot.vim"
-
+-- if a copilot-aliased version of node exists from fnm, use that
+local copilot_node_path = env.FNM_DIR .. "/aliases/copilot/bin/node"
+if utils.file_exists(copilot_node_path) then
+  g.copilot_node_path = copilot_node_path
+end
 -- improve the default neovim interfaces, such as refactoring
 Plug "stevearc/dressing.nvim"
 
