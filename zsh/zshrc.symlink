@@ -166,6 +166,7 @@ export GO111MODULE="on"
 export GOPATH="$HOME/go"
 export TEZOS_ALPHANET_DO_NOT_PULL=yes
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export CLOUDSDK_PYTHON=/opt/homebrew/bin/python3
 
 # source z.sh if it exists
 zpath="$(brew --prefix)/etc/profile.d/z.sh"
@@ -252,3 +253,6 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
+
+# opam configuration
+[[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

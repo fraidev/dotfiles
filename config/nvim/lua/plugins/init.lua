@@ -54,6 +54,8 @@ Plug "tpope/vim-fugitive"
 Plug "tpope/vim-rhubarb"
 nmap("<leader>gr", ":Gread<cr>")
 nmap("<leader>gb", ":G blame<cr>")
+nmap("<leader>gg", ":Git<cr>")
+nmap("<leader>gd", ":Gdiffsplit<cr>")
 
 -- general plugins
 -- emmet support for vim - easily create markdup wth CSS-like syntax
