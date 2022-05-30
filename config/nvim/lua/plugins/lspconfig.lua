@@ -193,6 +193,8 @@ lsp_installer.on_server_ready(
       end
     elseif server.name == "vim" then
       opts.init_options = {isNeovim = true}
+    elseif server.name == "ocamlls" then
+      opts.root_dir = nvim_lsp.util.root_pattern("dune-project")
     elseif server.name == "diagnosticls" then
       opts = diagnosticls_settings
     elseif server.name == "tsserver" then

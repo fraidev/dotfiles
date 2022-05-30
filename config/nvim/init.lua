@@ -159,14 +159,15 @@ nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>")
 
-nmap("<space>", ":set hlsearch! hlsearch?<cr>")
+-- nmap("<space>", ":set hlsearch! hlsearch?<cr>")
 
-nmap("<leader><space>", [[:%s/\s\+$<cr>]])
-nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
+-- nmap("<leader><space>", [[:%s/\s\+$<cr>]])
+-- nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
 nmap("<leader>l", ":set list!<cr>")
 inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
 inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], {expr = true})
+inoremap ("<silent><esc>", "<esc>:update<cr>")
 vmap("<", "<gv")
 vmap(">", ">gv")
 nmap("<leader>.", "<c-^>")
@@ -261,3 +262,10 @@ cmd [[highlight xmlAttrib cterm=italic term=italic gui=italic]]
 cmd [[highlight Normal ctermbg=none]]
 -- make the StatusLine background match the GalaxyLine styles
 cmd("hi StatusLine guibg=" .. colors.bg)
+
+-- vim.api.nvim_command([[
+--   inoremap <silent><esc> <esc>:update<cr>
+--   autocmd TextChanged,FocusLost,BufEnter * silent update
+-- ]])
+--:vim.api.nvim_set_keymap("i", "<esc>", ":update<cr>", {noremap=true, silent=true, expr=true})
+--tesaabcd

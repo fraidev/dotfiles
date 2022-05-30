@@ -17,6 +17,7 @@ plugBegin("~/.config/nvim/plugged")
 -- colorscheme
 Plug "tomasiser/vim-code-dark"
 
+
 -- a set of lua helpers that are used by other plugins
 Plug "nvim-lua/plenary.nvim"
 
@@ -193,6 +194,12 @@ Plug("nvim-telescope/telescope-fzf-native.nvim", {["do"] = "make"})
 
 Plug "folke/trouble.nvim"
 
+Plug 'Pocco81/AutoSave.nvim'
+
+-- OCaml
+-- Plug("rgrinberg/vim-ocaml")
+
+
 plugEnd()
 
 -- Once the plugins have been loaded, Lua-based plugins need to be required and started up
@@ -213,3 +220,4 @@ require("plugins.tabline")
 require("plugins.feline")
 require("plugins.startup")
 require("plugins.whichkey")
+require("plugins.autosave")

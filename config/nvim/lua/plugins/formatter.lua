@@ -18,6 +18,24 @@ function prettier_config()
   }
 end
 
+function gofmt_config()
+  return {
+    exe = "gofmt",
+    stdin = true,
+  }
+end
+
+function ocamlformat_config()
+  return {
+    exe = "ocamlformat",
+    stdin = true,
+    args = {
+      vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+    }
+  }
+end
+
+
 require("formatter").setup(
   {
     logging = false,
@@ -40,6 +58,12 @@ require("formatter").setup(
             stdin = true
           }
         end
+      },
+      go = {
+        gofmt_config
+      },
+      ocaml = {
+        ocamlformat_config
       }
     }
   }
@@ -51,6 +75,8 @@ augroup FormatAutogroup
   autocmd!
   autocmd BufWritePost *.js,*.ts,*.tsx FormatWrite
   autocmd BufWritePost *.lua FormatWrite
+  autocmd BufWritePost *.go FormatWrite
+  autocmd BufWritePost *.ml,*mli FormatWrite
 augroup END
 ]],
   true
