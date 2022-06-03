@@ -267,6 +267,16 @@ cmd [[highlight Normal ctermbg=none]]
 -- make the StatusLine background match the GalaxyLine styles
 cmd("hi StatusLine guibg=" .. colors.bg)
 
+vim.api.nvim_command([[
+  nnoremap   <silent>   <F7>    :FloatermNew<CR>
+  tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+  nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+  tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+  nnoremap   <silent>   <F9>    :FloatermNext<CR>
+  tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+  nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+  tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+]])
 -- vim.api.nvim_command([[
 --   inoremap <silent><esc> <esc>:update<cr>
 --   autocmd TextChanged,FocusLost,BufEnter * silent update
