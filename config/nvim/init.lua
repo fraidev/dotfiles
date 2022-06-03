@@ -153,7 +153,7 @@ opt.listchars = {
 --nnoremap("<space>", "<nop>")
 g.mapleader = ","
 opt.pastetoggle = "<leader>v"
-nnoremap("<leader>k", ":source $MYVIMRC<CR>")
+-- nnoremap("<leader>k", ":so $MYVIMRC<CR>")
 
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
@@ -183,6 +183,10 @@ nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
 nmap("<leader>z", "<Plug>Zoom")
+nmap("<leader>gl", ":FloatermNew lazygit<cr>")
+
+-- Floaterm
+
 
 -- move line mappings
 local opt_h = "˙"
@@ -201,13 +205,13 @@ vnoremap(opt_j, ":m '>+1<cr>gv=gv")
 vnoremap(opt_k, ":m '<-2<cr>gv=gv")
 
 -- TODO: what exactly does this do?
-vnoremap("$(", "<esc>`>a)<esc>`<i(<esc>")
-vnoremap("$[", "<esc>`>a]<esc>`<i[<esc>")
-vnoremap("${", "<esc>`>a}<esc>`<i{<esc>")
-vnoremap([[$']], [[<esc>`>a"<esc>`<i"<esc>]])
-vnoremap("$'", "<esc>`>a'<esc>`<i'<esc>")
-vnoremap([[$\]], "<esc>`>o*/<esc>`<O/*<esc>")
-vnoremap([[$<]], "<esc>`>a><esc>`<i<<esc>")
+-- vnoremap("$(", "<esc>`>a)<esc>`<i(<esc>")
+-- vnoremap("$[", "<esc>`>a]<esc>`<i[<esc>")
+-- vnoremap("${", "<esc>`>a}<esc>`<i{<esc>")
+-- vnoremap([[$']], [[<esc>`>a"<esc>`<i"<esc>]])
+-- vnoremap("$'", "<esc>`>a'<esc>`<i'<esc>")
+-- vnoremap([[$\]], "<esc>`>o*/<esc>`<O/*<esc>")
+-- vnoremap([[$<]], "<esc>`>a><esc>`<i<<esc>")
 
 nmap("<leader>i", ":set cursorline!")
 

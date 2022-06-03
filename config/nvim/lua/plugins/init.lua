@@ -198,8 +198,14 @@ Plug "folke/trouble.nvim"
 
 Plug 'Pocco81/AutoSave.nvim'
 
+-- Markdown
+Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
+
+-- Floaterm
+Plug 'voldikss/vim-floaterm'
+
 -- OCaml
--- Plug("rgrinberg/vim-ocaml")
+ Plug("rgrinberg/vim-ocaml")
 
 
 plugEnd()

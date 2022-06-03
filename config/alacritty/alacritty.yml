@@ -25,7 +25,7 @@ window:
   # - Maximized
   # - Fullscreen
   # - SimpleFullscreen (macos only)
-  startup_mode: Windowed
+  startup_mode: Maximized
 
 scrolling:
   history: 10000
@@ -33,93 +33,25 @@ scrolling:
 
 # Font configuration
 font:
-  # Normal (roman) font face
   normal:
-    #
-    # Font family
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux/BSD) monospace
-    #   - (Windows) Consolas
     family: MesloLGS NF
-    # family: CodeNewRoman Nerd Font
-    # family: RobotoMono Nerd Font
-    # family: Hack
-    # family: JetBrains Mono
-    # family: UbuntuMono Nerd Font
-    # family: Monofur Nerd Font
-    # family: TerminessTTF Nerd Font
-    # family: Mononoki Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Regular
-
-  # Bold font face
   bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: MesloLGS NF
-    # family: CodeNewRoman Nerd Font
-    # family: RobotoMono Nerd Font
-    # family: Hack
-    # family: JetBrains Mono
-    # family: UbuntuMono Nerd Font
-    # family: Monofur Nerd Font
-    # family: TerminessTTF Nerd Font
-    # family: Mononoki Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Bold
-
-  # Italic font face
   italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: MesloLGS NF
-    # family: CodeNewRoman Nerd Font
-    # family: RobotoMono Nerd Font
-    # family: Hack
-    # family: JetBrains Mono
-    # family: UbuntuMono Nerd Font
-    # family: Monofuritalic Nerd Font Mono
-    # family: TerminessTTF Nerd Font
-    # family: Mononoki Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Italic
-
-  # Bold italic font face
   bold_italic:
-    # Font family
-    #
-    # If the bold italic family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: MesloLGS NF
-    # family: CodeNewRoman Nerd Font
-    # family: RobotoMono Nerd Font
-    # family: Hack
-    # family: JetBrains Mono
-    # family: UbuntuMono Nerd Font
-    # family: Monofuritalic Nerd Font Mono
-    # family: TerminessTTF Nerd Font
-    # family: Mononoki Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Bold Italic
-
   # Point size
   size: 20.0
-
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 1
-
+    y: 0
   glyph_offset:
     x: 0
     y: 0
@@ -129,18 +61,13 @@ font:
   # draw bold text with bright color variants
   draw_bold_text_with_bright_colors: true
 
-#######################################
-##      START OF COLOR SCHEMES       ##
-#######################################
-schemes:
-   
 # Colors (Horizon Dark)
+schemes:
 colors:
   # Primary colors
   primary:
     background: '0x1c1e26'
     foreground: '0xe0e0e0'
-
   # Normal colors
   normal:
     black: '0x16161c'
@@ -151,7 +78,6 @@ colors:
     magenta: '0xee64ac'
     cyan: '0x59e1e3'
     white: '0xd5d8da'
-
   # Bright colors
   bright:
     black: '0x5b5858'
@@ -162,9 +88,6 @@ colors:
     magenta: '0xf075b5'
     cyan: '0x6be4e6'
     white: '0xd5d8da'
-#######################################
-##       END OF COLOR SCHEMES        ##
-#######################################
 
 mouse:
   # hide the cursor when typing
