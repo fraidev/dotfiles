@@ -152,6 +152,7 @@ opt.listchars = {
 -- Mappings
 --nnoremap("<space>", "<nop>")
 g.mapleader = ","
+nmap(" ", ",")
 opt.pastetoggle = "<leader>v"
 -- nnoremap("<leader>k", ":so $MYVIMRC<CR>")
 
@@ -161,8 +162,10 @@ nmap("<leader>,", ":w<cr>")
 
 -- nmap("<space>", ":set hlsearch! hlsearch?<cr>")
 
--- nmap("<leader><space>", [[:%s/\s\+$<cr>]])
--- nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
+
+nmap("<leader>c", [[:%s/]])
+nmap("<leader><space>", [[:%s/\s\+$<cr>]])
+nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
 nmap("<leader>l", ":set list!<cr>")
 inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
@@ -186,7 +189,6 @@ nmap("<leader>z", "<Plug>Zoom")
 nmap("<leader>gl", ":FloatermNew lazygit<cr>")
 
 -- Floaterm
-
 
 -- move line mappings
 local opt_h = "˙"
@@ -281,5 +283,3 @@ vim.api.nvim_command([[
 --   inoremap <silent><esc> <esc>:update<cr>
 --   autocmd TextChanged,FocusLost,BufEnter * silent update
 -- ]])
---:vim.api.nvim_set_keymap("i", "<esc>", ":update<cr>", {noremap=true, silent=true, expr=true})
---tesaabcd
