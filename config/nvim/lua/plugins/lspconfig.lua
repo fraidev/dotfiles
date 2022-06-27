@@ -6,10 +6,12 @@ local api = vim.api
 local fn = vim.fn
 local lsp = vim.lsp
 local lsp_installer = require("nvim-lsp-installer")
-local nvim_lsp = require("lspconfig")
+local lspconfig = require("lspconfig")
 local theme = require("theme")
 local colors = theme.colors
 local icons = theme.icons
+local tsutils = require "nvim-lsp-ts-utils"
+local rust_tools = require("rust-tools")
 
 cmd("autocmd ColorScheme * highlight NormalFloat guibg=" .. colors.bg)
 cmd("autocmd ColorScheme * highlight FloatBorder guifg=white guibg=" .. colors.bg)
@@ -182,44 +184,60 @@ local function make_config()
   }
 end
 
-lsp_installer.on_server_ready(
-  function(server)
-    local opts = make_config()
-    if server.name == "lua" then
-      opts.settings = lua_settings
-      opts.root_dir = function(fname)
-        local util = require("lspconfig/util")
-        return util.find_git_ancestor(fname) or util.path.dirname(fname)
-      end
-    elseif server.name == "vim" then
-      opts.init_options = {isNeovim = true}
-    elseif server.name == "ocamlls" then
-      opts.root_dir = nvim_lsp.util.root_pattern("dune-project")
-    elseif server.name == "diagnosticls" then
-      opts = diagnosticls_settings
-    elseif server.name == "tsserver" then
-      local capabilities = opts.capabilities
-      opts.capabiltiies = require("cmp_nvim_lsp").update_capabilities(capabilities)
-      opts.root_dir = nvim_lsp.util.root_pattern("package.json")
-      opts.handlers = {
-        ["textDocument/definition"] = function(err, result, ctx, config)
-          -- if there is more than one result, just use the first one
-          if #result > 1 then
-            result = {result[1]}
-          end
-          vim.lsp.handlers["textDocument/definition"](err, result, ctx, config)
-        end
-      }
-    elseif server.name == "denols" then
-      opts.root_dir = nvim_lsp.util.root_pattern("deno.json")
-      opts.init_options = {
-        lint = true
-      }
-    end
+lsp_installer.setup {
+  on_attach = on_attach,
+  automatic_installation = false,
+}
 
-    server:setup(opts)
-  end
-)
+-- Lua LSP
+lspconfig.sumneko_lua.setup {}
+
+-- OCaml LSP
+lspconfig.ocamllsp.setup{
+  root_dir = lspconfig.util.root_pattern("dune-project"),
+  on_attach = on_attach
+}
+
+-- GO LSP
+lspconfig.gopls.setup{
+  on_attach = on_attach
+}
+
+-- Rust LSP
+rust_tools.setup {
+    server = { on_attach = on_attach }
+}
+lspconfig.rust_analyzer.setup{ on_attach = on_attach }
+
+-- GraphQL
+lspconfig.graphql.setup { on_attach = on_attach }
+
+-- JSON
+lspconfig.jsonls.setup { on_attach = on_attach }
+
+-- CSS
+lspconfig.cssls.setup { on_attach = on_attach }
+
+-- Typescript LSP
+lspconfig.tsserver.setup {
+  init_options = {
+    hostInfo = "neovim",
+    preferences = {
+      includeInlayParameterNameHints = "none",
+      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+      includeInlayFunctionParameterTypeHints = false,
+      includeInlayVariableTypeHints = true,
+      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayEnumMemberValueHints = true,
+    },
+  },
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    tsutils.setup {}
+    tsutils.setup_client(client)
+  end,
+}
 
 -- set up custom symbols for LSP errors
 local signs = {Error = icons.error, Warning = icons.warning, Warn = icons.warning, Hint = icons.hint, Info = icons.hint}

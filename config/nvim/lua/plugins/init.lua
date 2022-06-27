@@ -17,7 +17,6 @@ plugBegin("~/.config/nvim/plugged")
 -- colorscheme
 Plug "tomasiser/vim-code-dark"
 
-
 -- a set of lua helpers that are used by other plugins
 Plug "nvim-lua/plenary.nvim"
 
@@ -133,6 +132,7 @@ Plug "lewis6991/gitsigns.nvim"
 
 -- Helpers to configure the built-in Neovim LSP client
 Plug "neovim/nvim-lspconfig"
+Plug "jose-elias-alvarez/nvim-lsp-ts-utils"
 
 -- Helpers to install LSPs and maintain them
 Plug "williamboman/nvim-lsp-installer"
@@ -205,7 +205,12 @@ Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug 'voldikss/vim-floaterm'
 
 -- OCaml
- Plug("rgrinberg/vim-ocaml")
+Plug("rgrinberg/vim-ocaml")
+Plug('jordwalke/vim-reasonml')
+Plug('scrooloose/syntastic')
+
+-- Rust
+Plug 'simrat39/rust-tools.nvim'
 
 
 plugEnd()

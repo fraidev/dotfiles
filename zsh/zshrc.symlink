@@ -197,6 +197,9 @@ alias ...='cd ../..'
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+# Windows CMD like
+alias cd..="cd .."
+
 alias l="ls -lah ${colorflag}"
 alias ls="ls ${colorflag}"
 alias la="ls -AF ${colorflag}"

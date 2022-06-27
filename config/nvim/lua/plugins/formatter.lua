@@ -73,10 +73,12 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.js,*.ts,*.tsx FormatWrite
-  autocmd BufWritePost *.lua FormatWrite
-  autocmd BufWritePost *.go FormatWrite
-  autocmd BufWritePost *.ml,*mli FormatWrite
+  autocmd BufWritePost * call timer_start(1000, { tid -> execute('FormatWrite')})
+  " autocmd BufWritePost *.js,*.ts,*.tsx FormatWrite
+  " autocmd BufWritePost *.lua FormatWrite
+  " autocmd BufWritePost *.go FormatWrite
+  " autocmd BufWritePost *.rs FormatWrite
+  " autocmd BufWritePost *.ml,*mli FormatWrite
 augroup END
 ]],
   true

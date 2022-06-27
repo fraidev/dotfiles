@@ -160,8 +160,8 @@ nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>")
 
+nmap("U", ":redo<cr>")
 -- nmap("<space>", ":set hlsearch! hlsearch?<cr>")
-
 
 nmap("<leader>c", [[:%s/]])
 nmap("<leader><space>", [[:%s/\s\+$<cr>]])
@@ -270,13 +270,14 @@ cmd [[highlight Normal ctermbg=none]]
 cmd("hi StatusLine guibg=" .. colors.bg)
 
 vim.api.nvim_command([[
-  nnoremap   <silent>   <F7>    :FloatermNew<CR>
-  tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
-  nnoremap   <silent>   <F8>    :FloatermPrev<CR>
-  tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
-  nnoremap   <silent>   <F9>    :FloatermNext<CR>
-  tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+  nnoremap   <silent>   <F11>    :FloatermNew<CR>
+  tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
+  nnoremap   <silent>   <F9>    :FloatermPrev<CR>
+  tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermPrev<CR>
+  nnoremap   <silent>   <F10>    :FloatermNext<CR>
+  inoremap   <silent>   <F10>   <esc>:FloatermNext<CR>
   nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+  inoremap   <silent>   <F12>   <esc>:FloatermToggle<CR>
   tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
 ]])
 -- vim.api.nvim_command([[
