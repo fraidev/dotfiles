@@ -185,6 +185,9 @@ Plug "stevearc/dressing.nvim"
 Plug "nvim-telescope/telescope.nvim"
 Plug "nvim-telescope/telescope-rg.nvim"
 
+-- Vim-illuminate
+Plug "RRethy/vim-illuminate"
+
 -- Startup screen for Neovim
 Plug "startup-nvim/startup.nvim"
 

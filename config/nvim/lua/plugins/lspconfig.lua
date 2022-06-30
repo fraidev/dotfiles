@@ -89,6 +89,7 @@ local on_attach = function(client, bufnr)
   nmap("<Leader>a", ":LspDiagLine<CR>", {bufnr = bufnr})
   imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 
+
   if client.resolved_capabilities.document_highlight then
     api.nvim_exec(
       [[
@@ -116,74 +117,11 @@ local on_attach = function(client, bufnr)
       true
     )
   end
+
+  require 'illuminate'.on_attach(client)
 end
 
-local diagnosticls_settings = {
-  filetypes = {
-    "sh"
-  },
-  init_options = {
-    linters = {
-      shellcheck = {
-        sourceName = "shellcheck",
-        command = "shellcheck",
-        debounce = 100,
-        args = {"--format=gcc", "-"},
-        offsetLine = 0,
-        offsetColumn = 0,
-        formatLines = 1,
-        formatPattern = {
-          "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
-          {line = 1, column = 2, message = 4, security = 3}
-        },
-        securities = {error = "error", warning = "warning", note = "info"}
-      }
-    },
-    filetypes = {
-      sh = "shellcheck"
-    }
-  }
-}
-
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- LuaJIT in the case of Neovim
-      version = "LuaJIT",
-      path = vim.split(package.path, ";")
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = {"vim"}
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [fn.expand("$VIMRUNTIME/lua")] = true,
-        [fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-      }
-    }
-  }
-}
-
-local function make_config()
-  local capabilities = lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits"
-    }
-  }
-  capabilities.textDocument.colorProvider = {dynamicRegistration = false}
-
-  return {
-    capabilities = capabilities,
-    on_attach = on_attach
-  }
-end
-
+-- Lsp Installer
 lsp_installer.setup {
   on_attach = on_attach,
   automatic_installation = false,
@@ -200,7 +138,9 @@ lspconfig.ocamllsp.setup{
 
 -- GO LSP
 lspconfig.gopls.setup{
-  on_attach = on_attach
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+    end,
 }
 
 -- Rust LSP
@@ -238,6 +178,11 @@ lspconfig.tsserver.setup {
     tsutils.setup_client(client)
   end,
 }
+
+-- Setup Cursor highlight
+vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
+vim.api.nvim_command [[ hi def link LspReferenceWrite CursorLine ]]
+vim.api.nvim_command [[ hi def link LspReferenceRead CursorLine ]]
 
 -- set up custom symbols for LSP errors
 local signs = {Error = icons.error, Warning = icons.warning, Warn = icons.warning, Hint = icons.hint, Info = icons.hint}
