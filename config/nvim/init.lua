@@ -269,6 +269,19 @@ cmd [[highlight Normal ctermbg=none]]
 -- make the StatusLine background match the GalaxyLine styles
 cmd("hi StatusLine guibg=" .. colors.bg)
 
+
+-- Color my Theme
+cmd("highlight ColorColumn ctermbg=0 guibg=grey")
+cmd("hi SignColumn guibg=none")
+cmd("hi CursorLineNR guibg=none")
+cmd("hi CursorLine guibg=#333333")
+cmd("highlight Normal guibg=none")
+cmd("highlight LineNr guifg=#5eacd3")
+cmd("highlight netrwDir guifg=#5eacd3")
+cmd("highlight qfFileName guifg=#aed75f")
+cmd("hi TelescopeBorder guifg=#5eacd")
+
+
 vim.api.nvim_command([[
   nnoremap   <silent>   <F11>    :FloatermNew<CR>
   tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
@@ -284,3 +297,5 @@ vim.api.nvim_command([[
 --   inoremap <silent><esc> <esc>:update<cr>
 --   autocmd TextChanged,FocusLost,BufEnter * silent update
 -- ]])
+--
+
