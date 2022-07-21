@@ -86,7 +86,7 @@ Plug("othree/yajs.vim", {["for"] = {"javascript", "javascript.jsx", "html"}})
 Plug("moll/vim-node", {["for"] = "javascript"})
 Plug "MaxMEllon/vim-jsx-pretty"
 g.vim_jsx_pretty_highlight_close_tag = 1
-Plug("leafgarland/typescript-vim", {["for"] = {"typescript", "typescript.tsx"}})
+-- Plug("leafgarland/typescript-vim", {["for"] = {"typescript", "typescript.tsx"}})
 
 Plug("wavded/vim-stylus", {["for"] = {"stylus", "markdown"}})
 Plug("groenewege/vim-less", {["for"] = "less"})
@@ -105,7 +105,7 @@ Plug("elzr/vim-json", {["for"] = "json"})
 g.vim_json_syntax_conceal = 0
 
 Plug "ekalinin/Dockerfile.vim"
-Plug "jparise/vim-graphql"
+-- Plug "jparise/vim-graphql"
 
 Plug "hrsh7th/cmp-vsnip"
 Plug "hrsh7th/vim-vsnip"
@@ -159,6 +159,9 @@ Plug "onsails/lspkind-nvim"
 -- base16 syntax themes that are neovim/treesitter-aware
 Plug "RRethy/nvim-base16"
 
+-- Tokyo
+Plug ("folke/tokyonight.nvim", { ['branch'] =  'main' })
+
 -- status line plugin
 Plug "feline-nvim/feline.nvim"
 
@@ -167,6 +170,9 @@ Plug "windwp/nvim-autopairs"
 
 -- Run prettier and other formatters on save
 Plug "mhartington/formatter.nvim"
+
+-- Neoformat
+Plug 'sbdchd/neoformat'
 
 -- Style the tabline without taking over how tabs and buffers work in Neovim
 Plug "alvarosevilla95/luatab.nvim"

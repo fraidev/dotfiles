@@ -150,7 +150,7 @@ rust_tools.setup {
 lspconfig.rust_analyzer.setup{ on_attach = on_attach }
 
 -- GraphQL
-lspconfig.graphql.setup { on_attach = on_attach }
+-- lspconfig.graphql.setup { on_attach = on_attach }
 
 -- JSON
 lspconfig.jsonls.setup { on_attach = on_attach }

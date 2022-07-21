@@ -6,6 +6,7 @@
 #     - zsh
 
 window:
+  # opacity: 0.8
   # window padding (change requires restart)
   padding:
     x: 2
@@ -107,7 +108,9 @@ cursor:
 live_config_reload: true
 
 # set the backgeround opacity
-window_opacity: 0.97
+window_opacity: 1
+# window:
+#    opacity: 0.8
 
 key_bindings:
   - { key: Paste,                                       action: Paste          }
