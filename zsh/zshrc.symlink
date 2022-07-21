@@ -52,7 +52,7 @@ prepend_path /opt/homebrew/bin
 prepend_path $GOPATH/bin
 prepend_path /usr/local/bin
 prepend_path $(go env GOPATH)/bin
-prepend_path $HOME/.opam/default/bin
+# prepend_path $HOME/.opam/default/bin
 prepend_path $HOME/Library/Python/3.8/bin
 prepend_path $HOME/.local/bin/
 
@@ -197,6 +197,10 @@ alias ...='cd ../..'
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+
+# kubectl
+alias k="kubectl"
+
 # Windows CMD like
 alias cd..="cd .."
 
@@ -256,6 +260,9 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
+
+# # opam configuration
+# [[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # opam configuration
 [[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

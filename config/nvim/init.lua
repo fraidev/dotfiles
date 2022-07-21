@@ -14,6 +14,7 @@ local nmap = utils.nmap
 local vmap = utils.vmap
 local imap = utils.imap
 local xmap = utils.xmap
+local xnoremap = utils.xnoremap
 local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
@@ -148,13 +149,18 @@ opt.listchars = {
   extends = "❯",
   precedes = "❮"
 }
+cmd("set nolist")
 
 -- Mappings
+--
 --nnoremap("<space>", "<nop>")
 g.mapleader = ","
 nmap(" ", ",")
 opt.pastetoggle = "<leader>v"
 -- nnoremap("<leader>k", ":so $MYVIMRC<CR>")
+
+-- paste multiple
+xnoremap("p","pgvy")
 
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
@@ -187,6 +193,8 @@ nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
 nmap("<leader>z", "<Plug>Zoom")
 nmap("<leader>gl", ":FloatermNew lazygit<cr>")
+nmap("<leader>lg", ":FloatermNew! git lg <cr>")
+nmap("<leader>f", ":Neoformat <cr>")
 
 -- Floaterm
 
@@ -249,11 +257,6 @@ nmap("gTT", ":tab sb<cr>")
 
 require("plugins")
 
-if utils.file_exists(fn.expand("~/.vimrc_background")) then
-  g.base16colorspace = 256
-  cmd [[source ~/.vimrc_background]]
-end
-
 cmd [[syntax on]]
 cmd [[filetype plugin indent on]]
 -- make the highlighting of tabs and other non-text less annoying
@@ -265,21 +268,38 @@ cmd [[highlight Comment cterm=italic term=italic gui=italic]]
 cmd [[highlight htmlArg cterm=italic term=italic gui=italic]]
 cmd [[highlight xmlAttrib cterm=italic term=italic gui=italic]]
 -- highlight Type cterm=italic term=italic gui=italic
-cmd [[highlight Normal ctermbg=none]]
 -- make the StatusLine background match the GalaxyLine styles
-cmd("hi StatusLine guibg=" .. colors.bg)
-
 
 -- Color my Theme
+
+vim.g.tokyonight_transparent_sidebar = true
+vim.g.tokyonight_transparent = true
+vim.g.gruvbox_invert_selection = '0'
+vim.opt.background = "dark"
+
+
+-- cmd("highlight Normal guibg=none")
+g.base16colorspace = 256
+vim.g.my_colorscheme = "codedark"
+-- vim.g.my_colorscheme = "tokyonight"
+
+cmd("colorscheme " .. vim.g.my_colorscheme)
 cmd("highlight ColorColumn ctermbg=0 guibg=grey")
-cmd("hi SignColumn guibg=none")
 cmd("hi CursorLineNR guibg=none")
 cmd("hi CursorLine guibg=#333333")
-cmd("highlight Normal guibg=none")
 cmd("highlight LineNr guifg=#5eacd3")
 cmd("highlight netrwDir guifg=#5eacd3")
 cmd("highlight qfFileName guifg=#aed75f")
 cmd("hi TelescopeBorder guifg=#5eacd")
+cmd("hi StatusLine guibg=none")
+cmd("hi Normal       ctermbg=none  guibg=none")
+cmd("hi CursorLineNr               guibg=none")
+cmd("hi EndOfBuffer                guibg=none")
+cmd("hi Folded                     guibg=none")
+cmd("hi LineNr       ctermbg=none  guibg=none")
+cmd("hi SignColumn   ctermbg=none  guibg=none")
+cmd("hi WinSeparator   ctermbg=none  guibg=none")
+cmd("hi VertSplit  ctermbg=none  guibg=none")
 
 
 vim.api.nvim_command([[
