@@ -87,8 +87,8 @@ local on_attach = function(client, bufnr)
   nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
   nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
   nmap("<Leader>a", ":LspDiagLine<CR>", {bufnr = bufnr})
-  imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
-
+  -- imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
+  
 
   if client.resolved_capabilities.document_highlight then
     api.nvim_exec(

@@ -64,6 +64,11 @@ telescope.setup(
       buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
     },
     pickers = {
+      live_grep = {
+          additional_args = function(opts)
+              return {"--hidden"}
+          end
+      },
       find_files = {
         find_command = {"fd", "--type", "f", "--strip-cwd-prefix"}
       }
@@ -82,12 +87,11 @@ telescope.setup(
 telescope.load_extension("fzf")
 
 -- mappings
-nnoremap("<leader>ff", "<cmd>Telescope find_files<cr>")
-nnoremap("<leader>P", "<cmd>Telescope find_files<cr>")
-nnoremap("<leader>fo", "<cmd>Telescope oldfiles<cr>")
-nnoremap("<leader>fn", "<cmd>Telescope node_modules list<cr>")
-nnoremap("<leader>fg", "<cmd>Telescope live_grep<cr>")
+nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>")
 nnoremap("<leader>p", "<cmd>Telescope live_grep<cr>")
-nnoremap("<leader>fr", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>")
-nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
-nnoremap("<leader>fh", "<cmd>Telescope help_tags<cr>")
+nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
+nnoremap("<leader>to", "<cmd>Telescope oldfiles<cr>")
+nnoremap("<leader>tt", "<cmd>Telescope<cr>")
+nnoremap("<leader>tn", "<cmd>Telescope node_modules list<cr>")
+nnoremap("<leader>tr", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>")
+nnoremap("<leader>th", "<cmd>Telescope help_tags<cr>")

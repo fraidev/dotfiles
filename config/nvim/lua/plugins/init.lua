@@ -54,7 +54,16 @@ Plug "tpope/vim-rhubarb"
 nmap("<leader>gr", ":Gread<cr>")
 nmap("<leader>gb", ":G blame<cr>")
 nmap("<leader>gg", ":Git<cr>")
+nmap("<leader>gi", ":Gedit:<cr>")
 nmap("<leader>gd", ":Gdiffsplit<cr>")
+
+-- lazygit
+Plug ('kdheepak/lazygit.nvim')
+
+-- bufferline
+-- Plug ('bling/vim-bufferline')
+Plug ('kyazdani42/nvim-web-devicons') -- Recommended (for coloured icons)
+Plug ('akinsho/bufferline.nvim', { ['tag'] =  'v2.*' })
 
 -- general plugins
 -- emmet support for vim - easily create markdup wth CSS-like syntax
@@ -216,6 +225,7 @@ Plug 'voldikss/vim-floaterm'
 -- OCaml
 Plug("rgrinberg/vim-ocaml")
 Plug('jordwalke/vim-reasonml')
+Plug('nkrkv/nvim-treesitter-rescript')
 Plug('scrooloose/syntastic')
 
 -- Rust
@@ -243,3 +253,4 @@ require("plugins.feline")
 require("plugins.startup")
 require("plugins.whichkey")
 require("plugins.autosave")
+require("plugins.bufferline")
