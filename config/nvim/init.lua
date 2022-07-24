@@ -157,7 +157,6 @@ cmd("set nolist")
 g.mapleader = ","
 nmap(" ", ",")
 opt.pastetoggle = "<leader>v"
--- nnoremap("<leader>k", ":so $MYVIMRC<CR>")
 
 -- paste multiple
 xnoremap("p","pgvy")
@@ -173,7 +172,9 @@ nmap("<leader>c", [[:%s/]])
 nmap("<leader><space>", [[:%s/\s\+$<cr>]])
 nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
+ -- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
+
 inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
 inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], {expr = true})
 inoremap ("<silent><esc>", "<esc>:update<cr>")
@@ -181,6 +182,11 @@ vmap("<", "<gv")
 vmap(">", ">gv")
 nmap("<leader>.", "<c-^>")
 vmap(".", ":normal .<cr>")
+
+-- nmap("<C-w>h", "<Plug>WinMoveLeft")
+-- nmap("<C-w>j", "<Plug>WinMoveDown")
+-- nmap("<C-w>k", "<Plug>WinMoveUp")
+-- nmap("<C-w>l", "<Plug>WinMoveRight")
 
 nmap("<C-h>", "<Plug>WinMoveLeft")
 nmap("<C-j>", "<Plug>WinMoveDown")
@@ -192,11 +198,18 @@ nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
 nmap("<leader>z", "<Plug>Zoom")
-nmap("<leader>gl", ":FloatermNew lazygit<cr>")
+-- nmap("<leader>gl", ":FloatermNew lazygit<cr>")
+nmap("<leader>gl", ":LazyGit<cr>")
+nmap("<leader>gf", ":LazyGitFilter<cr>")
 nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
--- Floaterm
+-- Reload nvim
+nmap("<leader><CR>", ":luafile %<cr>")
+
+-- exit
+nnoremap("<C-q>", ":x<cr>")
+nnoremap("<leader>q", ":bd<cr>")
 
 -- move line mappings
 local opt_h = "˙"
@@ -253,7 +266,8 @@ nmap("<leader>5", "<Plug>HiInterestingWord5")
 nmap("<leader>6", "<Plug>HiInterestingWord6")
 
 -- open current buffer in a new tab
-nmap("gTT", ":tab sb<cr>")
+nmap("gT", ":tab sb<cr>")
+nmap("gT", ":tab sb<cr>")
 
 require("plugins")
 
@@ -276,7 +290,6 @@ vim.g.tokyonight_transparent_sidebar = true
 vim.g.tokyonight_transparent = true
 vim.g.gruvbox_invert_selection = '0'
 vim.opt.background = "dark"
-
 
 -- cmd("highlight Normal guibg=none")
 g.base16colorspace = 256
@@ -301,7 +314,6 @@ cmd("hi SignColumn   ctermbg=none  guibg=none")
 cmd("hi WinSeparator   ctermbg=none  guibg=none")
 cmd("hi VertSplit  ctermbg=none  guibg=none")
 
-
 vim.api.nvim_command([[
   nnoremap   <silent>   <F11>    :FloatermNew<CR>
   tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
@@ -318,4 +330,5 @@ vim.api.nvim_command([[
 --   autocmd TextChanged,FocusLost,BufEnter * silent update
 -- ]])
 --
+
 

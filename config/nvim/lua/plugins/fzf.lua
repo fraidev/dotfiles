@@ -11,25 +11,25 @@ local imap = utils.imap
 --local theme = require("theme")
 --local colors = theme.colors
 
-if (fn.isdirectory(".git")) then
-  nmap("<leader>t", ":GitFiles --cached --others --exclude-standard<cr>")
-else
-  nmap("<leader>t", ":FZF<cr>")
-end
+-- if (fn.isdirectory(".git")) then
+--   nmap("<leader>t", ":GitFiles --cached --others --exclude-standard<cr>")
+-- else
+--   nmap("<leader>t", ":FZF<cr>")
+-- end
 
-nmap("<leader>s", ":GFiles?<cr>")
-nmap("<leader>r", ":Buffers<cr>")
-nmap("<leader>e", ":FZF<cr>")
+-- nmap("<leader>s", ":GFiles?<cr>")
+-- nmap("<leader>r", ":Buffers<cr>")
+-- nmap("<leader>e", ":FZF<cr>")
 
 nmap("<leader><tab>", "<plug>(fzf-maps-n)")
 xmap("<leader><tab>", "<plug>(fzf-maps-x)")
 omap("<leader><tab>", "<plug>(fzf-maps-o)")
 
 -- Insert mode completion
-imap("<c-x><c-k>", "<plug>(fzf-complete-word)")
-imap("<c-x><c-f>", "<plug>(fzf-complete-path)")
-imap("<c-x><c-j>", "<plug>(fzf-complete-file-ag)")
-imap("<c-x><c-l>", "<plug>(fzf-complete-line)")
+-- imap("<c-x><c-k>", "<plug>(fzf-complete-word)")
+-- imap("<c-x><c-f>", "<plug>(fzf-complete-path)")
+-- imap("<c-x><c-j>", "<plug>(fzf-complete-file-ag)")
+-- imap("<c-x><c-l>", "<plug>(fzf-complete-line)")
 
 api.nvim_exec(
   [[
