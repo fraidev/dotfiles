@@ -1,5 +1,22 @@
+
+ZSH_THEME="robbyrussell"
+
+plugins=(
+  git
+  docker
+  macos
+  tmux
+  lol
+  docker-compose
+  emoji
+  kubectl
+)
+
+
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
+
+source $ZSH/oh-my-zsh.sh
 
 if [[ -d $DOTFILES/zsh/functions ]]; then
     for func in $DOTFILES/zsh/functions/*(:t); autoload -U $func
@@ -199,7 +216,7 @@ alias .....="cd ../../../.."
 
 
 # kubectl
-alias k="kubectl"
+# alias k="kubectl"
 
 # Windows CMD like
 alias cd..="cd .."
