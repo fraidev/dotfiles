@@ -12,6 +12,8 @@ plugins=(
   kubectl
 )
 
+# source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
 
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
@@ -278,8 +280,8 @@ if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
 
-# # opam configuration
-# [[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+#flux completion
+command -v flux >/dev/null && . <(flux completion zsh)
 
 # opam configuration
 [[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
