@@ -37,12 +37,12 @@ startup.setup(
       title = "Basic Commands",
       margin = 5,
       content = {
-        {" Find File", "Telescope find_files", "<leader>ff"},
-        {" Find File (FZF)", "GitFiles", "<leader>t"},
-        {" Find Word", "Telescope live_grep", "<leader>fg"},
-        {" Recent Files", "Telescope oldfiles", "<leader>fo"},
-        {" Open File Drawer", "lua NvimTreeConfig.find_toggle()", "<leader>k"},
-        {" Open Git Index", ":Ge:", ":Ge:"}
+        {" Find File", "Telescope find_files", "<leader>e"},
+        -- {" Find File (FZF)", "GitFiles", "<leader>t"},
+        {" Find Word", "Telescope live_grep", "<leader>p"},
+        {" Recent Files", "Telescope oldfiles", "<leader>o"},
+        {" Open File Drawer", ":NvimTreeToggle<CR>", "<leader>m"},
+        {" Open Git Index", ":Ge:", "<leader>gg"}
       },
       highlight = "String"
     },
@@ -52,7 +52,7 @@ startup.setup(
       fold_section = false,
       title = "Footer",
       margin = 5,
-      content = {"https://github.com/nicknisi/dotfiles"},
+      content = {"https://github.com/fraidev/dotfiles"},
       highlight = "Number",
       default_color = ""
     },

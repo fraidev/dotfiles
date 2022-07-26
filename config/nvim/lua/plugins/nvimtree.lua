@@ -35,15 +35,16 @@ vim.g.nvim_tree_icons = {
   }
 }
 
-function NvimTreeConfig.find_toggle()
-  if view.is_visible() then
-    view.close()
-  else
-    vim.cmd("NvimTreeToggle")
-  end
-end
+-- function NvimTreeConfig.find_toggle()
+--   if view.is_visible() then
+--     view.close()
+--   else
+--     vim.cmd("NvimTreeToggle")
+--   end
+-- end
 
-nnoremap("<leader>m", "<CMD>lua NvimTreeConfig.find_toggle()<CR>")
+-- nnoremap("<leader>m", "<CMD>lua NvimTreeConfig.find_toggle()<CR>")
+nnoremap("<leader>m", ":NvimTreeToggle<CR>")
 
 nvimtree.setup {
   disable_netrw = false,

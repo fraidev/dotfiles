@@ -169,8 +169,9 @@ nmap("U", ":redo<cr>")
 -- nmap("<space>", ":set hlsearch! hlsearch?<cr>")
 
 nmap("<leader>c", [[:%s/]])
-nmap("<leader><space>", [[:%s/\s\+$<cr>]])
-nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
+nmap("<leader><space>", ":noh<cr>")
+-- nmap("<leader><space>", [[:%s/\s\+$<cr>]])
+-- nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
  -- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
@@ -187,6 +188,12 @@ vmap(".", ":normal .<cr>")
 -- nmap("<C-w>j", "<Plug>WinMoveDown")
 -- nmap("<C-w>k", "<Plug>WinMoveUp")
 -- nmap("<C-w>l", "<Plug>WinMoveRight")
+
+nmap("<C-w>h", "<Plug>WinMoveLeft")
+nmap("<C-w>j", "<Plug>WinMoveDown")
+nmap("<C-w>k", "<Plug>WinMoveUp")
+nmap("<C-w>l", "<Plug>WinMoveRight")
+
 
 nmap("<C-h>", "<Plug>WinMoveLeft")
 nmap("<C-j>", "<Plug>WinMoveDown")
@@ -225,13 +232,17 @@ nnoremap(opt_k, ":m .-2<cr>==")
 inoremap(opt_j, "<Esc>:m .+1<cr>==gi")
 inoremap(opt_k, "<Esc>:m .-2<cr>==gi")
 vnoremap(opt_j, ":m '>+1<cr>gv=gv")
-vnoremap(opt_k, ":m '<-2<cr>gv=gv")
+vnoremap(opt_k, ":m '-2<cr>gv=gv")
+
+vnoremap("<c-r>", '"hy:%s/<C-r>h//gc<left><left><left>')
+xnoremap("<leader>p", "\"_dP")
+
 
 -- TODO: what exactly does this do?
 -- vnoremap("$(", "<esc>`>a)<esc>`<i(<esc>")
 -- vnoremap("$[", "<esc>`>a]<esc>`<i[<esc>")
 -- vnoremap("${", "<esc>`>a}<esc>`<i{<esc>")
--- vnoremap([[$']], [[<esc>`>a"<esc>`<i"<esc>]])
+-- vnoremap([[$']], [[<esc>`a"<esc>`<i"<esc>]])
 -- vnoremap("$'", "<esc>`>a'<esc>`<i'<esc>")
 -- vnoremap([[$\]], "<esc>`>o*/<esc>`<O/*<esc>")
 -- vnoremap([[$<]], "<esc>`>a><esc>`<i<<esc>")

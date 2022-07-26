@@ -60,8 +60,10 @@ nmap("<leader>gd", ":Gdiffsplit<cr>")
 -- lazygit
 Plug ('kdheepak/lazygit.nvim')
 
+-- vim-rooter
+Plug ('airblade/vim-rooter')
+
 -- bufferline
--- Plug ('bling/vim-bufferline')
 Plug ('kyazdani42/nvim-web-devicons') -- Recommended (for coloured icons)
 Plug ('akinsho/bufferline.nvim', { ['tag'] =  'v2.*' })
 
@@ -81,14 +83,8 @@ Plug "mustache/vim-mustache-handlebars"
 -- pug / jade support
 Plug("digitaltoad/vim-pug", {["for"] = {"jade", "pug"}})
 
--- nunjucks support
--- Plug "niftylettuce/vim-jinja"
-
 -- edit quickfix list
 Plug "itchyny/vim-qfedit"
-
--- liquid support
-Plug "tpope/vim-liquid"
 
 Plug("othree/yajs.vim", {["for"] = {"javascript", "javascript.jsx", "html"}})
 -- Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
@@ -200,7 +196,8 @@ Plug "stevearc/dressing.nvim"
 Plug "nvim-telescope/telescope.nvim"
 Plug "nvim-telescope/telescope-rg.nvim"
 
--- Vim-illuminate
+-- Vim-illuminate - Vim plugin for automatically highlighting
+-- other uses of the current word under the cursor
 Plug "RRethy/vim-illuminate"
 
 -- Startup screen for Neovim
