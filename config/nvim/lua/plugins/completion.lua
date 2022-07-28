@@ -115,9 +115,9 @@ cmp.setup(
     },
     sources = cmp.config.sources(
       {
+        {name = "nvim_lsp"},
         {name = "vsnip"},
         {name = "nvim_lua"},
-        {name = "nvim_lsp"},
         {name = "buffer", keyword_length = 5, max_item_count = 5},
         {name = "path"}
       }

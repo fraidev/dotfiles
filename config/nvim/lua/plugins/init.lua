@@ -31,7 +31,7 @@ Plug "tpope/vim-unimpaired"
 Plug "tpope/vim-surround"
 
 -- endings for html, xml, etc. - ehances surround
-Plug "tpope/vim-ragtag"
+-- Plug "tpope/vim-ragtag"
 
 -- substitution and abbreviation helpers
 Plug "tpope/vim-abolish"
@@ -72,10 +72,10 @@ Plug ('akinsho/bufferline.nvim', { ['tag'] =  'v2.*' })
 Plug "mattn/emmet-vim"
 
 -- match tags in html, similar to paren support
-Plug("gregsexton/MatchTag", {["for"] = "html"})
+-- Plug("gregsexton/MatchTag", {["for"] = "html"})
 
 -- html5 support
-Plug("othree/html5.vim", {["for"] = "html"})
+-- Plug("othree/html5.vim", {["for"] = "html"})
 
 -- mustache support
 Plug "mustache/vim-mustache-handlebars"
@@ -86,11 +86,11 @@ Plug("digitaltoad/vim-pug", {["for"] = {"jade", "pug"}})
 -- edit quickfix list
 Plug "itchyny/vim-qfedit"
 
-Plug("othree/yajs.vim", {["for"] = {"javascript", "javascript.jsx", "html"}})
+-- Plug("othree/yajs.vim", {["for"] = {"javascript", "javascript.jsx", "html"}})
 -- Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-Plug("moll/vim-node", {["for"] = "javascript"})
-Plug "MaxMEllon/vim-jsx-pretty"
-g.vim_jsx_pretty_highlight_close_tag = 1
+-- Plug("moll/vim-node", {["for"] = "javascript"})
+-- Plug "MaxMEllon/vim-jsx-pretty"
+-- g.vim_jsx_pretty_highlight_close_tag = 1
 -- Plug("leafgarland/typescript-vim", {["for"] = {"typescript", "typescript.tsx"}})
 
 Plug("wavded/vim-stylus", {["for"] = {"stylus", "markdown"}})
@@ -148,6 +148,7 @@ Plug "hrsh7th/cmp-nvim-lua"
 Plug "hrsh7th/cmp-buffer"
 Plug "hrsh7th/cmp-path"
 Plug "hrsh7th/nvim-cmp"
+Plug ("kkharji/lspsaga.nvim")
 
 -- treesitter enables an AST-like understanding of files
 Plug("nvim-treesitter/nvim-treesitter", {["do"] = ":TSUpdate"})

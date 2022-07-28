@@ -288,13 +288,6 @@ cmd [[filetype plugin indent on]]
 cmd [[highlight SpecialKey ctermfg=19 guifg=#333333]]
 cmd [[highlight NonText ctermfg=19 guifg=#333333]]
 
--- make comments and HTML attributes italic
-cmd [[highlight Comment cterm=italic term=italic gui=italic]]
-cmd [[highlight htmlArg cterm=italic term=italic gui=italic]]
-cmd [[highlight xmlAttrib cterm=italic term=italic gui=italic]]
--- highlight Type cterm=italic term=italic gui=italic
--- make the StatusLine background match the GalaxyLine styles
-
 -- Color my Theme
 
 vim.g.tokyonight_transparent_sidebar = true
@@ -324,6 +317,11 @@ cmd("hi LineNr       ctermbg=none  guibg=none")
 cmd("hi SignColumn   ctermbg=none  guibg=none")
 cmd("hi WinSeparator   ctermbg=none  guibg=none")
 cmd("hi VertSplit  ctermbg=none  guibg=none")
+
+
+vim.g.floaterm_wintype = "split"
+-- vim.g.floaterm_height = 1.0
+vim.g.floaterm_width = 0.7
 
 vim.api.nvim_command([[
   nnoremap   <silent>   <F11>    :FloatermNew<CR>
