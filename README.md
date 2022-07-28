@@ -1,10 +1,8 @@
 # Dotfiles
 
-Welcome to my world. This is a collection of vim, tmux, and zsh configurations. Interested in a video walkthrough of the dotfiles? Check out my talk, [vim + tmux](https://www.youtube.com/watch?v=5r6yzFEXajQ).
+This is a my dotfiles, I started with a [nicknise](https://github.com/nicknisi/dotfiles) repository fork. 
 
-Obviously this setup works for me, a JavaScript developer on macOS, but this particular setup may not work for you. If this particular setup doesn't work for you, please steal ideas from this and if you like, contribute back tips, tricks, and other tidbits via Pull Requests if you like!
-
-![capture-20220105092039](https://user-images.githubusercontent.com/293805/148242417-07630ec0-4468-4be4-8644-de319a1b279a.png)
+![capture-demo](https://user-images.githubusercontent.com/25258368/181651042-ea7520e3-deb1-4a0e-858e-0a17f6d2ba5f.png)
 
 ## Initial Setup and Installation
 
@@ -136,7 +134,3 @@ docker run -it --rm dotfiles
 ```
 
 This will open a bash shell in the container which can then be used to manually test the dotfiles installation process with linux.
-
-## Questions
-
-If you have questions, notice issues,  or would like to see improvements, please open a new [discussion](https://github.com/nicknisi/dotfiles/discussions/new) and I'm happy to help you out!
