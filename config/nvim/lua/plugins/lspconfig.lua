@@ -174,10 +174,14 @@ lspconfig.tsserver.setup {
   },
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    tsutils.setup {}
-    tsutils.setup_client(client)
+    -- tsutils.setup {}
+    -- tsutils.setup_client(client)
   end,
 }
+
+-- Tailwind CSS
+lspconfig.tailwindcss.setup { on_attach = on_attach }
+
 
 -- Setup Cursor highlight
 vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]

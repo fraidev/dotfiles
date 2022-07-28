@@ -64,11 +64,11 @@ telescope.setup(
       buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
     },
     pickers = {
-      live_grep = {
-          additional_args = function(opts)
-              return {"--hidden"}
-          end
-      },
+      -- live_grep = {
+      --     additional_args = function(opts)
+      --         return {"--hidden"}
+      --     end
+      -- },
       find_files = {
         find_command = {"fd", "--type", "f", "--strip-cwd-prefix"}
       }
