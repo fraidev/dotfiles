@@ -73,25 +73,22 @@ telescope.setup(
         find_command = {"fd", "--type", "f", "--strip-cwd-prefix"}
       }
     },
-    extensions = {
-      fzf = {
-        fuzzy = true,
-        override_generic_sorter = true,
-        override_file_sorter = true,
-        case_mode = "smart_case"
-      }
-    }
+    -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+    -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+    -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+    -- Developer configurations: Not meant for general override
+    -- buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
   }
 )
 
-telescope.load_extension("fzf")
-
 -- mappings
-nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>")
+nnoremap("<leader>e", "<cmd>Telescope find_files<cr>")
 nnoremap("<leader>p", "<cmd>Telescope live_grep<cr>")
 nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
 nnoremap("<leader>o", "<cmd>Telescope oldfiles<cr>")
 nnoremap("<leader>tt", "<cmd>Telescope<cr>")
 nnoremap("<leader>tn", "<cmd>Telescope node_modules list<cr>")
 nnoremap("<leader>tr", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>")
+nnoremap("<leader>te", "<cmd>Telescope live_grep hidden=true <cr>")
+nnoremap("<leader>tp", "<cmd>Telescope live_grep hidden=true <cr>")
 nnoremap("<leader>th", "<cmd>Telescope help_tags<cr>")

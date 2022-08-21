@@ -1,6 +1,9 @@
+vim.defer_fn(function()
+  pcall(require, "impatient")
+end, 0)
+
 -- init.lua
 -- Neovim-specific configuration
-
 require("globals")
 local opt = vim.opt
 local cmd = vim.cmd
@@ -19,29 +22,65 @@ local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
-local colors = require("theme").colors
+-- local colors = require("theme").colors
+
+
+--[[
+-- NOTE:
+-- The plugin files always get sourced, regardless of the loaded value, 
+-- but at the top of each plugin there's a check for loaded and if this
+-- is the case they return immediately.
+]]--
+for _, plugin in
+  ipairs {
+    "2html_plugin",
+    "getscript",
+    "getscriptPlugin",
+    "gzip",
+    "logipat",
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "matchit",
+    "tar",
+    "tarPlugin",
+    "rrhelper",
+    "vimball",
+    "vimballPlugin",
+    "zip",
+    "zipPlugin",
+    "tutor_mode_plugin",
+    "fzf",
+    "spellfile_plugin",
+  }
+do
+  g["loaded_" .. plugin] = 1
+end
+
+vim.g.did_load_filetypes = 1
 
 -- create a completion_nvim table on _G which is visible via
 -- v:lua from vimscript
 _G.completion_nvim = {}
 
 function _G.completion_nvim.smart_pumvisible(vis_seq, not_vis_seq)
-  if (fn.pumvisible() == 1) then
-    return termcodes(vis_seq)
-  else
-    return termcodes(not_vis_seq)
-  end
+	if fn.pumvisible() == 1 then
+		return termcodes(vis_seq)
+	else
+		return termcodes(not_vis_seq)
+	end
 end
 
 -- General
 ----------------------------------------------------------------
-cmd [[abbr funciton function]]
-cmd [[abbr teh the]]
-cmd [[abbr tempalte template]]
-cmd [[abbr fitler filter]]
-cmd [[abbr cosnt const]]
-cmd [[abbr attribtue attribute]]
-cmd [[abbr attribuet attribute]]
+cmd([[abbr funciton function]])
+cmd([[abbr teh the]])
+cmd([[abbr tempalte template]])
+cmd([[abbr fitler filter]])
+cmd([[abbr cosnt const]])
+cmd([[abbr attribtue attribute]])
+cmd([[abbr attribuet attribute]])
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
@@ -49,19 +88,19 @@ opt.swapfile = false -- don't create swap files for new buffers
 opt.updatecount = 0 -- don't write swap files after some number of updates
 
 opt.backupdir = {
-  "~/.vim-tmp",
-  "~/.tmp",
-  "~/tmp",
-  "/var/tmp",
-  "/tmp"
+	"~/.vim-tmp",
+	"~/.tmp",
+	"~/tmp",
+	"/var/tmp",
+	"/tmp",
 }
 
 opt.directory = {
-  "~/.vim-tmp",
-  "~/.tmp",
-  "~/tmp",
-  "/var/tmp",
-  "/tmp"
+	"~/.vim-tmp",
+	"~/.tmp",
+	"~/tmp",
+	"/var/tmp",
+	"/tmp",
 }
 
 opt.history = 1000 -- store the last 1000 commands entered
@@ -70,9 +109,11 @@ opt.textwidth = 120 -- after configured number of characters, wrap line
 opt.inccommand = "nosplit" -- show the results of substition as they're happening
 -- but don't open a split
 
-opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
-opt.clipboard = {"unnamed", "unnamedplus"} -- use the system clipboard
+opt.backspace = { "indent", "eol,start" } -- make backspace behave in a sane manner
+opt.clipboard = { "unnamed", "unnamedplus" } -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
+
+opt.splitright = true
 
 -- searching
 opt.ignorecase = true -- case insensitive searching
@@ -83,9 +124,9 @@ opt.lazyredraw = false -- don't redraw while executing macros
 opt.magic = true -- set magic on, for regular expressions
 
 if fn.executable("rg") then
-  -- if ripgrep installed, use that as a grepper
-  opt.grepprg = "rg --vimgrep --no-heading"
-  opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+	-- if ripgrep installed, use that as a grepper
+	opt.grepprg = "rg --vimgrep --no-heading"
+	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- error bells
@@ -115,7 +156,7 @@ opt.wildmenu = true -- enhanced command line completion
 opt.hidden = true -- current buffer can be put into background
 opt.showcmd = true -- show incomplete commands
 opt.showmode = true -- don't show which mode disabled for PowerLine
-opt.wildmode = {"list", "longest"} -- complete files like a shell
+opt.wildmode = { "list", "longest" } -- complete files like a shell
 opt.shell = env.SHELL
 opt.cmdheight = 1 -- command bar height
 opt.title = true -- set terminal title
@@ -143,11 +184,11 @@ opt.foldlevel = 1
 -- toggle invisible characters
 opt.list = true
 opt.listchars = {
-  tab = "→ ",
-  eol = "¬",
-  trail = "⋅",
-  extends = "❯",
-  precedes = "❮"
+	tab = "→ ",
+	eol = "¬",
+	trail = "⋅",
+	extends = "❯",
+	precedes = "❮",
 }
 cmd("set nolist")
 
@@ -159,7 +200,7 @@ nmap(" ", ",")
 opt.pastetoggle = "<leader>v"
 
 -- paste multiple
-xnoremap("p","pgvy")
+xnoremap("p", "pgvy")
 
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
@@ -173,27 +214,21 @@ nmap("<leader><space>", ":noh<cr>")
 -- nmap("<leader><space>", [[:%s/\s\+$<cr>]])
 -- nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
- -- show end of line marks like "¬"
+-- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
 
-inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
-inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], {expr = true})
-inoremap ("<silent><esc>", "<esc>:update<cr>")
+inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], { expr = true })
+inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], { expr = true })
+inoremap("<silent><esc>", "<esc>:update<cr>")
 vmap("<", "<gv")
 vmap(">", ">gv")
 nmap("<leader>.", "<c-^>")
 vmap(".", ":normal .<cr>")
 
--- nmap("<C-w>h", "<Plug>WinMoveLeft")
--- nmap("<C-w>j", "<Plug>WinMoveDown")
--- nmap("<C-w>k", "<Plug>WinMoveUp")
--- nmap("<C-w>l", "<Plug>WinMoveRight")
-
 nmap("<C-w>h", "<Plug>WinMoveLeft")
 nmap("<C-w>j", "<Plug>WinMoveDown")
 nmap("<C-w>k", "<Plug>WinMoveUp")
 nmap("<C-w>l", "<Plug>WinMoveRight")
-
 
 nmap("<C-h>", "<Plug>WinMoveLeft")
 nmap("<C-j>", "<Plug>WinMoveDown")
@@ -205,8 +240,8 @@ nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
 nmap("<leader>z", "<Plug>Zoom")
--- nmap("<leader>gl", ":FloatermNew lazygit<cr>")
-nmap("<leader>gl", ":LazyGit<cr>")
+nmap("<leader>gl", ":FloatermNew lazygit<cr>")
+-- nmap("<leader>gl", ":LazyGit<cr>")
 nmap("<leader>gf", ":LazyGitFilter<cr>")
 nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
@@ -235,8 +270,7 @@ vnoremap(opt_j, ":m '>+1<cr>gv=gv")
 vnoremap(opt_k, ":m '-2<cr>gv=gv")
 
 vnoremap("<c-r>", '"hy:%s/<C-r>h//gc<left><left><left>')
-xnoremap("<leader>p", "\"_dP")
-
+xnoremap("<leader>p", '"_dP')
 
 -- TODO: what exactly does this do?
 -- vnoremap("$(", "<esc>`>a)<esc>`<i(<esc>")
@@ -254,10 +288,10 @@ nnoremap("<C-e>", "3<c-e>")
 nnoremap("<C-y>", "3<c-y>")
 
 --moving up and down work as you would expect
-nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
-nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
-nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
-nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
+nnoremap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+nnoremap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
+nnoremap("^", 'v:count == 0 ? "g^" :  "^"', { expr = true })
+nnoremap("$", 'v:count == 0 ? "g$" : "$"', { expr = true })
 
 -- custom text objects
 -- inner-line
@@ -281,24 +315,34 @@ nmap("gT", ":tab sb<cr>")
 nmap("gT", ":tab sb<cr>")
 
 require("plugins")
+-- require("nvim-autopairs").setup()
+require("colorizer").setup()
+require("plugins.telescope")
+require("plugins.gitsigns")
+require("plugins.trouble")
+require("plugins.lspconfig")
+require("plugins.completion")
+-- require("plugins.treesitter")
+require("plugins.nvimtree")
+require("plugins.neoformat")
+require("plugins.feline")
+-- require("plugins.startup")
+-- require("plugins.whichkey")
+require("plugins.autosave")
+require("plugins.bufferline")
 
-cmd [[syntax on]]
-cmd [[filetype plugin indent on]]
+cmd([[syntax on]])
+cmd([[filetype plugin indent on]])
 -- make the highlighting of tabs and other non-text less annoying
-cmd [[highlight SpecialKey ctermfg=19 guifg=#333333]]
-cmd [[highlight NonText ctermfg=19 guifg=#333333]]
+cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
+cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
 -- Color my Theme
 
-vim.g.tokyonight_transparent_sidebar = true
-vim.g.tokyonight_transparent = true
-vim.g.gruvbox_invert_selection = '0'
 vim.opt.background = "dark"
-
--- cmd("highlight Normal guibg=none")
-g.base16colorspace = 256
+-- g.base16colorspace = 256
 vim.g.my_colorscheme = "codedark"
--- vim.g.my_colorscheme = "tokyonight"
+vim.g.loaded_tutor_mode_plugin = 1
 
 cmd("colorscheme " .. vim.g.my_colorscheme)
 cmd("highlight ColorColumn ctermbg=0 guibg=grey")
@@ -317,7 +361,6 @@ cmd("hi LineNr       ctermbg=none  guibg=none")
 cmd("hi SignColumn   ctermbg=none  guibg=none")
 cmd("hi WinSeparator   ctermbg=none  guibg=none")
 cmd("hi VertSplit  ctermbg=none  guibg=none")
-
 
 vim.g.floaterm_wintype = "split"
 -- vim.g.floaterm_height = 1.0
@@ -339,5 +382,3 @@ vim.api.nvim_command([[
 --   autocmd TextChanged,FocusLost,BufEnter * silent update
 -- ]])
 --
-
-

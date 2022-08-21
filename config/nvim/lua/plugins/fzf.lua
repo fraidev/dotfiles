@@ -8,18 +8,7 @@ local nmap = utils.nmap
 local xmap = utils.xmap
 local omap = utils.omap
 local imap = utils.imap
---local theme = require("theme")
---local colors = theme.colors
 
--- if (fn.isdirectory(".git")) then
---   nmap("<leader>t", ":GitFiles --cached --others --exclude-standard<cr>")
--- else
---   nmap("<leader>t", ":FZF<cr>")
--- end
-
--- nmap("<leader>s", ":GFiles?<cr>")
--- nmap("<leader>r", ":Buffers<cr>")
--- nmap("<leader>e", ":FZF<cr>")
 
 nmap("<leader><tab>", "<plug>(fzf-maps-n)")
 xmap("<leader><tab>", "<plug>(fzf-maps-x)")
