@@ -1,5 +1,5 @@
 vim.defer_fn(function()
-  pcall(require, "impatient")
+	pcall(require, "impatient")
 end, 0)
 
 -- init.lua
@@ -12,7 +12,6 @@ local o = vim.o
 local fn = vim.fn
 local env = vim.env
 local utils = require("utils")
-local termcodes = utils.termcodes
 local nmap = utils.nmap
 local vmap = utils.vmap
 local imap = utils.imap
@@ -24,63 +23,49 @@ local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
 -- local colors = require("theme").colors
 
-
 --[[
 -- NOTE:
 -- The plugin files always get sourced, regardless of the loaded value, 
 -- but at the top of each plugin there's a check for loaded and if this
 -- is the case they return immediately.
-]]--
-for _, plugin in
-  ipairs {
-    "2html_plugin",
-    "getscript",
-    "getscriptPlugin",
-    "gzip",
-    "logipat",
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "matchit",
-    "tar",
-    "tarPlugin",
-    "rrhelper",
-    "vimball",
-    "vimballPlugin",
-    "zip",
-    "zipPlugin",
-    "tutor_mode_plugin",
-    "fzf",
-    "spellfile_plugin",
-  }
-do
-  g["loaded_" .. plugin] = 1
+]]
+--
+for _, plugin in ipairs({
+	"2html_plugin",
+	"getscript",
+	"getscriptPlugin",
+	"gzip",
+	"logipat",
+	"netrw",
+	"netrwPlugin",
+	"netrwSettings",
+	"netrwFileHandlers",
+	"matchit",
+	"tar",
+	"tarPlugin",
+	"rrhelper",
+	"vimball",
+	"vimballPlugin",
+	"zip",
+	"zipPlugin",
+	"tutor_mode_plugin",
+	"fzf",
+	"spellfile_plugin",
+}) do
+	g["loaded_" .. plugin] = 1
 end
 
-vim.g.did_load_filetypes = 1
-
--- create a completion_nvim table on _G which is visible via
--- v:lua from vimscript
-_G.completion_nvim = {}
-
-function _G.completion_nvim.smart_pumvisible(vis_seq, not_vis_seq)
-	if fn.pumvisible() == 1 then
-		return termcodes(vis_seq)
-	else
-		return termcodes(not_vis_seq)
-	end
-end
+g.did_load_filetypes = 1
 
 -- General
 ----------------------------------------------------------------
-cmd([[abbr funciton function]])
-cmd([[abbr teh the]])
-cmd([[abbr tempalte template]])
-cmd([[abbr fitler filter]])
-cmd([[abbr cosnt const]])
-cmd([[abbr attribtue attribute]])
-cmd([[abbr attribuet attribute]])
+-- cmd([[abbr funciton function]])
+-- cmd([[abbr teh the]])
+-- cmd([[abbr tempalte template]])
+-- cmd([[abbr fitler filter]])
+-- cmd([[abbr cosnt const]])
+-- cmd([[abbr attribtue attribute]])
+-- cmd([[abbr attribuet attribute]])
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
@@ -174,12 +159,15 @@ opt.shiftwidth = 4 -- number of spaces to use for indent and unindent
 opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 
 -- code folding settings
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevelstart = 99
-opt.foldnestmax = 10 -- deepest fold is 10 levels
+opt.foldmethod = "indent"
+opt.foldnestmax = 10
+opt.foldlevel = 2
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldlevelstart = 99
+-- opt.foldnestmax = 10 -- deepest fold is 10 levels
 opt.foldenable = false -- don't fold by default
-opt.foldlevel = 1
+-- opt.foldlevel = 1
 
 -- toggle invisible characters
 opt.list = true
@@ -207,12 +195,9 @@ imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>")
 
 nmap("U", ":redo<cr>")
--- nmap("<space>", ":set hlsearch! hlsearch?<cr>")
 
 nmap("<leader>c", [[:%s/]])
 nmap("<leader><space>", ":noh<cr>")
--- nmap("<leader><space>", [[:%s/\s\+$<cr>]])
--- nmap("<leader><space><space>", [[:%s/\n\{2,}/\r\r/g<cr>]])
 
 -- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
@@ -239,9 +224,7 @@ nmap("<C-l>", "<Plug>WinMoveRight")
 nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
-nmap("<leader>z", "<Plug>Zoom")
-nmap("<leader>gl", ":FloatermNew lazygit<cr>")
--- nmap("<leader>gl", ":LazyGit<cr>")
+nmap("<leader>gl", ":LazyGit<cr>")
 nmap("<leader>gf", ":LazyGitFilter<cr>")
 nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
@@ -272,20 +255,7 @@ vnoremap(opt_k, ":m '-2<cr>gv=gv")
 vnoremap("<c-r>", '"hy:%s/<C-r>h//gc<left><left><left>')
 xnoremap("<leader>p", '"_dP')
 
--- TODO: what exactly does this do?
--- vnoremap("$(", "<esc>`>a)<esc>`<i(<esc>")
--- vnoremap("$[", "<esc>`>a]<esc>`<i[<esc>")
--- vnoremap("${", "<esc>`>a}<esc>`<i{<esc>")
--- vnoremap([[$']], [[<esc>`a"<esc>`<i"<esc>]])
--- vnoremap("$'", "<esc>`>a'<esc>`<i'<esc>")
--- vnoremap([[$\]], "<esc>`>o*/<esc>`<O/*<esc>")
--- vnoremap([[$<]], "<esc>`>a><esc>`<i<<esc>")
-
 nmap("<leader>i", ":set cursorline!")
-
--- scroll the viewport faster
-nnoremap("<C-e>", "3<c-e>")
-nnoremap("<C-y>", "3<c-y>")
 
 --moving up and down work as you would expect
 nnoremap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
@@ -301,84 +271,41 @@ omap("il", ":<c-u>normal! g_v^<cr>")
 vmap("al", ":<c-u>normal! $v0<cr>")
 omap("al", ":<c-u>normal! $v0<cr>")
 
--- interesting word mappings
-nmap("<leader>0", "<Plug>ClearInterestingWord")
-nmap("<leader>1", "<Plug>HiInterestingWord1")
-nmap("<leader>2", "<Plug>HiInterestingWord2")
-nmap("<leader>3", "<Plug>HiInterestingWord3")
-nmap("<leader>4", "<Plug>HiInterestingWord4")
-nmap("<leader>5", "<Plug>HiInterestingWord5")
-nmap("<leader>6", "<Plug>HiInterestingWord6")
-
 -- open current buffer in a new tab
 nmap("gT", ":tab sb<cr>")
 nmap("gT", ":tab sb<cr>")
 
-require("plugins")
--- require("nvim-autopairs").setup()
-require("colorizer").setup()
-require("plugins.telescope")
-require("plugins.gitsigns")
-require("plugins.trouble")
-require("plugins.lspconfig")
-require("plugins.completion")
--- require("plugins.treesitter")
-require("plugins.nvimtree")
-require("plugins.neoformat")
-require("plugins.feline")
--- require("plugins.startup")
--- require("plugins.whichkey")
-require("plugins.autosave")
-require("plugins.bufferline")
-
 cmd([[syntax on]])
 cmd([[filetype plugin indent on]])
 -- make the highlighting of tabs and other non-text less annoying
-cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
-cmd([[highlight NonText ctermfg=19 guifg=#333333]])
+-- cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
+-- cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
 -- Color my Theme
-
-vim.opt.background = "dark"
--- g.base16colorspace = 256
-vim.g.my_colorscheme = "codedark"
-vim.g.loaded_tutor_mode_plugin = 1
-
-cmd("colorscheme " .. vim.g.my_colorscheme)
+opt.background = "dark"
+g.my_colorscheme = "codedark"
+g.loaded_tutor_mode_plugin = 1
+cmd("colorscheme " .. g.my_colorscheme)
+cmd("hi LineNr guifg=#5eacd3")
+cmd("hi Normal       ctermbg=none  guibg=none")
 cmd("highlight ColorColumn ctermbg=0 guibg=grey")
 cmd("hi CursorLineNR guibg=none")
 cmd("hi CursorLine guibg=#333333")
-cmd("highlight LineNr guifg=#5eacd3")
 cmd("highlight netrwDir guifg=#5eacd3")
 cmd("highlight qfFileName guifg=#aed75f")
 cmd("hi TelescopeBorder guifg=#5eacd")
-cmd("hi StatusLine guibg=none")
-cmd("hi Normal       ctermbg=none  guibg=none")
-cmd("hi CursorLineNr               guibg=none")
-cmd("hi EndOfBuffer                guibg=none")
-cmd("hi Folded                     guibg=none")
-cmd("hi LineNr       ctermbg=none  guibg=none")
-cmd("hi SignColumn   ctermbg=none  guibg=none")
-cmd("hi WinSeparator   ctermbg=none  guibg=none")
-cmd("hi VertSplit  ctermbg=none  guibg=none")
+-- cmd("hi StatusLine guibg=none")
+-- cmd("hi CursorLineNr               guibg=none")
+-- cmd("hi EndOfBuffer                guibg=none")
+-- cmd("hi Folded                     guibg=none")
+-- cmd("hi LineNr       ctermbg=none  guibg=none")
+-- cmd("hi SignColumn   ctermbg=none  guibg=none")
+-- cmd("hi WinSeparator   ctermbg=none  guibg=none")
+-- cmd("hi VertSplit  ctermbg=none  guibg=none")
 
-vim.g.floaterm_wintype = "split"
--- vim.g.floaterm_height = 1.0
-vim.g.floaterm_width = 0.7
-
-vim.api.nvim_command([[
-  nnoremap   <silent>   <F11>    :FloatermNew<CR>
-  tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
-  nnoremap   <silent>   <F9>    :FloatermPrev<CR>
-  tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermPrev<CR>
-  nnoremap   <silent>   <F10>    :FloatermNext<CR>
-  inoremap   <silent>   <F10>   <esc>:FloatermNext<CR>
-  nnoremap   <silent>   <F12>   :FloatermToggle<CR>
-  inoremap   <silent>   <F12>   <esc>:FloatermToggle<CR>
-  tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-]])
--- vim.api.nvim_command([[
---   inoremap <silent><esc> <esc>:update<cr>
---   autocmd TextChanged,FocusLost,BufEnter * silent update
--- ]])
---
+require("plugins")
+require("plugins.telescope")
+require("plugins.lspconfig")
+require("plugins.completion")
+require("plugins.feline")
+require("plugins.bufferline")
