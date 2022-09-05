@@ -1,1 +1,2 @@
 -- vim.g.neoformat_enabled_yaml = {"yamlfmt"}
+-- let g:neoformat_enabled_tsx = ['autopep8']

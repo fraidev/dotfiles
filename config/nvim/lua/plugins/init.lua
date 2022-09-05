@@ -16,7 +16,15 @@ return require("packer").startup(function(use)
 
 	use("dstein64/vim-startuptime")
 	use("nathom/filetype.nvim")
+	use({ "gpanders/editorconfig.nvim", event = "BufRead" })
+	use({
+		"ThePrimeagen/harpoon",
+		config = function()
+			require("plugins.harpoon")
+		end,
+	})
 
+	use({ "JoosepAlviste/nvim-ts-context-commentstring", event = "BufRead" })
 	use({
 		"folke/which-key.nvim",
 		event = "VimEnter",
@@ -44,7 +52,7 @@ return require("packer").startup(function(use)
 	nmap("<leader>gi", ":Gedit:<cr>")
 	nmap("<leader>gd", ":Gdiffsplit<cr>")
 
-	-- vim-rooter
+	-- vim-rooterinit
 	use("airblade/vim-rooter")
 
 	-- bufferline
@@ -72,16 +80,35 @@ return require("packer").startup(function(use)
 	}
 
 	-- add color highlighting to hex values
-	use("norcalli/nvim-colorizer.lua")
+	use({
+		"norcalli/nvim-colorizer.lua",
+		event = "BufRead",
+		config = function()
+			require("colorizer").setup()
+		end,
+	})
 
 	-- use devicons for filetypes
 	use("kyazdani42/nvim-web-devicons")
 
 	-- fast lau file drawer
-	use("kyazdani42/nvim-tree.lua")
+	use({
+		"kyazdani42/nvim-tree.lua",
+		-- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+		event = "VimEnter",
+		config = function()
+			require("plugins.nvimtree")
+		end,
+	})
 
 	-- Show git information in the gutter
-	use("lewis6991/gitsigns.nvim")
+	use({
+		"lewis6991/gitsigns.nvim",
+		event = "BufRead",
+		config = function()
+			require("plugins.gitsigns")
+		end,
+	})
 
 	-- Helpers to configure the built-in Neovim LSP client
 	use("neovim/nvim-lspconfig")
@@ -89,6 +116,8 @@ return require("packer").startup(function(use)
 
 	-- Helpers to install LSPs and maintain them
 	use("williamboman/nvim-lsp-installer")
+
+	use({ "kdheepak/lazygit.nvim", event = "VimEnter" })
 
 	-- neovim completion
 	use("hrsh7th/cmp-nvim-lsp")
@@ -111,13 +140,25 @@ return require("packer").startup(function(use)
 	-- show nerd font icons for LSP types in completion menu
 	use("onsails/lspkind-nvim")
 
-	use("folke/trouble.nvim")
+	use({
+		"folke/trouble.nvim",
+		event = "BufRead",
+		config = function()
+			require("plugins.trouble")
+		end,
+	})
 
 	-- status line plugin
 	use("feline-nvim/feline.nvim")
 
 	-- Neoformat
-	use({ "sbdchd/neoformat", event = "BufRead" })
+	use({
+		"sbdchd/neoformat",
+		event = "BufRead",
+		config = function()
+			require("plugins.neoformat")
+		end,
+	})
 
 	-- enable copilot support for Neovim
 	use("github/copilot.vim", {
@@ -152,10 +193,23 @@ return require("packer").startup(function(use)
 	})
 
 	-- use 'pocco81/auto-save.nvim'
-	use("XXiaoA/auto-save.nvim")
+	use({
+		"XXiaoA/auto-save.nvim",
+		event = "BufRead",
+		config = function()
+			require("plugins.autosave")
+		end,
+	})
 
 	-- Floaterm
-	use("voldikss/vim-floaterm")
+	use({
+		"voldikss/vim-floaterm",
+		opt = true,
+		event = "VimEnter",
+		config = function()
+			require("plugins.floaterm")
+		end,
+	})
 
 	-- OCaml
 	use("rgrinberg/vim-ocaml")
