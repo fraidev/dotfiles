@@ -1,13 +1,9 @@
-
 local bufferline = require("bufferline")
 local nnoremap = require("utils").nnoremap
 
+bufferline.setup({
+	options = {},
+})
 
-bufferline.setup(
-    {
-    }
-)
-
-nnoremap ("<Tab>", ":BufferLineCycleNext<CR>")
-nnoremap ("<S-Tab>", ":BufferLineCyclePrev<CR>")
-
+nnoremap("<Tab>", ":BufferLineCycleNext<CR>")
+nnoremap("<S-Tab>", ":BufferLineCyclePrev<CR>")
