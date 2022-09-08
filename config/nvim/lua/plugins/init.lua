@@ -11,8 +11,16 @@ return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
+	-- spellsitter. Can remove this neovim 0.8
+	use({
+		"lewis6991/spellsitter.nvim",
+		config = function()
+			require("spellsitter").setup()
+		end,
+	})
+
 	-- colorscheme
-	use("tomasiser/vim-code-dark")
+	use("Mofiqul/vscode.nvim")
 
 	use("dstein64/vim-startuptime")
 	use("nathom/filetype.nvim")
@@ -27,7 +35,7 @@ return require("packer").startup(function(use)
 	use({ "JoosepAlviste/nvim-ts-context-commentstring", event = "BufRead" })
 	use({
 		"folke/which-key.nvim",
-		event = "VimEnter",
+		-- event = "VimEnter",
 		config = function()
 			require("plugins.whichkey")
 		end,
@@ -35,7 +43,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"sindrets/winshift.nvim",
-		event = "VimEnter",
+		-- event = "VimEnter",
 	})
 
 	-- easy commenting
@@ -95,7 +103,7 @@ return require("packer").startup(function(use)
 	use({
 		"kyazdani42/nvim-tree.lua",
 		-- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		event = "VimEnter",
+		-- event = "VimEnter",
 		config = function()
 			require("plugins.nvimtree")
 		end,
@@ -117,7 +125,10 @@ return require("packer").startup(function(use)
 	-- Helpers to install LSPs and maintain them
 	use("williamboman/nvim-lsp-installer")
 
-	use({ "kdheepak/lazygit.nvim", event = "VimEnter" })
+	use({
+		"kdheepak/lazygit.nvim",
+		-- event = "VimEnter",
+	})
 
 	-- neovim completion
 	use("hrsh7th/cmp-nvim-lsp")
@@ -130,9 +141,9 @@ return require("packer").startup(function(use)
 	-- treesitter enables an AST-like understanding of files
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		opt = true,
+		-- opt = true,
 		run = ":TSUpdate",
-		event = "BufRead",
+		-- event = "BufRead",
 		config = function()
 			require("plugins.treesitter")
 		end,
@@ -186,7 +197,6 @@ return require("packer").startup(function(use)
 	-- Startup screen for Neovim
 	use({
 		"startup-nvim/startup.nvim",
-		after = "vim-code-dark",
 		config = function()
 			require("plugins.startup")
 		end,
@@ -205,14 +215,14 @@ return require("packer").startup(function(use)
 	use({
 		"voldikss/vim-floaterm",
 		opt = true,
-		event = "VimEnter",
+		-- event = "VimEnter",
 		config = function()
 			require("plugins.floaterm")
 		end,
 	})
 
 	-- OCaml
-	use("rgrinberg/vim-ocaml")
+	use("ocaml/vim-ocaml")
 	-- use 'jordwalke/vim-reasonml'
 	-- use("nkrkv/nvim-treesitter-rescript")
 

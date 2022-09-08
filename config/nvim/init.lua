@@ -278,14 +278,35 @@ nmap("gT", ":tab sb<cr>")
 cmd([[syntax on]])
 cmd([[filetype plugin indent on]])
 -- make the highlighting of tabs and other non-text less annoying
--- cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
--- cmd([[highlight NonText ctermfg=19 guifg=#333333]])
+cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
+cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
 -- Color my Theme
-opt.background = "dark"
-g.my_colorscheme = "codedark"
+o.background = "dark"
+local c = require('vscode.colors')
+require('vscode').setup({
+    -- Enable transparent background
+    transparent = true,
+
+    -- Enable italic comment
+    italic_comments = true,
+
+    -- Disable nvim-tree background color
+    disable_nvimtree_bg = true,
+
+    -- Override colors (see ./lua/vscode/colors.lua)
+    color_overrides = {
+        vscLineNumber = '#FFFFFF',
+    },
+
+    -- Override highlight groups (see ./lua/vscode/theme.lua)
+    group_overrides = {
+        -- this supports the same val table as vim.api.nvim_set_hl
+        -- use colors from this colorscheme by requiring vscode.colors!
+        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
+    }
+})
 g.loaded_tutor_mode_plugin = 1
-cmd("colorscheme " .. g.my_colorscheme)
 cmd("hi LineNr guifg=#5eacd3")
 cmd("hi Normal       ctermbg=none  guibg=none")
 cmd("highlight ColorColumn ctermbg=0 guibg=grey")
@@ -294,14 +315,6 @@ cmd("hi CursorLine guibg=#333333")
 cmd("highlight netrwDir guifg=#5eacd3")
 cmd("highlight qfFileName guifg=#aed75f")
 cmd("hi TelescopeBorder guifg=#5eacd")
--- cmd("hi StatusLine guibg=none")
--- cmd("hi CursorLineNr               guibg=none")
--- cmd("hi EndOfBuffer                guibg=none")
--- cmd("hi Folded                     guibg=none")
--- cmd("hi LineNr       ctermbg=none  guibg=none")
--- cmd("hi SignColumn   ctermbg=none  guibg=none")
--- cmd("hi WinSeparator   ctermbg=none  guibg=none")
--- cmd("hi VertSplit  ctermbg=none  guibg=none")
 
 require("plugins")
 require("plugins.telescope")

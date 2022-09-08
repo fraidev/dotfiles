@@ -26,3 +26,7 @@ require("nvim-treesitter.configs").setup({
 		max_file_lines = 1000,
 	},
 })
+require('spellsitter').setup {
+  enable = true,
+  debug = false
+}
