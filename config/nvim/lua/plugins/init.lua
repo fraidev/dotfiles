@@ -63,8 +63,20 @@ return require("packer").startup(function(use)
 	-- vim-rooterinit
 	use("airblade/vim-rooter")
 
+	-- use devicons for filetypes
+	use("kyazdani42/nvim-web-devicons")
+
 	-- bufferline
 	use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
+
+	-- lualine
+	use({
+		"nvim-lualine/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		-- config = function()
+		-- 	require("plugins.lualine")
+		-- end,
+	})
 
 	-- general plugins
 	-- emmet support for vim - easily create markdup wth CSS-like syntax
@@ -95,9 +107,6 @@ return require("packer").startup(function(use)
 			require("colorizer").setup()
 		end,
 	})
-
-	-- use devicons for filetypes
-	use("kyazdani42/nvim-web-devicons")
 
 	-- fast lau file drawer
 	use({
@@ -160,7 +169,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- status line plugin
-	use("feline-nvim/feline.nvim")
+	-- use("feline-nvim/feline.nvim")
 
 	-- Neoformat
 	use({
