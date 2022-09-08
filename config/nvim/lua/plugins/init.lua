@@ -103,6 +103,7 @@ return require("packer").startup(function(use)
 	use({
 		"norcalli/nvim-colorizer.lua",
 		event = "BufRead",
+		opt = true,
 		config = function()
 			require("colorizer").setup()
 		end,
@@ -121,6 +122,7 @@ return require("packer").startup(function(use)
 	-- Show git information in the gutter
 	use({
 		"lewis6991/gitsigns.nvim",
+		opt = true,
 		event = "BufRead",
 		config = function()
 			require("plugins.gitsigns")
@@ -150,9 +152,9 @@ return require("packer").startup(function(use)
 	-- treesitter enables an AST-like understanding of files
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		-- opt = true,
+		opt = true,
 		run = ":TSUpdate",
-		-- event = "BufRead",
+		event = "BufRead",
 		config = function()
 			require("plugins.treesitter")
 		end,
@@ -163,6 +165,7 @@ return require("packer").startup(function(use)
 	use({
 		"folke/trouble.nvim",
 		event = "BufRead",
+		opt = true,
 		config = function()
 			require("plugins.trouble")
 		end,
@@ -175,6 +178,7 @@ return require("packer").startup(function(use)
 	use({
 		"sbdchd/neoformat",
 		event = "BufRead",
+		opt = true,
 		config = function()
 			require("plugins.neoformat")
 		end,
@@ -214,6 +218,7 @@ return require("packer").startup(function(use)
 	-- use 'pocco81/auto-save.nvim'
 	use({
 		"XXiaoA/auto-save.nvim",
+		opt = true,
 		event = "BufRead",
 		config = function()
 			require("plugins.autosave")
@@ -224,7 +229,7 @@ return require("packer").startup(function(use)
 	use({
 		"voldikss/vim-floaterm",
 		opt = true,
-		-- event = "VimEnter",
+		event = "VimEnter",
 		config = function()
 			require("plugins.floaterm")
 		end,
