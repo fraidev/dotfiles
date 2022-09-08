@@ -152,9 +152,7 @@ return require("packer").startup(function(use)
 	-- treesitter enables an AST-like understanding of files
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		opt = true,
 		run = ":TSUpdate",
-		event = "BufRead",
 		config = function()
 			require("plugins.treesitter")
 		end,
