@@ -43,6 +43,9 @@ end
 
 lsp.handlers["textDocument/formatting"] = format_async
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
 -- _G makes this function available to vimscript lua calls
 _G.lsp_organize_imports = function()
 	local params = {
@@ -135,6 +138,7 @@ lspconfig.rnix.setup({})
 -- OCaml LSP
 lspconfig.ocamllsp.setup({
 	root_dir = lspconfig.util.root_pattern("dune-project"),
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
