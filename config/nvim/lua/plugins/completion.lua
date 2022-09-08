@@ -3,18 +3,16 @@ local cmp = require("cmp")
 
 vim.o.completeopt = "menuone,noselect"
 
-local function border(hl_name)
-	return {
-		{ "╭", hl_name },
-		{ "─", hl_name },
-		{ "╮", hl_name },
-		{ "│", hl_name },
-		{ "╯", hl_name },
-		{ "─", hl_name },
-		{ "╰", hl_name },
-		{ "│", hl_name },
-	}
-end
+local menu = {
+	nvim_lsp = "ﲳ",
+	nvim_lua = "",
+	path = "ﱮ",
+	buffer = "﬘",
+	vsnip = "",
+	treesitter = "",
+	zsh = "",
+	spell = "暈",
+}
 
 cmp.setup({
 	snippet = {
@@ -67,34 +65,23 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
 	},
 	sources = {
-		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "nvim_lua" },
 		{ name = "path" },
 	},
 	window = {
-		completion = {
-			border = border("CmpBorder"),
-			winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
-		},
-		documentation = {
-			border = border("CmpDocBorder"),
-		},
+		documentation = cmp.config.window.bordered(),
 	},
 	formatting = {
 		format = lspkind.cmp_format({
 			with_text = true,
-			menu = {
-				nvim_lsp = "ﲳ",
-				nvim_lua = "",
-				path = "ﱮ",
-				buffer = "﬘",
-				vsnip = "",
-				-- treesitter = "",
-				-- zsh = "",
-				-- spell = "暈"
-			},
+			before = function(entry, vim_item)
+				vim_item.menu = string.format("%s %s", menu[entry.source.name], entry:get_completion_item().detail)
+				return vim_item
+			end,
 		}),
 	},
 	experimental = {

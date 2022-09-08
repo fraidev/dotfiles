@@ -88,6 +88,7 @@ return require("packer").startup(function(use)
 	use("ekalinin/Dockerfile.vim")
 	-- use "jparise/vim-graphql"
 
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
 	use("hrsh7th/cmp-vsnip")
 	use("hrsh7th/vim-vsnip")
 	use("hrsh7th/vim-vsnip-integ")
