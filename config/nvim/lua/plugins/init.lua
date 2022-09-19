@@ -32,7 +32,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use({ "JoosepAlviste/nvim-ts-context-commentstring", event = "BufRead" })
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use({
 		"folke/which-key.nvim",
 		-- event = "VimEnter",
