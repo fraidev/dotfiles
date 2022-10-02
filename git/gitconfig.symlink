@@ -148,7 +148,7 @@
 [core]
     excludesfile = ~/.gitignore_global
     pager = delta
-    editor = vim
+    editor = nvim
     whitespace = cr-at-eol
 [delta]
     features = unobtrusive-line-numbers decorations
