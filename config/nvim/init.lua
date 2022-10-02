@@ -1,7 +1,3 @@
-vim.defer_fn(function()
-	pcall(require, "impatient")
-end, 0)
-
 -- init.lua
 -- Neovim-specific configuration
 require("globals")
@@ -21,51 +17,6 @@ local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
--- local colors = require("theme").colors
-
---[[
--- NOTE:
--- The plugin files always get sourced, regardless of the loaded value, 
--- but at the top of each plugin there's a check for loaded and if this
--- is the case they return immediately.
-]]
---
-for _, plugin in ipairs({
-	"2html_plugin",
-	"getscript",
-	"getscriptPlugin",
-	"gzip",
-	"logipat",
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"matchit",
-	"tar",
-	"tarPlugin",
-	"rrhelper",
-	"vimball",
-	"vimballPlugin",
-	"zip",
-	"zipPlugin",
-	"tutor_mode_plugin",
-	"fzf",
-	"spellfile_plugin",
-}) do
-	g["loaded_" .. plugin] = 1
-end
-
-g.did_load_filetypes = 1
-
--- General
-----------------------------------------------------------------
--- cmd([[abbr funciton function]])
--- cmd([[abbr teh the]])
--- cmd([[abbr tempalte template]])
--- cmd([[abbr fitler filter]])
--- cmd([[abbr cosnt const]])
--- cmd([[abbr attribtue attribute]])
--- cmd([[abbr attribuet attribute]])
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
@@ -152,10 +103,12 @@ opt.signcolumn = "yes"
 opt.shortmess = "atToOFc" -- prompt message options
 
 -- Tab control
+opt.expandtab = true
+opt.smartindent = true
 opt.smarttab = true -- tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-opt.tabstop = 4 -- the visible width of tabs
-opt.softtabstop = 4 -- edit as if the tabs are 4 characters wide
-opt.shiftwidth = 4 -- number of spaces to use for indent and unindent
+opt.tabstop = 2 -- the visible width of tabs
+opt.softtabstop = 2 -- edit as if the tabs are 4 characters wide
+opt.shiftwidth = 2 -- number of spaces to use for indent and unindent
 opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 
 -- code folding settings
@@ -224,8 +177,14 @@ nmap("<C-l>", "<Plug>WinMoveRight")
 nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
+
+g.lazygit_floating_window_winblend = 0 --" transparency of floating window
+g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
+g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
+g.lazygit_use_neovim_remote = 1 --" fallback to 0 if neovim-remote is not installed
 nmap("<leader>gl", ":LazyGit<cr>")
 nmap("<leader>gf", ":LazyGitFilter<cr>")
+nmap("<leader>gc", ":LazyGitFilterCurrentFile")
 nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
@@ -283,29 +242,34 @@ cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
 -- Color my Theme
 o.background = "dark"
-local c = require('vscode.colors')
-require('vscode').setup({
-    -- Enable transparent background
-    transparent = true,
+local c = require("vscode.colors")
+require("vscode").setup({
+	-- Enable transparent background
+	transparent = true,
 
-    -- Enable italic comment
-    italic_comments = true,
+	-- Enable italic comment
+	italic_comments = true,
 
-    -- Disable nvim-tree background color
-    disable_nvimtree_bg = true,
+	-- Disable nvim-tree background color
+	disable_nvimtree_bg = true,
 
-    -- Override colors (see ./lua/vscode/colors.lua)
-    color_overrides = {
-        vscLineNumber = '#FFFFFF',
-    },
+	-- Override colors (see ./lua/vscode/colors.lua)
+	color_overrides = {
+		vscLineNumber = "#FFFFFF",
+	},
 
-    -- Override highlight groups (see ./lua/vscode/theme.lua)
-    group_overrides = {
-        -- this supports the same val table as vim.api.nvim_set_hl
-        -- use colors from this colorscheme by requiring vscode.colors!
-        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
-    }
+	-- Override highlight groups (see ./lua/vscode/theme.lua)
+	group_overrides = {
+		-- this supports the same val table as vim.api.nvim_set_hl
+		-- use colors from this colorscheme by requiring vscode.colors!
+		Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
+	},
 })
+
+if fn.has("nvim") then
+  vim.env['GIT_EDITOR'] = "nvr -cc split --remote-wait"
+end
+
 g.loaded_tutor_mode_plugin = 1
 cmd("hi LineNr guifg=#5eacd3")
 cmd("hi Normal       ctermbg=none  guibg=none")
