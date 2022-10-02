@@ -92,7 +92,7 @@ local on_attach = function(client, bufnr)
 	nmap("<Leader>d", ":LspDiagLine<CR>", { bufnr = bufnr })
 	-- imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
 
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.document_highlight then
 		api.nvim_exec(
 			[[
     augroup lsp_document_highlight
@@ -106,9 +106,9 @@ local on_attach = function(client, bufnr)
 	end
 
 	-- disable document formatting (currently handled by formatter.nvim)
-	client.resolved_capabilities.document_formatting = false
+	client.server_capabilities.documentFormattingProvider = false
 
-	if client.resolved_capabilities.document_formatting then
+	if client.server_capabilities.documentFormattingProvider then
 		api.nvim_exec(
 			[[
         augroup LspAutocommands
