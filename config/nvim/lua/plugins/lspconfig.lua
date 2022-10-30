@@ -44,7 +44,8 @@ end
 lsp.handlers["textDocument/formatting"] = format_async
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+-- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- _G makes this function available to vimscript lua calls
 _G.lsp_organize_imports = function()
