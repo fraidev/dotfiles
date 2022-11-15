@@ -63,7 +63,6 @@ _G.lsp_show_diagnostics = function()
 end
 
 local on_attach = function(client, bufnr)
-	cmd([[command! LspDef lua vim.lsp.buf.definition()]])
 	cmd([[command! LspFormatting lua vim.lsp.buf.formatting()]])
 	cmd([[command! LspCodeAction lua vim.lsp.buf.code_action()]])
 	cmd([[command! LspHover lua vim.lsp.buf.hover()]])
@@ -71,6 +70,8 @@ local on_attach = function(client, bufnr)
 	cmd([[command! LspOrganize lua lsp_organize_imports()]])
 	cmd([[command! OR lua lsp_organize_imports()]])
 	cmd([[command! LspRefs lua vim.lsp.buf.references()]])
+	cmd([[command! LspDec lua vim.lsp.buf.declaration()]])
+	cmd([[command! LspDef lua vim.lsp.buf.definition()]])
 	cmd([[command! LspTypeDef lua vim.lsp.buf.type_definition()]])
 	cmd([[command! LspImplementation lua vim.lsp.buf.implementation()]])
 	cmd([[command! LspDiagPrev lua vim.diagnostic.goto_prev()]])
@@ -81,7 +82,12 @@ local on_attach = function(client, bufnr)
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 
+	lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+	})
+
 	nmap("gd", ":LspDef<CR>", { bufnr = bufnr })
+	nmap("gD", ":LspImplementation<CR>", { bufnr = bufnr })
 	nmap("gr", ":LspRename<CR>", { bufnr = bufnr })
 	nmap("gR", ":LspRefs<CR>", { bufnr = bufnr })
 	nmap("gy", ":LspTypeDef<CR>", { bufnr = bufnr })
