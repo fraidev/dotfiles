@@ -86,6 +86,7 @@ local on_attach = function(client, bufnr)
 		virtual_text = false,
 	})
 
+
 	nmap("gd", ":LspDef<CR>", { bufnr = bufnr })
 	nmap("gD", ":LspImplementation<CR>", { bufnr = bufnr })
 	nmap("gr", ":LspRename<CR>", { bufnr = bufnr })

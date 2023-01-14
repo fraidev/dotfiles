@@ -19,27 +19,6 @@ require("nvim-treesitter.configs").setup({
 	},
 	context_commentstring = {
 		enable = true,
-		config = {
-			javascript = {
-				__default = "// %s",
-				jsx_element = "{/* %s */}",
-				jsx_fragment = "{/* %s */}",
-				jsx_attribute = "// %s",
-				comment = "// %s",
-				__parent = {
-					-- if a node has this as the parent, use the `//` commentstring
-					jsx_expression = "// %s",
-				},
-			},
-			tsx = {
-				jsx_element = {
-					__default = "{/* %s */}",
-					__parent = {
-						parenthesized_expression = "// %s",
-					},
-				},
-			},
-		},
 	},
 	rainbow = {
 		enable = false,

@@ -107,6 +107,7 @@
     rg = "!sh -c 'git ls-files --others --exclude-standard | grep $1 | xargs rm' -"
 
     remotes = remote -v
+	pushf = push --force-with-lease --force-if-includes
 [color]
     diff = auto
     status = auto

@@ -242,6 +242,9 @@ return require("packer").startup(function(use)
 	-- Rust
 	use("simrat39/rust-tools.nvim")
 
+	-- Go
+	use({ "fatih/vim-go", run = ":GoUpdateBinaries" })
+
 	-- Nix
 	use("LnL7/vim-nix")
 

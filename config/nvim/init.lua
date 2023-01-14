@@ -59,6 +59,8 @@ opt.incsearch = true -- set incremental search, like modern browsers
 opt.lazyredraw = false -- don't redraw while executing macros
 opt.magic = true -- set magic on, for regular expressions
 
+
+
 if fn.executable("rg") then
 	-- if ripgrep installed, use that as a grepper
 	opt.grepprg = "rg --vimgrep --no-heading"
@@ -177,7 +179,6 @@ nmap("<C-l>", "<Plug>WinMoveRight")
 nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
-
 g.lazygit_floating_window_winblend = 0 --" transparency of floating window
 g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
 g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
@@ -267,7 +268,7 @@ require("vscode").setup({
 })
 
 if fn.has("nvim") then
-  vim.env['GIT_EDITOR'] = "nvr -cc split --remote-wait"
+	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
 g.loaded_tutor_mode_plugin = 1
