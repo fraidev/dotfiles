@@ -9,7 +9,7 @@ telescope.setup({
 				["<Esc>"] = actions.close, -- don't go into normal mode, just close
 				["<C-j>"] = actions.move_selection_next, -- scroll the list with <c-j>
 				["<C-k>"] = actions.move_selection_previous, -- scroll the list with <c-k>
-				["<C-s->"] = actions.select_horizontal, -- open selection in new horizantal split
+				["<C-s>"] = actions.select_horizontal, -- open selection in new horizantal split
 				["<C-v>"] = actions.select_vertical, -- open selection in new vertical split
 				["<C-t>"] = actions.select_tab, -- open selection in new tab
 				["<C-y>"] = actions.preview_scrolling_up,
@@ -19,13 +19,24 @@ telescope.setup({
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
+			"-H",
 			"--no-heading",
-			"--with-filename",
-			"--line-number",
+			"-n",
 			"--column",
-			"--smart-case",
+			"-S",
+			"--hidden",
 			"--trim",
 		},
+		-- vimgrep_arguments = {
+		-- 	"rg",
+		-- 	"--color=never",
+		-- 	"--no-heading",
+		-- 	"--with-filename",
+		-- 	"--line-number",
+		-- 	"--column",
+		-- 	"--smart-case",
+		-- 	"--trim",
+		-- },
 		prompt_prefix = "   ",
 		selection_caret = "  ",
 		entry_prefix = "  ",
@@ -62,15 +73,22 @@ telescope.setup({
 		-- Developer configurations: Not meant for general override
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	},
-	pickers = {
-		live_grep = {
-			additional_args = function(opts)
-				return { "--hidden" }
-			end,
-		},
-		find_files = {
-			-- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
-			find_command = { "fd", "-I", "--type", "f", "--strip-cwd-prefix" },
+	-- pickers = {
+	-- 	-- live_grep = {
+	-- 	-- 	additional_args = function(opts)
+	-- 	-- 		return { "--hidden" }
+	-- 	-- 	end,
+	-- 	-- },
+	-- 	find_files = {
+	-- 		find_command = { "fd", "-I", "--type", "f", "--strip-cwd-prefix" },
+	-- 	},
+	-- },
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = false,
+			override_file_sorter = true,
+			case_mode = "smart_case",
 		},
 	},
 	-- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
