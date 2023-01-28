@@ -50,3 +50,9 @@ brew "wdiff" # word differences in text files
 brew "wget" # internet file retriever
 brew "z" # switch between most used directories
 brew "zsh" # zsh (latest)
+brew "lua-language-server" # lua language server
+brew "lazygit" # simple terminal UI for git commands
+brew "n" # node.js manager
+brew "opam" # OCaml package manager
+brew "go" # Go programming language
+brew "k9s" # Kubernetes CLI to manage your clusters in terminal
