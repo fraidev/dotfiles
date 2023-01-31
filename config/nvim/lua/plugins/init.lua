@@ -64,19 +64,25 @@ return require("packer").startup(function(use)
 	-- use("airblade/vim-rooter")
 
 	-- use devicons for filetypes
-	use("kyazdani42/nvim-web-devicons")
+	use("nvim-tree/nvim-web-devicons")
 
 	-- bufferline
-	use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
+	use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- lualine
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 		-- config = function()
 		-- 	require("plugins.lualine")
 		-- end,
 	})
+
+  -- spectre
+	use({
+    "windwp/nvim-spectre",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+  })
 
 	-- general plugins
 	-- emmet support for vim - easily create markdup wth CSS-like syntax
@@ -112,7 +118,7 @@ return require("packer").startup(function(use)
 
 	-- fast lau file drawer
 	use({
-		"kyazdani42/nvim-tree.lua",
+		"nvim-tree/nvim-tree.lua",
 		-- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
 		-- event = "VimEnter",
 		config = function()
@@ -198,7 +204,6 @@ return require("packer").startup(function(use)
 
 	-- Navigate a code base with a really slick UI
 	use("nvim-telescope/telescope.nvim")
-	-- use("nvim-telescope/telescope-rg.nvim")
 
 	use("BurntSushi/ripgrep")
 

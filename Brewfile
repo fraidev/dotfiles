@@ -56,3 +56,4 @@ brew "n" # node.js manager
 brew "opam" # OCaml package manager
 brew "go" # Go programming language
 brew "k9s" # Kubernetes CLI to manage your clusters in terminal
+brew "gnu-sed" # GNU implementation of sed
