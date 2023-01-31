@@ -283,6 +283,7 @@ cmd("hi TelescopeBorder guifg=#5eacd")
 
 require("plugins")
 require("plugins.telescope")
+require("plugins.spectre")
 require("plugins.lspconfig")
 require("plugins.completion")
 require("plugins.lualine")
