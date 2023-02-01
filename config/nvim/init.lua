@@ -246,7 +246,7 @@ o.background = "dark"
 local c = require("vscode.colors")
 require("vscode").setup({
 	-- Enable transparent background
-	transparent = true,
+	-- transparent = true,
 
 	-- Enable italic comment
 	italic_comments = true,
@@ -257,6 +257,10 @@ require("vscode").setup({
 	-- Override colors (see ./lua/vscode/colors.lua)
 	color_overrides = {
 		vscLineNumber = "#FFFFFF",
+    -- vscDiffRedDark = "#FF0000",
+    vscDiffRedLight = "#373D29",
+    -- vscSearchCurrent = "#FF0000",
+    -- vscSearch = "#FF0000",
 	},
 
 	-- Override highlight groups (see ./lua/vscode/theme.lua)
