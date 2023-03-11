@@ -1,5 +1,6 @@
 -- init.lua
 -- Neovim-specific configuration
+require('impatient')
 require("globals")
 local opt = vim.opt
 local cmd = vim.cmd
@@ -46,6 +47,7 @@ opt.inccommand = "nosplit" -- show the results of substition as they're happenin
 -- but don't open a split
 
 opt.backspace = { "indent", "eol,start" } -- make backspace behave in a sane manner
+
 opt.clipboard = { "unnamed", "unnamedplus" } -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
 
@@ -134,6 +136,41 @@ opt.listchars = {
 	precedes = "❮",
 }
 cmd("set nolist")
+
+-- Color my Theme
+o.background = "dark"
+g.vscode_italic_comment = true
+local c = require("vscode.colors")
+require("vscode").setup({
+  -- Enable transparent background
+  -- transparent = true,
+
+  -- Enable italic comment
+  italic_comments = true,
+
+  -- Disable nvim-tree background color
+  disable_nvimtree_bg = true,
+
+  -- Override colors (see ./lua/vscode/colors.lua)
+  color_overrides = {
+    vscLineNumber = "#FFFFFF",
+    -- vscDiffRedDark = "#FF0000",
+    vscDiffRedLight = "#373D29",
+    -- vscSearchCurrent = "#FF0000",
+    -- vscSearch = "#FF0000",
+  },
+
+  -- Override highlight groups (see ./lua/vscode/theme.lua)
+  group_overrides = {
+    -- this supports the same val table as vim.api.nvim_set_hl
+    -- use colors from this colorscheme by requiring vscode.colors!
+    Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen },
+  },
+})
+
+
+
+
 
 -- Mappings
 --
@@ -241,35 +278,6 @@ cmd([[filetype plugin indent on]])
 cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
 cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
--- Color my Theme
-o.background = "dark"
-local c = require("vscode.colors")
-require("vscode").setup({
-	-- Enable transparent background
-	-- transparent = true,
-
-	-- Enable italic comment
-	italic_comments = true,
-
-	-- Disable nvim-tree background color
-	disable_nvimtree_bg = true,
-
-	-- Override colors (see ./lua/vscode/colors.lua)
-	color_overrides = {
-		vscLineNumber = "#FFFFFF",
-    -- vscDiffRedDark = "#FF0000",
-    vscDiffRedLight = "#373D29",
-    -- vscSearchCurrent = "#FF0000",
-    -- vscSearch = "#FF0000",
-	},
-
-	-- Override highlight groups (see ./lua/vscode/theme.lua)
-	group_overrides = {
-		-- this supports the same val table as vim.api.nvim_set_hl
-		-- use colors from this colorscheme by requiring vscode.colors!
-		Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
-	},
-})
 
 if fn.has("nvim") then
 	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
@@ -291,4 +299,4 @@ require("plugins.spectre")
 require("plugins.lspconfig")
 require("plugins.completion")
 require("plugins.lualine")
-require("plugins.bufferline")
+-- require("plugins.bufferline")

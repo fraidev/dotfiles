@@ -6,27 +6,31 @@
 #     - zsh
 
 font:
-  size: 11
-  normal:
-    family: MesloLGS NF
-    style: Regular
-  bold:
-    family: MesloLGS NF
-    style: Bold
-  italic:
-    family: MesloLGS NF
-    style: Italic
-  bold_italic:
-    family: MesloLGS NF
-    style: Bold Italic
   # normal:
-  #   family: FiraCode Nerd Font
+  #   family: MesloLGM Nerd Font Mono
   #   style: Regular
   # bold:
-  #   family: FiraCode Nerd Font 
+  #   family: MesloLGM Nerd Font Mono
+  #   style: Bold
   # italic:
-  #   family: FiraCode Nerd Font 
-  size: 23.0
+  #   family: MesloLGM Nerd Font Mono
+  #   style: Italic
+  # bold_italic:
+  #   family: MesloLGM Nerd Font Mono
+  #   style: Bold Italic
+  normal:
+    family: FiraCode Nerd Font Mono
+    style: Regular
+  bold:
+    family: FiraCode Nerd Font Mono
+    style: Bold
+  italic:
+    family: MesloLGM Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: MesloLGM Nerd Font Mono
+    style: Bold Italic
+  size: 18.0
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:

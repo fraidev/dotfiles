@@ -80,7 +80,9 @@ prepend_path /usr/local/bin
 prepend_path $(go env GOPATH)/bin
 # prepend_path $HOME/.opam/default/bin
 prepend_path $HOME/Library/Python/3.8/bin
-prepend_path $HOME/.local/bin/
+prepend_path $HOME/.local/bin
+prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
+prepend_path $HOME/Developer/flutter/bin
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -278,6 +280,8 @@ source "$DOTFILES/zsh/prompt.zsh"
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$PATH:$NPM_PACKAGES/bin"
+PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+# PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer:$PATH"
 
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
