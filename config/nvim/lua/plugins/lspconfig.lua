@@ -138,7 +138,7 @@ lsp_installer.setup({
 })
 
 -- Lua LSP
-lspconfig.sumneko_lua.setup({})
+-- lspconfig.sumneko_lua.setup({})
 
 -- Nix LSP
 lspconfig.rnix.setup({})
@@ -159,9 +159,27 @@ lspconfig.gopls.setup({
 
 -- Rust LSP
 rust_tools.setup({
-	server = { on_attach = on_attach },
+	server = { 
+    -- on_attach = function(_, bufnr)
+    --   -- Hover actions
+    --   vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+    --   -- Code action groups
+    --   vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
+    -- end,
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+    end,
+  },
 })
-lspconfig.rust_analyzer.setup({ on_attach = on_attach })
+
+-- lspconfig.rust_analyzer.setup({ 
+-- 	on_attach = function(client, bufnr)
+-- 		on_attach(client, bufnr)
+-- 	end,
+--   flags = {
+--     exit_timeout = 0,
+--   }
+-- })
 
 -- GraphQL
 -- lspconfig.graphql.setup { on_attach = on_attach }
@@ -171,6 +189,9 @@ lspconfig.jsonls.setup({ on_attach = on_attach })
 
 -- CSS
 lspconfig.cssls.setup({ on_attach = on_attach })
+
+-- C#
+lspconfig.omnisharp.setup({ on_attach = on_attach })
 
 -- Typescript LSP
 lspconfig.tsserver.setup({
@@ -195,6 +216,8 @@ lspconfig.tsserver.setup({
 
 -- Tailwind CSS
 lspconfig.tailwindcss.setup({ on_attach = on_attach })
+
+
 
 -- Setup Cursor highlight
 vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
