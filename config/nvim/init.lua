@@ -168,6 +168,7 @@ require("vscode").setup({
   },
 })
 
+require('vscode').load()
 
 
 
@@ -300,3 +301,4 @@ require("plugins.lspconfig")
 require("plugins.completion")
 require("plugins.lualine")
 -- require("plugins.bufferline")
+g.go_fmt_autosave = 0

@@ -73,7 +73,7 @@ return require("packer").startup(
         nmap("<leader>gd", ":Gdiffsplit<cr>")
 
         -- vim-rooterinit
-        use("airblade/vim-rooter")
+        -- use("airblade/vim-rooter")
 
         -- use devicons for filetypes
         use("nvim-tree/nvim-web-devicons")
