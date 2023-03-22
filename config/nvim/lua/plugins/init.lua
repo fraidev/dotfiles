@@ -25,6 +25,7 @@ return require("packer").startup(
 
         -- colorscheme
         use("Mofiqul/vscode.nvim")
+      
 
         use("dstein64/vim-startuptime")
         use("nathom/filetype.nvim")
@@ -277,5 +278,8 @@ return require("packer").startup(
 
         -- Nix
         use("LnL7/vim-nix")
+
+        -- C#
+        use("Hoffs/omnisharp-extended-lsp.nvim")
     end
 )
