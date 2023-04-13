@@ -22,10 +22,15 @@ return require("packer").startup(
                 end
             }
         )
+        use {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
+            run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+        }
 
         -- colorscheme
         use("Mofiqul/vscode.nvim")
-      
 
         use("dstein64/vim-startuptime")
         use("nathom/filetype.nvim")

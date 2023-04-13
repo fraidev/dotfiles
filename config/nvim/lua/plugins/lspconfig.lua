@@ -5,8 +5,11 @@ local cmd = vim.cmd
 local api = vim.api
 local fn = vim.fn
 local lsp = vim.lsp
-local lsp_installer = require("nvim-lsp-installer")
+local mason = require("mason")
 local lspconfig = require("lspconfig")
+local mason_lspconfig = require("mason-lspconfig")
+-- local mason_null_ls = require("mason-null-ls")
+-- local null_ls = require("null-ls")
 local theme = require("theme")
 local colors = theme.colors
 local icons = theme.icons
@@ -134,16 +137,34 @@ local on_attach = function(client, bufnr)
     require("illuminate").on_attach(client)
 end
 
+mason_lspconfig.setup()
+
+-- mason_lspconfig.setup_handlers {
+--     -- This is a default handler that will be called for each installed server (also for new servers that are installed during a session)
+--   -- function (server_name)
+--   --   lspconfig[server_name].setup {
+--   --     on_attach = on_attach,
+--   --     -- flags = lsp_flags,
+--   --   }
+--   -- end,
+-- }
+
 -- Lsp Installer
-lsp_installer.setup(
+mason.setup(
     {
         on_attach = on_attach,
-        automatic_installation = false
+        automatic_installation = true
     }
 )
+-- mason.setup(
+--     {
+--         on_attach = on_attach,
+--         automatic_installation = false
+--     }
+-- )
 
 -- Lua LSP
--- lspconfig.sumneko_lua.setup({})
+lspconfig.lua_ls.setup({on_attach = on_attach})
 
 -- Nix LSP
 lspconfig.rnix.setup({})
@@ -202,10 +223,25 @@ lspconfig.jsonls.setup({on_attach = on_attach})
 lspconfig.cssls.setup({on_attach = on_attach})
 
 -- C#
+-- lspconfig.omnisharp.setup({})
+
 lspconfig.omnisharp.setup(
     {
         handlers = {
             ["textDocument/definition"] = require("omnisharp_extended").handler
+        },
+        cmd = {
+            "mono",
+            -- "--assembly-loader=strict",
+            "/Users/frai/Developer/omnisharp/OmniSharp.exe",
+            -- "-z",
+            -- "--hostPID",
+            -- tostring(fn.getpid()),
+            -- "DotNet:enablePackageRestore=false",
+            -- "--encoding",
+            -- "utf-8",
+            -- "--loglevel",
+            -- "information"
         },
         use_mono = true,
         on_attach = on_attach

@@ -18,6 +18,9 @@ local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
@@ -77,6 +80,7 @@ opt.timeoutlen = 500
 -- Appearance
 ---------------------------------------------------------
 o.termguicolors = true
+opt.termguicolors = true
 opt.number = true -- show line numbers
 opt.rnu = true
 opt.wrap = true -- turn on line wrapping
@@ -302,3 +306,4 @@ require("plugins.completion")
 require("plugins.lualine")
 -- require("plugins.bufferline")
 g.go_fmt_autosave = 0
+g.go_imports_autosave = 0
