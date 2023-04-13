@@ -119,16 +119,6 @@ telescope.setup(
             -- Developer configurations: Not meant for general override
             buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
         },
-        -- pickers = {
-        -- 	live_grep = {
-        -- 		additional_args = function(opts)
-        -- 			return { "--hidden" }
-        -- 		end,
-        -- 	},
-        -- 	-- find_files = {
-        -- 	-- 	find_command = { "fd", "-I", "--type", "f", "--strip-cwd-prefix" },
-        -- 	-- },
-        -- },
         extensions = {
             fzf = {
                 fuzzy = true,
@@ -137,11 +127,6 @@ telescope.setup(
                 case_mode = "smart_case"
             }
         }
-        -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-        -- Developer configurations: Not meant for general override
-        -- buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
     }
 )
 
