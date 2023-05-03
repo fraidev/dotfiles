@@ -67,7 +67,8 @@ window:
   # - none: neither borders nor title bar
   # - (macos) transparent: title bar, transparent background, and title bar buttons
   # - (macos) buttonless: title bar transparent background, but no title bar buttons
-  decorations: none
+  decorations: buttonless
+  # decorations: none
   # dynamically set the window title
   dynamic_title: true
   # Startup mode

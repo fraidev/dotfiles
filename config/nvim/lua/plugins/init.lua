@@ -172,7 +172,6 @@ return require("packer").startup(
         )
 
         -- Helpers to configure the built-in Neovim LSP client
-        use("neovim/nvim-lspconfig")
         use("jose-elias-alvarez/nvim-lsp-ts-utils")
 
         -- Helpers to install LSPs and maintain them
@@ -220,10 +219,10 @@ return require("packer").startup(
             }
         )
         -- if a copilot-aliased version of node exists from fnm, use that
-        local copilot_node_path = env.FNM_DIR .. "/aliases/copilot/bin/node"
-        if utils.file_exists(copilot_node_path) then
-            g.copilot_node_path = copilot_node_path
-        end
+        -- local copilot_node_path = env.FNM_DIR .. "/aliases/copilot/bin/node"
+        -- if utils.file_exists(copilot_node_path) then
+        --     g.copilot_node_path = copilot_node_path
+        -- end
         -- improve the default neovim interfaces, such as refactoring
         use("stevearc/dressing.nvim")
 

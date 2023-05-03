@@ -335,3 +335,4 @@ if [ -f '/Users/frai/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frai
 if [ -f '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
+fpath+=~/.zfunc

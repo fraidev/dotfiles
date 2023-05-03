@@ -223,8 +223,6 @@ lspconfig.jsonls.setup({on_attach = on_attach})
 lspconfig.cssls.setup({on_attach = on_attach})
 
 -- C#
--- lspconfig.omnisharp.setup({})
-
 lspconfig.omnisharp.setup(
     {
         handlers = {
@@ -232,19 +230,17 @@ lspconfig.omnisharp.setup(
         },
         cmd = {
             "mono",
-            -- "--assembly-loader=strict",
-            "/Users/frai/Developer/omnisharp/OmniSharp.exe",
-            -- "-z",
-            -- "--hostPID",
-            -- tostring(fn.getpid()),
-            -- "DotNet:enablePackageRestore=false",
-            -- "--encoding",
-            -- "utf-8",
-            -- "--loglevel",
-            -- "information"
+            "--assembly-loader=strict",
+            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.4-darwin-arm64/.omnisharp/1.39.4/omnisharp/OmniSharp.exe",
+            "--loglevel",
+            "information",
+            "--plugin",
+            "~/.vscode/extensions/ms-dotnettools.csharp-1.25.4-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
         },
+        root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
         use_mono = true,
-        on_attach = on_attach
+        on_attach = on_attach,
+        capabilities = capabilities
     }
 )
 
