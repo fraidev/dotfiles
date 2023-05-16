@@ -134,6 +134,10 @@ local on_attach = function(client, bufnr)
         )
     end
 
+    if client.name == "omnisharp" or client.name == "omnisharp_mono" then
+        client.server_capabilities.semanticTokensProvider = nil
+    end
+
     require("illuminate").on_attach(client)
 end
 
@@ -223,7 +227,24 @@ lspconfig.jsonls.setup({on_attach = on_attach})
 lspconfig.cssls.setup({on_attach = on_attach})
 
 -- C#
-lspconfig.omnisharp.setup(
+-- lspconfig.omnisharp_mono.setup(
+--     {
+--         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
+--         on_attach = on_attach,
+--         capabilities = vim.tbl_deep_extend(
+--             "force",
+--             capabilities,
+--             {
+--                 workspace = {
+--                     didChangeWatchedFiles = {
+--                         dynamicRegistration = true
+--                     }
+--                 }
+--             }
+--         )
+--     }
+-- )
+lspconfig.omnisharp_mono.setup(
     {
         handlers = {
             ["textDocument/definition"] = require("omnisharp_extended").handler
@@ -231,16 +252,27 @@ lspconfig.omnisharp.setup(
         cmd = {
             "mono",
             "--assembly-loader=strict",
-            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.4-darwin-arm64/.omnisharp/1.39.4/omnisharp/OmniSharp.exe",
+            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.7-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
             "--loglevel",
             "information",
             "--plugin",
-            "~/.vscode/extensions/ms-dotnettools.csharp-1.25.4-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
+            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.7-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
         },
         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
         use_mono = true,
         on_attach = on_attach,
-        capabilities = capabilities
+        -- capabilities = capabilities
+        capabilities = vim.tbl_deep_extend(
+            "force",
+            capabilities,
+            {
+                workspace = {
+                    didChangeWatchedFiles = {
+                        dynamicRegistration = true
+                    }
+                }
+            }
+        )
     }
 )
 

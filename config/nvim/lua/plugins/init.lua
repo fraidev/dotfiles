@@ -33,7 +33,7 @@ return require("packer").startup(
         use("Mofiqul/vscode.nvim")
 
         use("dstein64/vim-startuptime")
-        use("nathom/filetype.nvim")
+        -- use("nathom/filetype.nvim")
         use({"gpanders/editorconfig.nvim", event = "BufRead"})
         use(
             {

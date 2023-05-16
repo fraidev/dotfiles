@@ -84,6 +84,7 @@ prepend_path $HOME/.local/bin
 prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
 prepend_path $HOME/Developer/flutter/bin
 prepend_path $HOME/.dotnet/tools
+prepend_path $HOME/.local/share/bob/nvim-bin 
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
