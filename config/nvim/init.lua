@@ -114,9 +114,9 @@ opt.shortmess = "atToOFc" -- prompt message options
 opt.expandtab = true
 opt.smartindent = true
 opt.smarttab = true -- tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-opt.tabstop = 2 -- the visible width of tabs
-opt.softtabstop = 2 -- edit as if the tabs are 4 characters wide
-opt.shiftwidth = 2 -- number of spaces to use for indent and unindent
+opt.tabstop = 4 -- the visible width of tabs
+opt.softtabstop = 4 -- edit as if the tabs are 4 characters wide
+opt.shiftwidth = 4 -- number of spaces to use for indent and unindent
 opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 
 -- code folding settings
@@ -278,7 +278,7 @@ nmap("gT", ":tab sb<cr>")
 nmap("gT", ":tab sb<cr>")
 
 cmd([[syntax on]])
-cmd([[filetype plugin indent on]])
+-- cmd([[filetype plugin indent on]])
 -- make the highlighting of tabs and other non-text less annoying
 cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
 cmd([[highlight NonText ctermfg=19 guifg=#333333]])
@@ -307,3 +307,5 @@ require("plugins.lualine")
 -- require("plugins.bufferline")
 g.go_fmt_autosave = 0
 g.go_imports_autosave = 0
+
+g.suda_smart_edit=1

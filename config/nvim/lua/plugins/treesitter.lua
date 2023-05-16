@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
-		"bash",
+		-- "bash",
 		"css",
 		"html",
 		"ocaml",
