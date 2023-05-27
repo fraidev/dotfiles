@@ -138,7 +138,7 @@ local on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil
     end
 
-    require("illuminate").on_attach(client)
+    -- require("illuminate").on_attach(client)
 end
 
 mason_lspconfig.setup()
