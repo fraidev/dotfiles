@@ -28,8 +28,9 @@ telescope.setup(
                 "--column",
                 "-S",
                 "--hidden",
+                "--trim",
                 "--smart-case",
-                "--trim"
+                -- "-u", -- search untracked files
             },
             prompt_prefix = "   ",
             selection_caret = "  ",

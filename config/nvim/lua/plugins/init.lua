@@ -271,6 +271,9 @@ return require("packer").startup(
 
         -- OCaml
         use("ocaml/vim-ocaml")
+        use({"tjdevries/ocaml.nvim", config = function()
+            require("ocaml").setup()
+        end})
         -- use 'jordwalke/vim-reasonml'
         -- use("nkrkv/nvim-treesitter-rescript")
 
