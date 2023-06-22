@@ -117,6 +117,8 @@ opt.smarttab = true -- tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 opt.tabstop = 4 -- the visible width of tabs
 opt.softtabstop = 4 -- edit as if the tabs are 4 characters wide
 opt.shiftwidth = 4 -- number of spaces to use for indent and unindent
+
+
 opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 
 -- code folding settings
@@ -179,9 +181,11 @@ require('vscode').load()
 
 -- Mappings
 --
---nnoremap("<space>", "<nop>")
-g.mapleader = ","
-nmap(" ", ",")
+nnoremap("<space>", "<nop>")
+vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.g.mapleader = " "
+-- g.mapleader = ","
+-- nmap(" ", ",")
 opt.pastetoggle = "<leader>v"
 
 -- paste multiple
@@ -290,7 +294,7 @@ end
 
 g.loaded_tutor_mode_plugin = 1
 cmd("hi LineNr guifg=#5eacd3")
-cmd("hi Normal       ctermbg=none  guibg=none")
+-- cmd("hi Normal       ctermbg=none  guibg=none")
 cmd("highlight ColorColumn ctermbg=0 guibg=grey")
 cmd("hi CursorLineNR guibg=none")
 cmd("hi CursorLine guibg=#333333")

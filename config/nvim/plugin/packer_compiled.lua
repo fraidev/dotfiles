@@ -252,6 +252,12 @@ _G.packer_plugins = {
     path = "/Users/frai/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
+  ["ocaml.nvim"] = {
+    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nocaml\frequire\0" },
+    loaded = true,
+    path = "/Users/frai/.local/share/nvim/site/pack/packer/start/ocaml.nvim",
+    url = "https://github.com/tjdevries/ocaml.nvim"
+  },
   ["omnisharp-extended-lsp.nvim"] = {
     loaded = true,
     path = "/Users/frai/.local/share/nvim/site/pack/packer/start/omnisharp-extended-lsp.nvim",
@@ -378,22 +384,26 @@ time([[Config for which-key.nvim]], false)
 time([[Config for spellsitter.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16spellsitter\frequire\0", "config", "spellsitter.nvim")
 time([[Config for spellsitter.nvim]], false)
--- Config for: harpoon
-time([[Config for harpoon]], true)
-try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.harpoon\frequire\0", "config", "harpoon")
-time([[Config for harpoon]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.treesitter\frequire\0", "config", "nvim-treesitter")
-time([[Config for nvim-treesitter]], false)
 -- Config for: vim-floaterm
 time([[Config for vim-floaterm]], true)
 try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.floaterm\frequire\0", "config", "vim-floaterm")
 time([[Config for vim-floaterm]], false)
+-- Config for: ocaml.nvim
+time([[Config for ocaml.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nocaml\frequire\0", "config", "ocaml.nvim")
+time([[Config for ocaml.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.treesitter\frequire\0", "config", "nvim-treesitter")
+time([[Config for nvim-treesitter]], false)
 -- Config for: nvim-tree.lua
 time([[Config for nvim-tree.lua]], true)
 try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.nvimtree\frequire\0", "config", "nvim-tree.lua")
 time([[Config for nvim-tree.lua]], false)
+-- Config for: harpoon
+time([[Config for harpoon]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.harpoon\frequire\0", "config", "harpoon")
+time([[Config for harpoon]], false)
 -- Keymap lazy-loads
 time([[Defining lazy-load keymaps]], true)
 vim.cmd [[noremap <silent> gc <cmd>lua require("packer.load")({'vim-commentary'}, { keys = "gc", prefix = "" }, _G.packer_plugins)<cr>]]
@@ -404,7 +414,7 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'gitsigns.nvim', 'editorconfig.nvim', 'nvim-colorizer.lua', 'vim-fugitive', 'auto-save.nvim', 'neoformat', 'vim-illuminate'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'vim-illuminate', 'neoformat', 'vim-fugitive', 'auto-save.nvim', 'gitsigns.nvim', 'editorconfig.nvim', 'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 

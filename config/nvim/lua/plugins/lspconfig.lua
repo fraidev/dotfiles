@@ -138,6 +138,12 @@ local on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil
     end
 
+    if client.name == "ocamllsp" then
+        client.get_language_id = function(_, ftype)
+            return ftype
+        end
+    end
+
     -- require("illuminate").on_attach(client)
 end
 
@@ -252,11 +258,11 @@ lspconfig.omnisharp_mono.setup(
         cmd = {
             "mono",
             "--assembly-loader=strict",
-            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.7-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
+            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
             "--loglevel",
             "information",
             "--plugin",
-            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.7-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
+            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
         },
         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
         use_mono = true,
@@ -276,6 +282,12 @@ lspconfig.omnisharp_mono.setup(
     }
 )
 
+-- Deno LSP
+-- lspconfig.denols.setup({
+--     on_attach = on_attach,
+--     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+-- })
+
 -- Typescript LSP
 lspconfig.tsserver.setup(
     {
@@ -291,6 +303,7 @@ lspconfig.tsserver.setup(
                 includeInlayEnumMemberValueHints = true
             }
         },
+        root_dir = lspconfig.util.root_pattern("tsconfig.json"),
         on_attach = function(client, bufnr)
             on_attach(client, bufnr)
             -- tsutils.setup {}
@@ -300,7 +313,7 @@ lspconfig.tsserver.setup(
 )
 
 -- Tailwind CSS
-lspconfig.tailwindcss.setup({on_attach = on_attach})
+-- lspconfig.tailwindcss.setup({on_attach = on_attach})
 
 -- Setup Cursor highlight
 vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
