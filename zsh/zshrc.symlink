@@ -202,10 +202,10 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export CLOUDSDK_PYTHON=/opt/homebrew/bin/python3
 
 # source z.sh if it exists
-zpath="$(brew --prefix)/etc/profile.d/z.sh"
-if [ -f "$zpath" ]; then
-    source "$zpath"
-fi
+#zpath="$(brew --prefix)/etc/profile.d/z.sh"
+#if [ -f "$zpath" ]; then
+#    source "$zpath"
+#fi
 
 ########################################################
 # Aliases
