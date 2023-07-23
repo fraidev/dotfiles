@@ -85,6 +85,8 @@ prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
 prepend_path $HOME/Developer/flutter/bin
 prepend_path $HOME/.dotnet/tools
 prepend_path $HOME/.local/share/bob/nvim-bin 
+prepend_path /opt/homebrew/opt/curl/bin
+prepend_path /usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -327,7 +329,6 @@ else
     export EDITOR="nvim"
 fi
 # eval "$(rbenv init - zsh)"
-export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/frai/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frai/tools/google-cloud-sdk/path.zsh.inc'; fi
@@ -337,3 +338,4 @@ if [ -f '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
 fpath+=~/.zfunc
+

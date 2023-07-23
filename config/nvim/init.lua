@@ -27,6 +27,8 @@ opt.writebackup = false -- don't backup the file while editing
 opt.swapfile = false -- don't create swap files for new buffers
 opt.updatecount = 0 -- don't write swap files after some number of updates
 
+vim.g.copilot_filetypes = {markdown = true}
+
 opt.backupdir = {
 	"~/.vim-tmp",
 	"~/.tmp",

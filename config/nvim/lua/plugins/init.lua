@@ -288,5 +288,9 @@ return require("packer").startup(
 
         -- C#
         use("Hoffs/omnisharp-extended-lsp.nvim")
+
+        use ({"lukas-reineke/indent-blankline.nvim", config = function()
+            require("plugins.blankline")
+        end})
     end
 )
