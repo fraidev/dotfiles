@@ -17,21 +17,21 @@ telescope.setup(
                     ["<C-e>"] = actions.preview_scrolling_down
                 }
             },
-            vimgrep_arguments = {
-                "rg",
-                "--color=never",
-                "-H",
-                "--no-heading",
-                "-n",
-                "--with-filename",
-                "--line-number",
-                "--column",
-                "-S",
-                "--hidden",
-                "--trim",
-                "--smart-case",
-                -- "-u", -- search untracked files
-            },
+            -- vimgrep_arguments = {
+            --     "rg",
+            --     "--color=never",
+            --     "--no-heading",
+            --     "--with-filename",
+            --     "--line-number",
+            --     "--column",
+            --     "--smart-case",
+            --     -- "-H",
+            --     -- "-n",
+            --     -- "-S",
+            --     -- "--hidden",
+            --     -- "--trim",
+            --     -- "-u", -- search untracked files
+            -- },
             prompt_prefix = "   ",
             selection_caret = "  ",
             entry_prefix = "  ",
@@ -118,7 +118,10 @@ telescope.setup(
             grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
             qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
             -- Developer configurations: Not meant for general override
-            buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
+            buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+            preview = {
+                treesitter = false -- treesitter freezes on big files
+            }
         },
         extensions = {
             fzf = {
