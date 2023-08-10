@@ -1,6 +1,6 @@
 -- init.lua
 -- Neovim-specific configuration
-require('impatient')
+-- require('impatient')
 require("globals")
 local opt = vim.opt
 local cmd = vim.cmd
@@ -19,8 +19,8 @@ local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
 -- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
@@ -315,3 +315,10 @@ g.go_fmt_autosave = 0
 g.go_imports_autosave = 0
 
 g.suda_smart_edit=1
+
+g.netrw_browse_split = 0
+g.netrw_banner = 0
+g.netrw_winsize = 25
+
+
+--noremap <buffer> i h
