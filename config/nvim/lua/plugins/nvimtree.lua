@@ -7,7 +7,7 @@ nnoremap("<leader>m", ":NvimTreeToggle<CR>")
 
 nvimtree.setup(
     {
-        -- disable_netrw = false,
+        disable_netrw = false,
         hijack_netrw = true,
         diagnostics = {
             enable = false

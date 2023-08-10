@@ -87,6 +87,9 @@ prepend_path $HOME/.dotnet/tools
 prepend_path $HOME/.local/share/bob/nvim-bin 
 prepend_path /opt/homebrew/opt/curl/bin
 prepend_path /usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin
+prepend_path /opt/homebrew/opt/llvm/bin
+prepend_path $HOME/.cargo/env
+prepend_path $HOME/workspace/tezos
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -339,3 +342,6 @@ if [ -f '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
 fpath+=~/.zfunc
 
+LLVM_PATH=$(brew --prefix llvm)
+export AR="${LLVM_PATH}/bin/llvm-ar"
+export CC="${LLVM_PATH}/bin/clang"
