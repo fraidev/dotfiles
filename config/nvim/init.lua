@@ -1,4 +1,4 @@
--- init.lua
+
 -- Neovim-specific configuration
 -- require('impatient')
 require("globals")
@@ -196,6 +196,8 @@ xnoremap("p", "pgvy")
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>")
+nmap(",,", "<C-w>10<")
+nmap("..", "<C-w>10>")
 
 nmap("U", ":redo<cr>")
 
