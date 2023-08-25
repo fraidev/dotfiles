@@ -345,3 +345,5 @@ fpath+=~/.zfunc
 LLVM_PATH=$(brew --prefix llvm)
 export AR="${LLVM_PATH}/bin/llvm-ar"
 export CC="${LLVM_PATH}/bin/clang"
+
+export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
