@@ -15,6 +15,7 @@ local menu = {
 }
 
 cmp.setup({
+    preselect = cmp.PreselectMode.None,
 	snippet = {
 		expand = function(args)
 			vim.fn["vsnip#anonymous"](args.body)
@@ -61,8 +62,12 @@ cmp.setup({
 		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<C-e>"] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
+        ["<C-Space>"] = cmp.mapping.complete(),
+		["<CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = false
+        }),
+        ["<C-e>"] = cmp.mapping.close(),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
