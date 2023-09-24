@@ -37,7 +37,7 @@ config.window_padding = {
 }
 
 -- config.font = wezterm.font "Fira Code"
-config.font = wezterm.font "Comic Mono"
+config.font = wezterm.font "ComicMono NF"
 
 local act = wezterm.action
 

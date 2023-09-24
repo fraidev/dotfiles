@@ -52,6 +52,9 @@ backup() {
         fi
     done
 
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
     for filename in "$HOME/.config/nvim" "$HOME/.vim" "$HOME/.vimrc"; do
         if [ ! -L "$filename" ]; then
             echo "backing up $filename"

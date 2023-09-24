@@ -19,7 +19,7 @@ plugins=(
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 if [[ -d $DOTFILES/zsh/functions ]]; then
     for func in $DOTFILES/zsh/functions/*(:t); autoload -U $func
@@ -90,6 +90,7 @@ prepend_path /usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin
 prepend_path /opt/homebrew/opt/llvm/bin
 prepend_path $HOME/.cargo/env
 prepend_path $HOME/workspace/tezos
+prepend_path $HOME/.npm-global/bin
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -342,8 +343,12 @@ if [ -f '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
 fpath+=~/.zfunc
 
+# LLVM 
 LLVM_PATH=$(brew --prefix llvm)
 export AR="${LLVM_PATH}/bin/llvm-ar"
 export CC="${LLVM_PATH}/bin/clang"
 
 export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
+
+# export CFLAGS="-I/opt/homebrew/Cellar/gmp/6.2.1_1/include/ -L/opt/homebrew/Cellar/gmp/6.2.1_1/lib/" LIB_DIR="/opt/homebrew/Cellar/libsecp256k1/0.1/lib" INCLUDE_DIR=/opt/homebrew/Cellar/libsecp256k1/0.1/include pip3 install --user pytezos
+

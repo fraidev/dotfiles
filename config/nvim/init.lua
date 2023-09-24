@@ -29,6 +29,12 @@ opt.updatecount = 0 -- don't write swap files after some number of updates
 
 vim.g.copilot_filetypes = {markdown = true}
 
+-- au CursorHold,CursorHoldI * checktime
+cmd("au CursorHold,CursorHoldI * checktime")
+
+--autoread
+opt.autoread = true
+
 opt.backupdir = {
 	"~/.vim-tmp",
 	"~/.tmp",

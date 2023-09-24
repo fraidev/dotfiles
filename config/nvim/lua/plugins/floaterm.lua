@@ -6,9 +6,9 @@ g.floaterm_wintype = "split"
 g.floaterm_width = 0.7
 
 api.nvim_command([[
+  tnoremap   <silent>   <Esc>a   <C-\><C-n>
   nnoremap   <silent>   <F11>    :FloatermNew<CR>
   tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
-  tnoremap   <silent>   <Esc><Esc>    <C-\><C-n>
   nnoremap   <silent>   <F9>    :FloatermPrev<CR>
   inoremap   <silent>   <F9>    <esc>:FloatermPrev<CR>
   tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermPrev<CR>

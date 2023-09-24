@@ -147,17 +147,17 @@ return require("packer").startup(
             }
         )
 
-        -- fast lau file drawer
-        use(
-            {
-                "nvim-tree/nvim-tree.lua",
-                -- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-                -- event = "VimEnter",
-                config = function()
-                    require("plugins.nvimtree")
-                end
-            }
-        )
+        -- fast file drawer
+        -- use(
+        --     {
+        --         "nvim-tree/nvim-tree.lua",
+        --         -- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+        --         -- event = "VimEnter",
+        --         config = function()
+        --             require("plugins.nvimtree")
+        --         end
+        --     }
+        -- )
 
         -- Show git information in the gutter
         use(
@@ -271,9 +271,14 @@ return require("packer").startup(
 
         -- OCaml
         use("ocaml/vim-ocaml")
-        use({"tjdevries/ocaml.nvim", config = function()
-            require("ocaml").setup()
-        end})
+        use(
+            {
+                "tjdevries/ocaml.nvim",
+                config = function()
+                    require("ocaml").setup()
+                end
+            }
+        )
         -- use 'jordwalke/vim-reasonml'
         -- use("nkrkv/nvim-treesitter-rescript")
 
@@ -289,8 +294,56 @@ return require("packer").startup(
         -- C#
         use("Hoffs/omnisharp-extended-lsp.nvim")
 
-        use ({"lukas-reineke/indent-blankline.nvim", config = function()
-            require("plugins.blankline")
-        end})
+        use(
+            {
+                "lukas-reineke/indent-blankline.nvim",
+                config = function()
+                    require("plugins.blankline")
+                end
+            }
+        )
+
+        -- telescope file browser
+        use {
+            "nvim-telescope/telescope-file-browser.nvim",
+            requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
+        }
+
+        -- neo-tree
+        use {
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v3.x",
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+                "MunifTanjim/nui.nvim"
+            },
+            config = function()
+                require("plugins.neotree")
+            end
+        }
+
+        -- Neorg
+        use {
+            "nvim-neorg/neorg",
+            config = function()
+                require("neorg").setup {
+                    load = {
+                        ["core.defaults"] = {}, -- Loads default behaviour
+                        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                        ["core.dirman"] = {
+                            -- Manages Neorg workspaces
+                            config = {
+                                workspaces = {
+                                    org = "~/org"
+                                }
+                            }
+                        }
+                    }
+                }
+            end,
+            run = ":Neorg sync-parsers",
+            requires = "nvim-lua/plenary.nvim"
+        }
     end
 )
