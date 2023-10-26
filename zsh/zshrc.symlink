@@ -352,3 +352,4 @@ export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
 
 # export CFLAGS="-I/opt/homebrew/Cellar/gmp/6.2.1_1/include/ -L/opt/homebrew/Cellar/gmp/6.2.1_1/lib/" LIB_DIR="/opt/homebrew/Cellar/libsecp256k1/0.1/lib" INCLUDE_DIR=/opt/homebrew/Cellar/libsecp256k1/0.1/include pip3 install --user pytezos
 
+source <(kubectl completion zsh)

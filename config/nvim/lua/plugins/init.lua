@@ -12,16 +12,6 @@ return require("packer").startup(
         use("nvim-lua/plenary.nvim")
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
-
-        -- spellsitter. Can remove this neovim 0.8
-        use(
-            {
-                "lewis6991/spellsitter.nvim",
-                config = function()
-                    require("spellsitter").setup()
-                end
-            }
-        )
         use {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -294,14 +284,14 @@ return require("packer").startup(
         -- C#
         use("Hoffs/omnisharp-extended-lsp.nvim")
 
-        use(
-            {
-                "lukas-reineke/indent-blankline.nvim",
-                config = function()
-                    require("plugins.blankline")
-                end
-            }
-        )
+        -- use(
+        --     {
+        --         "lukas-reineke/indent-blankline.nvim",
+        --         config = function()
+        --             require("plugins.blankline")
+        --         end
+        --     }
+        -- )
 
         -- telescope file browser
         use {
@@ -323,27 +313,5 @@ return require("packer").startup(
             end
         }
 
-        -- Neorg
-        use {
-            "nvim-neorg/neorg",
-            config = function()
-                require("neorg").setup {
-                    load = {
-                        ["core.defaults"] = {}, -- Loads default behaviour
-                        ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                        ["core.dirman"] = {
-                            -- Manages Neorg workspaces
-                            config = {
-                                workspaces = {
-                                    org = "~/org"
-                                }
-                            }
-                        }
-                    }
-                }
-            end,
-            run = ":Neorg sync-parsers",
-            requires = "nvim-lua/plenary.nvim"
-        }
     end
 )
