@@ -1,6 +1,5 @@
 local utils = require("utils")
 local nmap = utils.nmap
-local imap = utils.imap
 local cmd = vim.cmd
 local api = vim.api
 local fn = vim.fn
@@ -8,12 +7,9 @@ local lsp = vim.lsp
 local mason = require("mason")
 local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
--- local mason_null_ls = require("mason-null-ls")
--- local null_ls = require("null-ls")
 local theme = require("theme")
 local colors = theme.colors
 local icons = theme.icons
-local tsutils = require("nvim-lsp-ts-utils")
 local rust_tools = require("rust-tools")
 
 cmd("autocmd ColorScheme * highlight NormalFloat guibg=" .. colors.bg)
@@ -228,6 +224,9 @@ rust_tools.setup(
 
 -- JSON
 lspconfig.jsonls.setup({on_attach = on_attach})
+
+-- Python
+lspconfig.pyright.setup({on_attach = on_attach})
 
 -- CSS
 lspconfig.cssls.setup({on_attach = on_attach})

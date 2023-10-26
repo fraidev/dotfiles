@@ -1,7 +1,7 @@
 local nnoremap = require("utils").nnoremap
 
 nnoremap("<leader>m", "<cmd>Neotree toggle<CR>")
-nnoremap("<leader>M", "<cmd>Neotree action=focus<CR>")
+-- nnoremap("<leader>M", "<cmd>Neotree action=focus<CR>")
 
 require("neo-tree").setup {
     filesystem = {

@@ -30,9 +30,3 @@ require("nvim-treesitter.configs").setup(
         }
     }
 )
-require("spellsitter").setup(
-    {
-        enable = true,
-        debug = false
-    }
-)
