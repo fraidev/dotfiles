@@ -328,9 +328,14 @@ return require("packer").startup(
             {
                 "ojroques/nvim-osc52",
                 config = function()
-                    vim.keymap.set("n", "<leader>y", require("osc52").copy_operator, {expr = true})
-                    vim.keymap.set("n", "<leader>yy", "<leader>c_", {remap = true})
-                    vim.keymap.set("v", "<leader>y", require("osc52").copy_visual)
+                    if vim.env.SSH_TTY or vim.env.SSH_CLIENT or vim.env.SSH_CONNECTION then
+                        -- vim.keymap.set("n", "<leader>y", require("osc52").copy_operator, {expr = true})
+                        -- vim.keymap.set("n", "<leader>yy", "<leader>y_", {remap = true})
+                        -- vim.keymap.set("v", "<leader>y", require("osc52").copy_visual)
+                        vim.keymap.set("n", "y", require("osc52").copy_operator, {expr = true})
+                        vim.keymap.set("n", "yy", "y_", {remap = true})
+                        vim.keymap.set("v", "y", require("osc52").copy_visual)
+                    end
                 end
             }
         )
