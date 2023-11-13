@@ -247,6 +247,12 @@ _G.packer_plugins = {
     path = "/Users/frai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-osc52"] = {
+    config = { "\27LJ\2\ní\1\0\0\a\0\14\0\0306\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0006\4\5\0'\6\6\0B\4\2\0029\4\a\0045\5\b\0B\0\5\0016\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\t\0'\4\n\0005\5\v\0B\0\5\0016\0\0\0009\0\1\0009\0\2\0'\2\f\0'\3\4\0006\4\5\0'\6\6\0B\4\2\0029\4\r\4B\0\4\1K\0\1\0\16copy_visual\6v\1\0\1\nremap\2\15<leader>c_\15<leader>yy\1\0\1\texpr\2\18copy_operator\nosc52\frequire\14<leader>y\6n\bset\vkeymap\bvim\0" },
+    loaded = true,
+    path = "/Users/frai/.local/share/nvim/site/pack/packer/start/nvim-osc52",
+    url = "https://github.com/ojroques/nvim-osc52"
+  },
   ["nvim-spectre"] = {
     loaded = true,
     path = "/Users/frai/.local/share/nvim/site/pack/packer/start/nvim-spectre",
@@ -391,6 +397,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: vim-floaterm
+time([[Config for vim-floaterm]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.floaterm\frequire\0", "config", "vim-floaterm")
+time([[Config for vim-floaterm]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.treesitter\frequire\0", "config", "nvim-treesitter")
@@ -403,14 +413,6 @@ time([[Config for ocaml.nvim]], false)
 time([[Config for neo-tree.nvim]], true)
 try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.neotree\frequire\0", "config", "neo-tree.nvim")
 time([[Config for neo-tree.nvim]], false)
--- Config for: vim-floaterm
-time([[Config for vim-floaterm]], true)
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.floaterm\frequire\0", "config", "vim-floaterm")
-time([[Config for vim-floaterm]], false)
--- Config for: multicursors.nvim
-time([[Config for multicursors.nvim]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25plugins.multicursors\frequire\0", "config", "multicursors.nvim")
-time([[Config for multicursors.nvim]], false)
 -- Config for: which-key.nvim
 time([[Config for which-key.nvim]], true)
 try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.whichkey\frequire\0", "config", "which-key.nvim")
@@ -419,17 +421,25 @@ time([[Config for which-key.nvim]], false)
 time([[Config for harpoon]], true)
 try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.harpoon\frequire\0", "config", "harpoon")
 time([[Config for harpoon]], false)
+-- Config for: nvim-osc52
+time([[Config for nvim-osc52]], true)
+try_loadstring("\27LJ\2\ní\1\0\0\a\0\14\0\0306\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0006\4\5\0'\6\6\0B\4\2\0029\4\a\0045\5\b\0B\0\5\0016\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\t\0'\4\n\0005\5\v\0B\0\5\0016\0\0\0009\0\1\0009\0\2\0'\2\f\0'\3\4\0006\4\5\0'\6\6\0B\4\2\0029\4\r\4B\0\4\1K\0\1\0\16copy_visual\6v\1\0\1\nremap\2\15<leader>c_\15<leader>yy\1\0\1\texpr\2\18copy_operator\nosc52\frequire\14<leader>y\6n\bset\vkeymap\bvim\0", "config", "nvim-osc52")
+time([[Config for nvim-osc52]], false)
+-- Config for: multicursors.nvim
+time([[Config for multicursors.nvim]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25plugins.multicursors\frequire\0", "config", "multicursors.nvim")
+time([[Config for multicursors.nvim]], false)
 -- Keymap lazy-loads
 time([[Defining lazy-load keymaps]], true)
-vim.cmd [[noremap <silent> gb <cmd>lua require("packer.load")({'vim-commentary'}, { keys = "gb", prefix = "" }, _G.packer_plugins)<cr>]]
 vim.cmd [[noremap <silent> gc <cmd>lua require("packer.load")({'vim-commentary'}, { keys = "gc", prefix = "" }, _G.packer_plugins)<cr>]]
+vim.cmd [[noremap <silent> gb <cmd>lua require("packer.load")({'vim-commentary'}, { keys = "gb", prefix = "" }, _G.packer_plugins)<cr>]]
 time([[Defining lazy-load keymaps]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-colorizer.lua', 'editorconfig.nvim', 'gitsigns.nvim', 'auto-save.nvim', 'neoformat', 'vim-fugitive', 'vim-illuminate'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'neoformat', 'vim-fugitive', 'nvim-colorizer.lua', 'editorconfig.nvim', 'gitsigns.nvim', 'vim-illuminate', 'auto-save.nvim'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 
