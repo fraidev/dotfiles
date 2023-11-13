@@ -3,9 +3,7 @@ ZSH_THEME="robbyrussell"
 
 plugins=(
   git
-  z
   docker
-  macos
   tmux
   lol
   docker-compose
@@ -13,13 +11,8 @@ plugins=(
   kubectl
 )
 
-# source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
-
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
-
-# source $ZSH/oh-my-zsh.sh
 
 if [[ -d $DOTFILES/zsh/functions ]]; then
     for func in $DOTFILES/zsh/functions/*(:t); autoload -U $func
@@ -91,6 +84,7 @@ prepend_path /opt/homebrew/opt/llvm/bin
 prepend_path $HOME/.cargo/env
 prepend_path $HOME/workspace/tezos
 prepend_path $HOME/.npm-global/bin
+prepend_path $HOME/bin
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -180,13 +174,8 @@ fi
 
 # add a config file for ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
-
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-# export FZF_DEFAULT_COMMAND=' rg --hidden --sort-files --files --null 2> /dev/null | xargs -0 dirname | uniq'
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-# export FZF_DEFAULT_COMMAND='rg --files --follow -g "!{.git,node_modules,_build,opam}/*" 2> /dev/null'
-export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --exclude node_modules --exclude _build --exclude opam'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # add color to man pages
 export MANROFFOPT='-c'
@@ -207,11 +196,6 @@ export TEZOS_ALPHANET_DO_NOT_PULL=yes
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export CLOUDSDK_PYTHON=/opt/homebrew/bin/python3
 
-# source z.sh if it exists
-#zpath="$(brew --prefix)/etc/profile.d/z.sh"
-#if [ -f "$zpath" ]; then
-#    source "$zpath"
-#fi
 
 ########################################################
 # Aliases
@@ -306,50 +290,35 @@ fi
 command -v flux >/dev/null && . <(flux completion zsh)
 
 # opam configuration
-[[ ! -r /Users/frai/.opam/opam-init/init.zsh ]] || source /Users/frai/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+[[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
-
-# Run 'fff' with 'f' or whatever you decide to name the function.
-f() {
-    fff "$@"
-    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
-}
-
- # Nix
- if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- fi
- # End Nix
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
  
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
-fi
-
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-else
-    export VISUAL="nvim"
-    export EDITOR="nvim"
-fi
-# eval "$(rbenv init - zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frai/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frai/tools/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '$HOME/tools/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frai/tools/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '$HOME/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
-fpath+=~/.zfunc
 
-# LLVM 
-LLVM_PATH=$(brew --prefix llvm)
-export AR="${LLVM_PATH}/bin/llvm-ar"
-export CC="${LLVM_PATH}/bin/clang"
-
-export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
-
-# export CFLAGS="-I/opt/homebrew/Cellar/gmp/6.2.1_1/include/ -L/opt/homebrew/Cellar/gmp/6.2.1_1/lib/" LIB_DIR="/opt/homebrew/Cellar/libsecp256k1/0.1/lib" INCLUDE_DIR=/opt/homebrew/Cellar/libsecp256k1/0.1/include pip3 install --user pytezos
 
 source <(kubectl completion zsh)
+
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # ...
+        
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+    # LLVM 
+    LLVM_PATH=$(brew --prefix llvm)
+    export AR="${LLVM_PATH}/bin/llvm-ar"
+    export CC="${LLVM_PATH}/bin/clang"
+    export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
+fi

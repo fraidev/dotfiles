@@ -231,6 +231,9 @@ lspconfig.pyright.setup({on_attach = on_attach})
 -- CSS
 lspconfig.cssls.setup({on_attach = on_attach})
 
+-- C++
+lspconfig.clangd.setup({on_attach = on_attach})
+
 -- C#
 -- lspconfig.omnisharp_mono.setup(
 --     {
