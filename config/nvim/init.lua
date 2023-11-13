@@ -1,4 +1,3 @@
-
 -- Neovim-specific configuration
 -- require('impatient')
 require("globals")
@@ -19,36 +18,36 @@ local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
 -- disable netrw at the very start of your init.lua (strongly advised)
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
 opt.swapfile = false -- don't create swap files for new buffers
 opt.updatecount = 0 -- don't write swap files after some number of updates
 
-vim.g.copilot_filetypes = {markdown = true}
+vim.g.copilot_filetypes = {markdown = true, yml = true, yaml = true}
 
 -- au CursorHold,CursorHoldI * checktime
-cmd("au CursorHold,CursorHoldI * checktime")
+-- cmd("au CursorHold,CursorHoldI * checktime")
 
 --autoread
 opt.autoread = true
 
 opt.backupdir = {
-	"~/.vim-tmp",
-	"~/.tmp",
-	"~/tmp",
-	"/var/tmp",
-	"/tmp",
+    "~/.vim-tmp",
+    "~/.tmp",
+    "~/tmp",
+    "/var/tmp",
+    "/tmp"
 }
 
 opt.directory = {
-	"~/.vim-tmp",
-	"~/.tmp",
-	"~/tmp",
-	"/var/tmp",
-	"/tmp",
+    "~/.vim-tmp",
+    "~/.tmp",
+    "~/tmp",
+    "/var/tmp",
+    "/tmp"
 }
 
 opt.history = 1000 -- store the last 1000 commands entered
@@ -57,9 +56,9 @@ opt.textwidth = 120 -- after configured number of characters, wrap line
 opt.inccommand = "nosplit" -- show the results of substition as they're happening
 -- but don't open a split
 
-opt.backspace = { "indent", "eol,start" } -- make backspace behave in a sane manner
+opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
 
-opt.clipboard = { "unnamed", "unnamedplus" } -- use the system clipboard
+opt.clipboard = {"unnamed", "unnamedplus"} -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
 
 opt.splitright = true
@@ -72,12 +71,10 @@ opt.incsearch = true -- set incremental search, like modern browsers
 opt.lazyredraw = false -- don't redraw while executing macros
 opt.magic = true -- set magic on, for regular expressions
 
-
-
 if fn.executable("rg") then
-	-- if ripgrep installed, use that as a grepper
-	opt.grepprg = "rg --vimgrep --no-heading"
-	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+    -- if ripgrep installed, use that as a grepper
+    opt.grepprg = "rg --vimgrep --no-heading"
+    opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- error bells
@@ -108,7 +105,7 @@ opt.wildmenu = true -- enhanced command line completion
 opt.hidden = true -- current buffer can be put into background
 opt.showcmd = true -- show incomplete commands
 opt.showmode = true -- don't show which mode disabled for PowerLine
-opt.wildmode = { "list", "longest" } -- complete files like a shell
+opt.wildmode = {"list", "longest"} -- complete files like a shell
 opt.shell = env.SHELL
 opt.cmdheight = 1 -- command bar height
 opt.title = true -- set terminal title
@@ -126,7 +123,6 @@ opt.tabstop = 4 -- the visible width of tabs
 opt.softtabstop = 4 -- edit as if the tabs are 4 characters wide
 opt.shiftwidth = 4 -- number of spaces to use for indent and unindent
 
-
 opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 
 -- code folding settings
@@ -143,11 +139,11 @@ opt.foldenable = false -- don't fold by default
 -- toggle invisible characters
 opt.list = true
 opt.listchars = {
-	tab = "→ ",
-	eol = "¬",
-	trail = "⋅",
-	extends = "❯",
-	precedes = "❮",
+    tab = "→ ",
+    eol = "¬",
+    trail = "⋅",
+    extends = "❯",
+    precedes = "❮"
 }
 cmd("set nolist")
 
@@ -155,42 +151,38 @@ cmd("set nolist")
 o.background = "dark"
 g.vscode_italic_comment = true
 local c = require("vscode.colors")
-require("vscode").setup({
-  -- Enable transparent background
-  -- transparent = true,
+require("vscode").setup(
+    {
+        -- Enable transparent background
+        -- transparent = true,
 
-  -- Enable italic comment
-  italic_comments = true,
+        -- Enable italic comment
+        italic_comments = true,
+        -- Disable nvim-tree background color
+        disable_nvimtree_bg = true,
+        -- Override colors (see ./lua/vscode/colors.lua)
+        color_overrides = {
+            vscLineNumber = "#FFFFFF",
+            -- vscDiffRedDark = "#FF0000",
+            vscDiffRedLight = "#373D29"
+            -- vscSearchCurrent = "#FF0000",
+            -- vscSearch = "#FF0000",
+        },
+        -- Override highlight groups (see ./lua/vscode/theme.lua)
+        group_overrides = {
+            -- this supports the same val table as vim.api.nvim_set_hl
+            -- use colors from this colorscheme by requiring vscode.colors!
+            Cursor = {fg = c.vscDarkBlue, bg = c.vscLightGreen}
+        }
+    }
+)
 
-  -- Disable nvim-tree background color
-  disable_nvimtree_bg = true,
-
-  -- Override colors (see ./lua/vscode/colors.lua)
-  color_overrides = {
-    vscLineNumber = "#FFFFFF",
-    -- vscDiffRedDark = "#FF0000",
-    vscDiffRedLight = "#373D29",
-    -- vscSearchCurrent = "#FF0000",
-    -- vscSearch = "#FF0000",
-  },
-
-  -- Override highlight groups (see ./lua/vscode/theme.lua)
-  group_overrides = {
-    -- this supports the same val table as vim.api.nvim_set_hl
-    -- use colors from this colorscheme by requiring vscode.colors!
-    Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen },
-  },
-})
-
-require('vscode').load()
-
-
-
+require("vscode").load()
 
 -- Mappings
 --
 nnoremap("<space>", "<nop>")
-vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.keymap.set("n", "<Space>", "<Nop>", {silent = true, remap = false})
 vim.g.mapleader = " "
 -- g.mapleader = ","
 -- nmap(" ", ",")
@@ -213,8 +205,8 @@ nmap("<leader><space>", ":noh<cr>")
 -- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
 
-inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], { expr = true })
-inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], { expr = true })
+inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
+inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], {expr = true})
 inoremap("<silent><esc>", "<esc>:update<cr>")
 vmap("<", "<gv")
 vmap(">", ">gv")
@@ -272,13 +264,13 @@ vnoremap(opt_k, ":m '-2<cr>gv=gv")
 vnoremap("<c-r>", '"hy:%s/<C-r>h//gc<left><left><left>')
 xnoremap("<leader>p", '"_dP')
 
-nmap("<leader>i", ":set cursorline!")
+-- nmap("<leader>i", ":set cursorline!")
 
 --moving up and down work as you would expect
-nnoremap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
-nnoremap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
-nnoremap("^", 'v:count == 0 ? "g^" :  "^"', { expr = true })
-nnoremap("$", 'v:count == 0 ? "g$" : "$"', { expr = true })
+nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
+nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
+nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
+nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
 
 -- custom text objects
 -- inner-line
@@ -298,9 +290,8 @@ cmd([[syntax on]])
 cmd([[highlight SpecialKey ctermfg=19 guifg=#333333]])
 cmd([[highlight NonText ctermfg=19 guifg=#333333]])
 
-
 if fn.has("nvim") then
-	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
+    vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
 g.loaded_tutor_mode_plugin = 1
@@ -323,11 +314,10 @@ require("plugins.lualine")
 g.go_fmt_autosave = 0
 g.go_imports_autosave = 0
 
-g.suda_smart_edit=1
+g.suda_smart_edit = 1
 
 g.netrw_browse_split = 0
 g.netrw_banner = 0
 g.netrw_winsize = 25
-
 
 --noremap <buffer> i h

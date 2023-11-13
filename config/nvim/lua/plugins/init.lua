@@ -312,6 +312,15 @@ return require("packer").startup(
                 require("plugins.neotree")
             end
         }
-
+        -- multicursors
+        use(
+            {
+                "smoka7/multicursors.nvim",
+                requires = {"smoka7/hydra.nvim"},
+                config = function()
+                    require("plugins.multicursors")
+                end
+            }
+        )
     end
 )
