@@ -323,19 +323,12 @@ return require("packer").startup(
             }
         )
 
-        -- osc52 copy to clipboard ssUh
+        -- osc52 copy to clipboard ssh
         use(
             {
                 "ojroques/nvim-osc52",
                 config = function()
-                    if vim.env.SSH_TTY or vim.env.SSH_CLIENT or vim.env.SSH_CONNECTION then
-                        -- vim.keymap.set("n", "<leader>y", require("osc52").copy_operator, {expr = true})
-                        -- vim.keymap.set("n", "<leader>yy", "<leader>y_", {remap = true})
-                        -- vim.keymap.set("v", "<leader>y", require("osc52").copy_visual)
-                        vim.keymap.set("n", "y", require("osc52").copy_operator, {expr = true})
-                        vim.keymap.set("n", "yy", "y_", {remap = true})
-                        vim.keymap.set("v", "y", require("osc52").copy_visual)
-                    end
+                    require("plugins.clipboard_osc52_ssh")
                 end
             }
         )
