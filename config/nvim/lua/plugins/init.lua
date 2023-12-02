@@ -1,12 +1,7 @@
-local g = vim.g
-local utils = require("utils")
-local nnoremap = utils.nnoremap
-
--- vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(
     function(use)
         use("lewis6991/impatient.nvim")
-        -- a set of lua helpers that are used by other plugins
+        -- A set of lua helpers that are used by other plugins
         use("nvim-lua/plenary.nvim")
         -- Packer can manage itself
         use("wbthomason/packer.nvim")
@@ -29,21 +24,9 @@ return require("packer").startup(
         -- Plugin to show the startuptime of neovim using :StartupTime
         use("dstein64/vim-startuptime")
         use({"gpanders/editorconfig.nvim", event = "BufRead"})
-        -- use(
-        --     {
-        --         "ThePrimeagen/harpoon",
-        --         branch = "harpoon2",
-        --         requires = {{"nvim-lua/plenary.nvim"}},
-        --         config = function()
-        --             require("plugins.harpoon")
-        --         end
-        --     }
-        -- )
-
         use(
             {
                 "folke/which-key.nvim",
-                -- event = "VimEnter",
                 config = function()
                     vim.o.timeout = true
                     vim.o.timeoutlen = 300
@@ -52,14 +35,7 @@ return require("packer").startup(
             }
         )
 
-        -- use(
-        --     {
-        --         "sindrets/winshift.nvim"
-        --         -- event = "VimEnter",
-        --     }
-        -- )
-
-        -- easy commenting
+        -- Easy commenting
         use(
             {
                 "tpope/vim-commentary",
@@ -67,34 +43,22 @@ return require("packer").startup(
             }
         )
 
-        -- fugitive
+        -- Fugitive
         use({"tpope/vim-fugitive", opt = true, event = "BufRead"})
-        nnoremap("<leader>gr", ":Gread<cr>")
-        nnoremap("<leader>gb", ":G blame<cr>")
-        nnoremap("<leader>gg", ":Git<cr>")
-        nnoremap("<leader>gi", ":Gedit:<cr>")
-        nnoremap("<leader>gd", ":Gdiffsplit<cr>")
 
-        -- vim-rooterinit
-        -- use("airblade/vim-rooter")
-
-        -- use devicons for filetypes
+        -- Use devicons for filetypes
         use("nvim-tree/nvim-web-devicons")
 
-        -- bufferline
-        -- use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "nvim-tree/nvim-web-devicons" })
-
-        -- lualine
+        -- Lualine
         use {
             "nvim-lualine/lualine.nvim",
-            -- requires = {"nvim-tree/nvim-web-devicons", opt = true},
             requires = {"nvim-tree/nvim-web-devicons"},
             config = function()
                 require("plugins.lualine")
             end
         }
 
-        -- spectre
+        -- Spectre
         use(
             {
                 "windwp/nvim-spectre",
@@ -105,32 +69,12 @@ return require("packer").startup(
             }
         )
 
-        -- general plugins
-        -- emmet support for vim - easily create markdup wth CSS-like syntax
+        -- Emmet support for vim - easily create markdup wth CSS-like syntax
         use("mattn/emmet-vim")
 
-        -- edit quickfix list
-        use("itchyny/vim-qfedit")
+        use("kdheepak/lazygit.nvim")
 
-        use("ekalinin/Dockerfile.vim")
-        -- use "jparise/vim-graphql"
-
-        use(
-            {
-                "kdheepak/lazygit.nvim"
-                -- event = "VimEnter",
-            }
-        )
-
-        local snippet_dir = os.getenv("DOTFILES") .. "/config/nvim/snippets"
-        g.vsnip_snippet_dir = snippet_dir
-        g.vsnip_filetypes = {
-            javascriptreact = {"javascript"},
-            typescriptreact = {"typescript"},
-            ["typescript.tsx"] = {"typescript"}
-        }
-
-        -- add color highlighting to hex values
+        -- Add color highlighting to hex values
         use(
             {
                 "norcalli/nvim-colorizer.lua",
@@ -154,8 +98,7 @@ return require("packer").startup(
             }
         )
 
-        -- neovim completion
-        -- show nerd font icons for LSP types in completion menu
+        -- Neovim completion
         use(
             {
                 "hrsh7th/nvim-cmp",
@@ -174,8 +117,7 @@ return require("packer").startup(
                 end
             }
         )
-
-        -- treesitter enables an AST-like understanding of files
+        -- Treesitter enables an AST-like understanding of files
         use(
             {
                 "nvim-treesitter/nvim-treesitter",
@@ -198,7 +140,7 @@ return require("packer").startup(
             }
         )
 
-        -- enable copilot support for Neovim
+        -- Enable copilot support for Neovim
         use(
             "github/copilot.vim",
             {
@@ -209,7 +151,7 @@ return require("packer").startup(
                 end
             }
         )
-        -- improve the default neovim interfaces, such as refactoring
+        -- Improve the default neovim interfaces, such as refactoring
         use("stevearc/dressing.nvim")
 
         -- Navigate a code base with a really slick UI
@@ -222,27 +164,19 @@ return require("packer").startup(
             end
         }
 
-        -- Startup screen for Neovim
-        -- use(
-        --     {
-        --         "startup-nvim/startup.nvim",
-        --         requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-        --         config = function()
-        --             require("plugins.startup")
-        --         end
-        --     }
-        -- )
-        use("BurntSushi/ripgrep")
+        -- Telescope file browser
+        use {
+            "nvim-telescope/telescope-file-browser.nvim",
+            requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
+        }
 
         -- Vim-illuminate - Vim plugin for automatically highlighting
         -- other uses of the current word under the cursor
         use({"RRethy/vim-illuminate", event = "BufRead"})
 
-        -- use 'pocco81/auto-save.nvim'
         use(
             {
                 "pocco81/auto-save.nvim",
-                -- "XXiaoA/auto-save.nvim",
                 opt = true,
                 event = "BufRead",
                 config = function()
@@ -278,30 +212,7 @@ return require("packer").startup(
         -- Go
         use({"fatih/vim-go", run = ":GoUpdateBinaries"})
 
-        -- Nix
-        use("LnL7/vim-nix")
-
-        -- C#
-        use("Hoffs/omnisharp-extended-lsp.nvim")
-
-        -- telescope file browser
-        use {
-            "nvim-telescope/telescope-file-browser.nvim",
-            requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-            config = function()
-                vim.api.nvim_set_keymap("n", "<leader>tb", ":Telescope file_browser<CR>", {noremap = true})
-
-                -- open file_browser with the path of the current buffer
-                vim.api.nvim_set_keymap(
-                    "n",
-                    "<leader>tb",
-                    ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-                    {noremap = true}
-                )
-            end
-        }
-
-        -- neo-tree
+        -- Neo-tree
         use {
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v3.x",
@@ -314,7 +225,7 @@ return require("packer").startup(
                 require("plugins.neotree")
             end
         }
-        -- multicursors
+        -- Multicursors
         use(
             {
                 "smoka7/multicursors.nvim",
@@ -325,7 +236,7 @@ return require("packer").startup(
             }
         )
 
-        -- osc52 copy to clipboard ssh
+        -- OSC52 copy to clipboard ssh
         use(
             {
                 "ojroques/nvim-osc52",
@@ -335,7 +246,7 @@ return require("packer").startup(
             }
         )
 
-        -- trouble
+        -- Trouble
         use(
             {
                 "folke/trouble.nvim",
