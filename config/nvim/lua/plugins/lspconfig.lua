@@ -222,30 +222,12 @@ lspconfig.gopls.setup(
 rust_tools.setup(
     {
         server = {
-            -- on_attach = function(_, bufnr)
-            --   -- Hover actions
-            --   vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
-            --   -- Code action groups
-            --   vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
-            -- end,
             on_attach = function(client, bufnr)
                 on_attach(client, bufnr)
             end
         }
     }
 )
-
--- lspconfig.rust_analyzer.setup({
--- 	on_attach = function(client, bufnr)
--- 		on_attach(client, bufnr)
--- 	end,
---   flags = {
---     exit_timeout = 0,
---   }
--- })
-
--- GraphQL
--- lspconfig.graphql.setup { on_attach = on_attach }
 
 -- JSON
 lspconfig.jsonls.setup({on_attach = on_attach})
@@ -260,23 +242,6 @@ lspconfig.cssls.setup({on_attach = on_attach})
 lspconfig.clangd.setup({on_attach = on_attach})
 
 -- C#
--- lspconfig.omnisharp_mono.setup(
---     {
---         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
---         on_attach = on_attach,
---         capabilities = vim.tbl_deep_extend(
---             "force",
---             capabilities,
---             {
---                 workspace = {
---                     didChangeWatchedFiles = {
---                         dynamicRegistration = true
---                     }
---                 }
---             }
---         )
---     }
--- )
 lspconfig.omnisharp_mono.setup(
     {
         handlers = {
