@@ -1,21 +1,20 @@
 local g = vim.g
-local api = vim.api
+local utils = require('utils')
+local nnoremap = utils.nnoremap
+local tnoremap = utils.tnoremap
+local inoremap = utils.inoremap
 
 g.floaterm_wintype = "split"
--- vim.g.floaterm_height = 1.0
 g.floaterm_width = 0.7
 
--- tnoremap   <silent>   <Esc>a   <C-\><C-n>
-api.nvim_command([[
-  nnoremap   <silent>   <F11>    :FloatermNew<CR>
-  tnoremap   <silent>   <F11>    <C-\><C-n>:FloatermNew<CR>
-  nnoremap   <silent>   <F9>    :FloatermPrev<CR>
-  inoremap   <silent>   <F9>    <esc>:FloatermPrev<CR>
-  tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermPrev<CR>
-  nnoremap   <silent>   <F10>    :FloatermNext<CR>
-  inoremap   <silent>   <F10>   <esc>:FloatermNext<CR>
-  tnoremap   <silent>   <F10>    <C-\><C-n>:FloatermPrev<CR>
-  nnoremap   <silent>   <F12>   :FloatermToggle<CR>
-  inoremap   <silent>   <F12>   <esc>:FloatermToggle<CR>
-  tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
-]])
+nnoremap('<F11>', ':FloatermNew<CR>')
+tnoremap('<F11>', '<C-\\><C-n>:FloatermNew<CR>')
+nnoremap('<F9>', ':FloatermPrev<CR>')
+inoremap('<F9>', '<Esc>:FloatermPrev<CR>')
+tnoremap('<F9>', '<C-\\><C-n>:FloatermPrev<CR>')
+nnoremap('<F10>', ':FloatermNext<CR>')
+inoremap('<F10>', '<Esc>:FloatermNext<CR>')
+tnoremap('<F10>', '<C-\\><C-n>:FloatermPrev<CR>')
+nnoremap('<F12>', ':FloatermToggle<CR>')
+inoremap('<F12>', '<Esc>:FloatermToggle<CR>')
+tnoremap('<F12>', '<C-\\><C-n>:FloatermToggle<CR>')

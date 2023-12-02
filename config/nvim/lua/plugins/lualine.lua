@@ -1,6 +1,8 @@
-require("lualine").setup({
-	options = {
-		theme = "vscode",
-		path = 3,
-	},
-})
+require("lualine").setup(
+    {
+        options = {
+            theme = "vscode",
+            path = 3
+        }
+    }
+)
