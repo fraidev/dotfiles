@@ -129,10 +129,10 @@ telescope.setup(
 )
 
 -- mappings
-nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>")
-nnoremap("<leader>p", "<cmd>Telescope live_grep hidden=true<cr>")
-nnoremap("<leader>k", "<cmd>Telescope file_browser<cr>")
-nnoremap("<leader>K", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>")
+nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find files" })
+nnoremap("<leader>p", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find in files" })
+nnoremap("<leader>k", "<cmd>Telescope file_browser<cr>", { desc = "File browser" })
+nnoremap("<leader>K", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>" , { desc = "File browser (current file)" })
 nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
 nnoremap("<leader>o", "<cmd>Telescope oldfiles<cr>")
 nnoremap("<leader>tt", "<cmd>Telescope<cr>")

@@ -37,12 +37,14 @@ config.window_padding = {
 }
 
 -- config.font = wezterm.font "Fira Code"
+-- config.font = wezterm.font "FiraCode Nerd Font Mono"
 config.font = wezterm.font "ComicMono NF"
+-- config.font = wezterm.font "JetBrains Mono NF"
 
 local act = wezterm.action
 
 -- font size
-config.font_size = 20.0
+config.font_size = 18.0
 
 config.keys = {
   { key = 'PageUp', mods = 'SHIFT', action = act.ScrollByPage(-1) },

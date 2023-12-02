@@ -145,9 +145,12 @@ opt.pastetoggle = "<leader>v"
 xnoremap("p", "pgvy")
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
-nmap("<leader>,", ":w<cr>")
-nmap(",,", "<C-w>10<")
-nmap("..", "<C-w>10>")
+imap("jj", "<Esc>")
+nmap("<leader>,", ":w<cr>", {desc = "Save file"})
+nmap(",,", "<C-w>10>", {desc = "Pull window horizontally"})
+nmap(",.", "<C-w>10+", {desc = "Pull window vertically"})
+nmap(".,", "<C-w>10-", {desc = "Push window vertically"})
+nmap("..", "<C-w>10<", {desc = "Push window horizontally"})
 
 nmap("U", ":redo<cr>")
 
@@ -197,25 +200,6 @@ nmap("<leader><CR>", ":luafile %<cr>")
 nnoremap("<C-q>", ":x<cr>")
 nnoremap("<leader>q", ":bd<cr>")
 
--- move line mappings
-local opt_h = "˙"
-local opt_j = "∆"
-local opt_k = "˚"
-local opt_l = "¬"
-
-nnoremap(opt_h, ":cprev<cr>zz")
-nnoremap(opt_l, ":cnext<cr>zz")
-
-nnoremap(opt_j, ":m .+1<cr>==")
-nnoremap(opt_k, ":m .-2<cr>==")
-inoremap(opt_j, "<Esc>:m .+1<cr>==gi")
-inoremap(opt_k, "<Esc>:m .-2<cr>==gi")
-vnoremap(opt_j, ":m '>+1<cr>gv=gv")
-vnoremap(opt_k, ":m '-2<cr>gv=gv")
-
-vnoremap("<c-r>", '"hy:%s/<C-r>h//gc<left><left><left>')
-xnoremap("<leader>p", '"_dP')
-
 --moving up and down work as you would expect
 nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
 nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
@@ -253,3 +237,9 @@ g.suda_smart_edit = 1
 g.netrw_browse_split = 0
 g.netrw_banner = 0
 g.netrw_winsize = 25
+
+nnoremap("<leader>gr", ":Gread<cr>")
+nnoremap("<leader>gb", ":G blame<cr>")
+nnoremap("<leader>gg", ":Git<cr>")
+nnoremap("<leader>gi", ":Gedit:<cr>")
+nnoremap("<leader>gd", ":Gdiffsplit<cr>")

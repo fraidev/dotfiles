@@ -26,4 +26,3 @@ wk.setup(
     }
 )
 
-wk.register({})

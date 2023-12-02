@@ -242,37 +242,37 @@ lspconfig.cssls.setup({on_attach = on_attach})
 lspconfig.clangd.setup({on_attach = on_attach})
 
 -- C#
-lspconfig.omnisharp_mono.setup(
-    {
-        handlers = {
-            ["textDocument/definition"] = require("omnisharp_extended").handler
-        },
-        cmd = {
-            "mono",
-            "--assembly-loader=strict",
-            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
-            "--loglevel",
-            "information",
-            "--plugin",
-            "/Users/frai/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
-        },
-        root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
-        use_mono = true,
-        on_attach = on_attach,
-        -- capabilities = capabilities
-        capabilities = vim.tbl_deep_extend(
-            "force",
-            capabilities,
-            {
-                workspace = {
-                    didChangeWatchedFiles = {
-                        dynamicRegistration = true
-                    }
-                }
-            }
-        )
-    }
-)
+-- lspconfig.omnisharp_mono.setup(
+--     {
+--         handlers = {
+--             ["textDocument/definition"] = require("omnisharp_extended").handler
+--         },
+--         cmd = {
+--             "mono",
+--             "--assembly-loader=strict",
+--             "~/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
+--             "--loglevel",
+--             "information",
+--             "--plugin",
+--             "~/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
+--         },
+--         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
+--         use_mono = true,
+--         on_attach = on_attach,
+--         -- capabilities = capabilities
+--         capabilities = vim.tbl_deep_extend(
+--             "force",
+--             capabilities,
+--             {
+--                 workspace = {
+--                     didChangeWatchedFiles = {
+--                         dynamicRegistration = true
+--                     }
+--                 }
+--             }
+--         )
+--     }
+-- )
 
 -- Deno LSP
 -- lspconfig.denols.setup({
