@@ -1,5 +1,4 @@
 -- Neovim-specific configuration
--- require('impatient') require("globals")
 local opt = vim.opt
 local cmd = vim.cmd
 local g = vim.g
@@ -15,7 +14,6 @@ local xnoremap = utils.xnoremap
 local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
-local vnoremap = utils.vnoremap
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -133,13 +131,24 @@ opt.listchars = {
     extends = "❯",
     precedes = "❮"
 }
+vim.g.mapleader = " "
+opt.pastetoggle = "<leader>v"
+g.lazygit_floating_window_winblend = 0 --" transparency of floating window
+g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
+g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
+g.lazygit_use_neovim_remote = 1 --" fallback to 0 if neovim-remote is not installed
+g.loaded_tutor_mode_plugin = 1
+g.go_fmt_autosave = 0
+g.go_imports_autosave = 0
+g.suda_smart_edit = 1
+g.netrw_browse_split = 0
+g.netrw_banner = 0
+g.netrw_winsize = 25
 cmd("set nolist")
 
 -- Mappings
 nnoremap("<space>", "<nop>")
 vim.keymap.set("n", "<Space>", "<Nop>", {silent = true, remap = false})
-vim.g.mapleader = " "
-opt.pastetoggle = "<leader>v"
 
 -- paste multiple
 xnoremap("p", "pgvy")
@@ -182,11 +191,6 @@ nmap("<C-l>", "<Plug>WinMoveRight")
 nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
-g.lazygit_floating_window_winblend = 0 --" transparency of floating window
-g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
-g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
-g.lazygit_use_neovim_remote = 1 --" fallback to 0 if neovim-remote is not installed
-
 nmap("<leader>gl", ":LazyGit<cr>")
 nmap("<leader>gf", ":LazyGitFilter<cr>")
 nmap("<leader>gc", ":LazyGitFilterCurrentFile")
@@ -194,11 +198,11 @@ nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
 -- Reload nvim
-nmap("<leader><CR>", ":luafile %<cr>")
+nmap("<leader><CR>", ":luafile %<cr>", {desc = "Reload nvim config"})
 
 -- exit
 nnoremap("<C-q>", ":x<cr>")
-nnoremap("<leader>q", ":bd<cr>")
+nnoremap("<leader>q", ":bd<cr>", {desc = "Close buffer"})
 
 --moving up and down work as you would expect
 nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
@@ -224,19 +228,10 @@ if fn.has("nvim") then
     vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
-g.loaded_tutor_mode_plugin = 1
-
 require("plugins")
 require("plugins.lspconfig")
 require("plugins.completion")
 require("winmove")
-
-g.go_fmt_autosave = 0
-g.go_imports_autosave = 0
-g.suda_smart_edit = 1
-g.netrw_browse_split = 0
-g.netrw_banner = 0
-g.netrw_winsize = 25
 
 nnoremap("<leader>gr", ":Gread<cr>")
 nnoremap("<leader>gb", ":G blame<cr>")

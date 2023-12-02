@@ -1,6 +1,5 @@
 return require("packer").startup(
     function(use)
-        use("lewis6991/impatient.nvim")
         -- A set of lua helpers that are used by other plugins
         use("nvim-lua/plenary.nvim")
         -- Packer can manage itself
