@@ -1,4 +1,6 @@
 -- Neovim-specific configuration
+-- require("config.lazy")
+
 local opt = vim.opt
 local cmd = vim.cmd
 local g = vim.g
@@ -15,7 +17,6 @@ local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 
-
 vim.g.skip_ts_context_commentstring_module = true
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -28,26 +29,25 @@ opt.updatecount = 0 -- don't write swap files after some number of updates
 opt.autoread = true --autoread
 
 opt.backupdir = {
-    "~/.vim-tmp",
-    "~/.tmp",
-    "~/tmp",
-    "/var/tmp",
-    "/tmp"
+	"~/.vim-tmp",
+	"~/.tmp",
+	"~/tmp",
+	"/var/tmp",
+	"/tmp",
 }
 
 opt.directory = {
-    "~/.vim-tmp",
-    "~/.tmp",
-    "~/tmp",
-    "/var/tmp",
-    "/tmp"
-}
+	"~/.vim-tmp",
+	"~/.tmp",
+	"~/tmp",
+	"/var/tmp",
+	"/tmp", }
 
 opt.history = 1000 -- store the last 1000 commands entered
 opt.textwidth = 120 -- after configured number of characters, wrap line
 opt.inccommand = "nosplit" -- show the results of substition as they're happening
-opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
-opt.clipboard = {"unnamed", "unnamedplus"} -- use the system clipboard
+opt.backspace = { "indent", "eol,start" } -- make backspace behave in a sane manner
+opt.clipboard = { "unnamed", "unnamedplus" } -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
 opt.splitright = true
 
@@ -60,9 +60,9 @@ opt.lazyredraw = false -- don't redraw while executing macros
 opt.magic = true -- set magic on, for regular expressions
 
 if fn.executable("rg") then
-    -- if ripgrep installed, use that as a grepper
-    opt.grepprg = "rg --vimgrep --no-heading"
-    opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+	-- if ripgrep installed, use that as a grepper
+	opt.grepprg = "rg --vimgrep --no-heading"
+	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- error bells
@@ -93,7 +93,7 @@ opt.wildmenu = true -- enhanced command line completion
 opt.hidden = true -- current buffer can be put into background
 opt.showcmd = true -- show incomplete commands
 opt.showmode = true -- don't show which mode disabled for PowerLine
-opt.wildmode = {"list", "longest"} -- complete files like a shell
+opt.wildmode = { "list", "longest" } -- complete files like a shell
 opt.shell = env.SHELL
 opt.cmdheight = 1 -- command bar height
 opt.title = true -- set terminal title
@@ -127,11 +127,11 @@ opt.foldenable = false -- don't fold by default
 -- toggle invisible characters
 opt.list = true
 opt.listchars = {
-    tab = "→ ",
-    eol = "¬",
-    trail = "⋅",
-    extends = "❯",
-    precedes = "❮"
+	tab = "→ ",
+	eol = "¬",
+	trail = "⋅",
+	extends = "❯",
+	precedes = "❮",
 }
 vim.g.mapleader = " "
 opt.pastetoggle = "<leader>v"
@@ -150,18 +150,18 @@ cmd("set nolist")
 
 -- Mappings
 nnoremap("<space>", "<nop>")
-vim.keymap.set("n", "<Space>", "<Nop>", {silent = true, remap = false})
+vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 
 -- paste multiple
 xnoremap("p", "pgvy")
 nnoremap("Q", "<nop>")
 imap("jj", "<Esc>")
 imap("jj", "<Esc>")
-nmap("<leader>,", ":w<cr>", {desc = "Save file"})
-nmap(",,", "<C-w>10>", {desc = "Pull window horizontally"})
-nmap(",.", "<C-w>10+", {desc = "Pull window vertically"})
-nmap(".,", "<C-w>10-", {desc = "Push window vertically"})
-nmap("..", "<C-w>10<", {desc = "Push window horizontally"})
+nmap("<leader>,", ":w<cr>", { desc = "Save file" })
+nmap(",,", "<C-w>10>", { desc = "Pull window horizontally" })
+nmap(",.", "<C-w>10+", { desc = "Pull window vertically" })
+nmap(".,", "<C-w>10-", { desc = "Push window vertically" })
+nmap("..", "<C-w>10<", { desc = "Push window horizontally" })
 
 nmap("U", ":redo<cr>")
 
@@ -171,8 +171,8 @@ nmap("<leader><space>", ":noh<cr>")
 -- show end of line marks like "¬"
 nmap("<leader>l", ":set list!<cr>")
 
-inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], {expr = true})
-inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], {expr = true})
+inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], { expr = true })
+inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], { expr = true })
 inoremap("<silent><esc>", "<esc>:update<cr>")
 vmap("<", "<gv")
 vmap(">", ">gv")
@@ -200,17 +200,17 @@ nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
 -- Reload nvim
-nmap("<leader><CR>", ":luafile %<cr>", {desc = "Reload nvim config"})
+nmap("<leader><CR>", ":luafile %<cr>", { desc = "Reload nvim config" })
 
 -- exit
 nnoremap("<C-q>", ":x<cr>")
-nnoremap("<leader>q", ":bd<cr>", {desc = "Close buffer"})
+nnoremap("<leader>q", ":bd<cr>", { desc = "Close buffer" })
 
 --moving up and down work as you would expect
-nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
-nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
-nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
-nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
+nnoremap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
+nnoremap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
+nnoremap("^", 'v:count == 0 ? "g^" :  "^"', { expr = true })
+nnoremap("$", 'v:count == 0 ? "g$" : "$"', { expr = true })
 
 -- custom text objects
 -- inner-line
@@ -227,7 +227,7 @@ nmap("gT", ":tab sb<cr>")
 cmd([[syntax on]])
 
 if fn.has("nvim") then
-    vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
+	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
 require("plugins")
