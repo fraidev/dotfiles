@@ -1,4 +1,6 @@
-require("nvim-treesitter.configs").setup(
+local configs = require("nvim-treesitter.configs")
+
+configs.setup(
     {
         ensure_installed = {
             -- "bash",
@@ -16,6 +18,8 @@ require("nvim-treesitter.configs").setup(
             "json",
             "yaml"
         },
+        sync_install = false,
+        indent = { enable = true },
         highlight = {
             enable = true,
             use_languagetree = true
