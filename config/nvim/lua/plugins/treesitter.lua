@@ -16,7 +16,10 @@ configs.setup(
             "vim",
             "tsx",
             "json",
-            "yaml"
+            "yaml",
+            "rapper",
+            "sql",
+            "toml",
         },
         sync_install = false,
         indent = { enable = true },
