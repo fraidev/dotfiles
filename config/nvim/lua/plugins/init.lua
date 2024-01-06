@@ -42,6 +42,8 @@ return require("packer").startup(
             }
         )
 
+        use("JoosepAlviste/nvim-ts-context-commentstring")
+
         -- Fugitive
         use({"tpope/vim-fugitive", opt = true, event = "BufRead"})
 
