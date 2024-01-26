@@ -33,7 +33,7 @@ require("lazy").setup(
         },
         -- Plugin to show the startuptime of neovim using :StartupTime
         "dstein64/vim-startuptime",
-        {"gpanders/editorconfig.nvim", event = "BufReadPre"},
+        "gpanders/editorconfig.nvim",
         {
             "folke/which-key.nvim",
             config = function()
@@ -46,11 +46,12 @@ require("lazy").setup(
 
         {
             "tpope/vim-commentary",
+            lazy = false,
             keys = {"gc", "gb"}
         },
         "JoosepAlviste/nvim-ts-context-commentstring",
         -- Fugitive
-        {"tpope/vim-fugitive", optional = true, event = "BufReadPre"},
+        {"tpope/vim-fugitive", optional = true},
         -- Use devicons for filetypes
         "nvim-tree/nvim-web-devicons",
         -- Lualine
@@ -71,11 +72,15 @@ require("lazy").setup(
         },
         -- Emmet support for vim - easily create markdup wth CSS-like syntax
         "mattn/emmet-vim",
-        "kdheepak/lazygit.nvim",
+        {
+            "kdheepak/lazygit.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim"
+            }
+        },
         -- Add color highlighting to hex values
         {
             "norcalli/nvim-colorizer.lua",
-            event = "BufReadPre",
             config = function()
                 require("colorizer").setup()
             end
@@ -83,7 +88,6 @@ require("lazy").setup(
         -- Show git information in the gutter
         {
             "lewis6991/gitsigns.nvim",
-            event = "BufReadPre",
             config = function()
                 require("plugins.gitsigns")
             end
@@ -116,7 +120,6 @@ require("lazy").setup(
         -- Neoformat
         {
             "sbdchd/neoformat",
-            event = "BufReadPre",
             config = function()
                 require("plugins.neoformat")
             end
@@ -124,7 +127,6 @@ require("lazy").setup(
         -- Enable copilot support for Neovim
         {
             "github/copilot.vim",
-            event = "BufReadPre",
             config = function()
                 vim.g.copilot_filetypes = {markdown = true, yml = true, yaml = true}
             end
@@ -134,7 +136,7 @@ require("lazy").setup(
         -- Navigate a code base with a really slick UI
         {
             "nvim-telescope/telescope.nvim",
-            tag = "0.1.5",
+            -- tag = "0.1.5",
             dependencies = {{"nvim-lua/plenary.nvim"}},
             config = function()
                 require("plugins.telescope")
@@ -147,10 +149,9 @@ require("lazy").setup(
         },
         -- Vim-illuminate - Vim plugin for automatically highlighting
         -- other uses of the current word under the cursor
-        {"RRethy/vim-illuminate", event = "BufReadPre"},
+        {"RRethy/vim-illuminate"},
         {
             "pocco81/auto-save.nvim",
-            event = "BufReadPre",
             config = function()
                 require("plugins.autosave")
             end
@@ -191,7 +192,10 @@ require("lazy").setup(
         -- Multicursors
         {
             "smoka7/multicursors.nvim",
+            event = "VeryLazy",
             dependencies = {"smoka7/hydra.nvim"},
+            opts = {},
+            cmd = {"MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor"},
             config = function()
                 require("plugins.multicursors")
             end
@@ -212,21 +216,25 @@ require("lazy").setup(
             end
         },
         -- Noice
+        -- {
+        --     "folke/noice.nvim",
+        --     opts = {},
+        --     dependencies = {
+        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        --         "MunifTanjim/nui.nvim",
+        --         -- OPTIONAL:
+        --         --   `nvim-notify` is only needed, if you want to use the notification view.
+        --         --   If not available, we use `mini` as the fallback
+        --         "rcarriga/nvim-notify"
+        --     },
+        --     config = function()
+        --         require("plugins.noice")
+        --     end
+        -- },
         {
-            "folke/noice.nvim",
-            event = "VeryLazy",
-            opts = {},
-            dependencies = {
-                -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-                "MunifTanjim/nui.nvim",
-                -- OPTIONAL:
-                --   `nvim-notify` is only needed, if you want to use the notification view.
-                --   If not available, we use `mini` as the fallback
-                "rcarriga/nvim-notify"
-            },
-            config = function()
-                require("plugins.noice")
-            end
+            "folke/todo-comments.nvim",
+            dependencies = {"nvim-lua/plenary.nvim"},
+            opts = {}
         }
     }
 )

@@ -1,7 +1,5 @@
 
-ZSH_THEME="robbyrussell"
-
-plugins=(
+ZSH_THEME="robbyrussell" plugins=(
   git
   docker
   tmux
@@ -42,7 +40,7 @@ COLOR_YELLOW="\e[1;33m"
 COLOR_WHITE="\e[1;37m"
 COLOR_NONE="\e[0m"
 
-[ -z "$TMUX" ] && export TERM=xterm-256color-italic
+# [ -z "$TMUX" ] && export TERM=xterm-256color-italic
 
 # if [ "$TERM" = xterm ]; then TERM=xterm-256color-italic; fi
 
@@ -85,7 +83,7 @@ prepend_path $HOME/.cargo/env
 prepend_path $HOME/workspace/tezos
 prepend_path $HOME/.npm-global/bin
 prepend_path $HOME/bin
-
+prepend_path $HOME/.local/bin
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/code ]]; then
