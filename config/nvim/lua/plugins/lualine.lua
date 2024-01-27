@@ -1,7 +1,7 @@
 require("lualine").setup(
     {
         options = {
-            theme = "vscode",
+            theme = 'vscode',
             path = 3
         }
     }

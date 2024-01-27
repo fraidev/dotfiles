@@ -29,7 +29,8 @@ require("lazy").setup(
             "Mofiqul/vscode.nvim",
             config = function()
                 require("plugins.vscode")
-            end
+            end,
+            lazy = false
         },
         -- Plugin to show the startuptime of neovim using :StartupTime
         "dstein64/vim-startuptime",
@@ -53,11 +54,14 @@ require("lazy").setup(
         -- Fugitive
         {"tpope/vim-fugitive", optional = true},
         -- Use devicons for filetypes
-        "nvim-tree/nvim-web-devicons",
+        {
+            "nvim-tree/nvim-web-devicons",
+            lazy = false
+        },
         -- Lualine
         {
             "nvim-lualine/lualine.nvim",
-            dependencies = {"nvim-tree/nvim-web-devicons"},
+            dependencies = {"nvim-tree/nvim-web-devicons", "Mofiqul/vscode.nvim"},
             config = function()
                 require("plugins.lualine")
             end
@@ -71,13 +75,13 @@ require("lazy").setup(
             end
         },
         -- Emmet support for vim - easily create markdup wth CSS-like syntax
-        "mattn/emmet-vim",
-        {
-            "kdheepak/lazygit.nvim",
-            dependencies = {
-                "nvim-lua/plenary.nvim"
-            }
-        },
+        -- "mattn/emmet-vim",
+        -- {
+        --     "kdheepak/lazygit.nvim",
+        --     dependencies = {
+        --         "nvim-lua/plenary.nvim"
+        --     }
+        -- },
         -- Add color highlighting to hex values
         {
             "norcalli/nvim-colorizer.lua",
@@ -157,11 +161,21 @@ require("lazy").setup(
             end
         },
         -- Floaterm
+        -- {
+        --     "voldikss/vim-floaterm",
+        --     "voldikss/vim-floaterm",
+        --     config = function()
+        --         require("plugins.floaterm")
+        --     end
+        -- },
         {
-            "voldikss/vim-floaterm",
-            config = function()
-                require("plugins.floaterm")
-            end
+            "akinsho/toggleterm.nvim",
+            version = "*",
+            config = true
+            -- config = function()
+            --     require("plugins.floaterm").setup()
+            --     return true
+            -- end
         },
         -- OCaml
         "ocaml/vim-ocaml",
@@ -185,6 +199,7 @@ require("lazy").setup(
                 "MunifTanjim/nui.nvim"
                 -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
             },
+            optional = false,
             config = function()
                 require("plugins.neotree")
             end

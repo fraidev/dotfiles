@@ -16,6 +16,7 @@ local xnoremap = utils.xnoremap
 local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
+local tnoremap = utils.tnoremap
 
 vim.g.skip_ts_context_commentstring_module = true
 -- disable netrw at the very start of your init.lua (strongly advised)
@@ -134,7 +135,7 @@ opt.listchars = {
 	precedes = "❮",
 }
 vim.g.mapleader = " "
-opt.pastetoggle = "<leader>v"
+-- opt.pastetoggle = "<leader>v"
 g.lazygit_floating_window_winblend = 0 --" transparency of floating window
 g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
 g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
@@ -155,8 +156,8 @@ vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 -- paste multiple
 xnoremap("p", "pgvy")
 nnoremap("Q", "<nop>")
-imap("jj", "<Esc>")
-imap("jj", "<Esc>")
+-- imap("jj", "<Esc>")
+-- imap("jj", "<Esc>")
 nmap("<leader>,", ":w<cr>", { desc = "Save file" })
 nmap(",,", "<C-w>10>", { desc = "Pull window horizontally" })
 nmap(",.", "<C-w>10+", { desc = "Pull window vertically" })
@@ -193,9 +194,9 @@ nmap("<C-l>", "<Plug>WinMoveRight")
 nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
 nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
 
-nmap("<leader>gl", ":LazyGit<cr>")
-nmap("<leader>gf", ":LazyGitFilter<cr>")
-nmap("<leader>gc", ":LazyGitFilterCurrentFile")
+-- nmap("<leader>gl", ":LazyGit<cr>")
+-- nmap("<leader>gf", ":LazyGitFilter<cr>")
+-- nmap("<leader>gc", ":LazyGitFilterCurrentFile")
 nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
@@ -240,3 +241,50 @@ nnoremap("<leader>gb", ":G blame<cr>")
 nnoremap("<leader>gg", ":Git<cr>")
 nnoremap("<leader>gi", ":Gedit:<cr>")
 nnoremap("<leader>gd", ":Gdiffsplit<cr>")
+
+
+
+nnoremap("<F10>", ":FloatermNew<CR>")
+
+nnoremap('<F12>', ':ToggleTerm<CR>')
+inoremap('<F12>', '<Esc>:ToggleTerm<CR>')
+tnoremap('<F12>', '<C-\\><C-n>:ToggleTerm<CR>')
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({
+  cmd = "lazygit",
+  dir = "git_dir",
+  direction = "float",
+  float_opts = {
+    border = "double",
+  },
+  -- function to run on opening the terminal
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+    vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<ESC>", "<cmd>close<CR>", {noremap = true, silent = true})
+  end,
+  -- function to run on closing the terminal
+  on_close = function(_)
+    vim.cmd("startinsert!")
+  end,
+})
+
+function Lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>gl", "<cmd>lua Lazygit_toggle()<CR>", {noremap = true, silent = true})
