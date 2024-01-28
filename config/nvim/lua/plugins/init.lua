@@ -30,6 +30,7 @@ require("lazy").setup(
             config = function()
                 require("plugins.vscode")
             end,
+            optional = false,
             lazy = false
         },
         -- Plugin to show the startuptime of neovim using :StartupTime
@@ -74,14 +75,12 @@ require("lazy").setup(
                 require("plugins.spectre")
             end
         },
-        -- Emmet support for vim - easily create markdup wth CSS-like syntax
-        -- "mattn/emmet-vim",
-        -- {
-        --     "kdheepak/lazygit.nvim",
-        --     dependencies = {
-        --         "nvim-lua/plenary.nvim"
-        --     }
-        -- },
+        {
+            "kdheepak/lazygit.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim"
+            }
+        },
         -- Add color highlighting to hex values
         {
             "norcalli/nvim-colorizer.lua",
@@ -160,14 +159,6 @@ require("lazy").setup(
                 require("plugins.autosave")
             end
         },
-        -- Floaterm
-        -- {
-        --     "voldikss/vim-floaterm",
-        --     "voldikss/vim-floaterm",
-        --     config = function()
-        --         require("plugins.floaterm")
-        --     end
-        -- },
         {
             "akinsho/toggleterm.nvim",
             version = "*",
@@ -230,22 +221,6 @@ require("lazy").setup(
                 require("plugins.trouble")
             end
         },
-        -- Noice
-        -- {
-        --     "folke/noice.nvim",
-        --     opts = {},
-        --     dependencies = {
-        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        --         "MunifTanjim/nui.nvim",
-        --         -- OPTIONAL:
-        --         --   `nvim-notify` is only needed, if you want to use the notification view.
-        --         --   If not available, we use `mini` as the fallback
-        --         "rcarriga/nvim-notify"
-        --     },
-        --     config = function()
-        --         require("plugins.noice")
-        --     end
-        -- },
         {
             "folke/todo-comments.nvim",
             dependencies = {"nvim-lua/plenary.nvim"},
