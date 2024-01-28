@@ -31,7 +31,8 @@ require("lazy").setup(
                 require("plugins.vscode")
             end,
             optional = false,
-            lazy = false
+            lazy = false,
+            priority = 100
         },
         -- Plugin to show the startuptime of neovim using :StartupTime
         "dstein64/vim-startuptime",
@@ -57,6 +58,7 @@ require("lazy").setup(
         -- Use devicons for filetypes
         {
             "nvim-tree/nvim-web-devicons",
+            optional = false,
             lazy = false
         },
         -- Lualine
