@@ -84,6 +84,8 @@ prepend_path $HOME/workspace/tezos
 prepend_path $HOME/.npm-global/bin
 prepend_path $HOME/bin
 prepend_path $HOME/.local/bin
+prepend_path $HOME/.fvm/bin
+prepend_path $HOME/.fluvio/bin
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/code ]]; then
