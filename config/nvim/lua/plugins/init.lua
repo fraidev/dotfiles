@@ -165,10 +165,6 @@ require("lazy").setup(
             "akinsho/toggleterm.nvim",
             version = "*",
             config = true
-            -- config = function()
-            --     require("plugins.floaterm").setup()
-            --     return true
-            -- end
         },
         -- OCaml
         "ocaml/vim-ocaml",
