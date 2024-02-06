@@ -4,6 +4,29 @@ local nnoremap = require("utils").nnoremap
 
 telescope.setup(
     {
+        pickers = {
+            find_files = {
+                theme = "ivy",
+                hidden = true
+            },
+            live_grep = {
+                theme = "ivy",
+                hidden = true
+            },
+            oldfiles = {
+                theme = "ivy"
+            },
+            buffers = {
+                theme = "ivy"
+            },
+            help_tags = {
+                theme = "ivy"
+            },
+            file_browser = {
+                theme = "ivy",
+                hidden = true
+            }
+        },
         defaults = {
             mappings = {
                 i = {
@@ -91,6 +114,16 @@ telescope.setup(
                 "vendor/*",
                 "%.min.js"
             },
+            vimgrep_arguments = {
+                "rg",
+                "--hidden",
+                "--color=never",
+                "--no-heading",
+                "--with-filename",
+                "--line-number",
+                "--column",
+                "--smart-case"
+            },
             generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
             path_display = {"truncate"},
             winblend = 0,
@@ -130,7 +163,8 @@ telescope.setup(
 
 -- mappings
 nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find files" })
-nnoremap("<leader>p", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find in files" })
+-- nnoremap("<leader>p", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find in files" })
+vim.api.nvim_set_keymap("n", "<leader>p", ':lua require"telescope.builtin".live_grep({ hidden = true })<CR>', { noremap = true, silent = true })
 nnoremap("<leader>k", "<cmd>Telescope file_browser<cr>", { desc = "File browser" })
 nnoremap("<leader>K", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>" , { desc = "File browser (current file)" })
 nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
