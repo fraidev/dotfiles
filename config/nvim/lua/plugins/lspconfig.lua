@@ -10,7 +10,6 @@ local mason_lspconfig = require("mason-lspconfig")
 local theme = require("theme")
 local colors = theme.colors
 local icons = theme.icons
-local rust_tools = require("rust-tools")
 
 cmd("autocmd ColorScheme * highlight NormalFloat guibg=" .. colors.bg)
 cmd("autocmd ColorScheme * highlight FloatBorder guifg=white guibg=" .. colors.bg)
@@ -61,113 +60,70 @@ _G.lsp_show_diagnostics = function()
     vim.diagnostic.open_float({border = border})
 end
 
-local on_attach = function(client, bufnr)
-    cmd([[command! LspFormatting lua vim.lsp.buf.formatting()]])
-    cmd([[command! LspCodeAction lua vim.lsp.buf.code_action()]])
-    cmd([[command! LspHover lua vim.lsp.buf.hover()]])
-    cmd([[command! LspRename lua vim.lsp.buf.rename()]])
-    cmd([[command! LspOrganize lua lsp_organize_imports()]])
-    cmd([[command! OR lua lsp_organize_imports()]])
-    cmd([[command! LspRefs lua vim.lsp.buf.references()]])
-    cmd([[command! LspDec lua vim.lsp.buf.declaration()]])
-    cmd([[command! LspDef lua vim.lsp.buf.definition()]])
-    cmd([[command! LspTypeDef lua vim.lsp.buf.type_definition()]])
-    cmd([[command! LspImplementation lua vim.lsp.buf.implementation()]])
-    cmd([[command! LspDiagPrev lua vim.diagnostic.goto_prev()]])
-    cmd([[command! LspDiagNext lua vim.diagnostic.goto_next()]])
-    cmd([[command! LspDiagLine lua lsp_show_diagnostics()]])
-    cmd([[command! LspSignatureHelp lua vim.lsp.buf.signature_help()]])
+vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
+vim.keymap.set("n", "[a", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]a", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+vim.api.nvim_create_autocmd(
+    "LspAttach",
+    {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(ev)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    lsp.handlers["textDocument/publishDiagnostics"] =
-        lsp.with(
-        lsp.diagnostic.on_publish_diagnostics,
-        {
-            virtual_text = false
-        }
-    )
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
 
-    nmap("gd", ":LspDef<CR>", {bufnr = bufnr})
-    nmap("gD", ":LspImplementation<CR>", {bufnr = bufnr})
-    nmap("gr", ":LspRename<CR>", {bufnr = bufnr})
-    nmap("gR", ":LspRefs<CR>", {bufnr = bufnr})
-    nmap("gy", ":LspTypeDef<CR>", {bufnr = bufnr})
-    nmap("K", ":LspHover<CR>", {bufnr = bufnr})
-    nmap("gs", ":LspOrganize<CR>", {bufnr = bufnr})
-    nmap("[a", ":LspDiagPrev<CR>", {bufnr = bufnr})
-    nmap("]a", ":LspDiagNext<CR>", {bufnr = bufnr})
-    nmap("ga", ":LspCodeAction<CR>", {bufnr = bufnr})
-    nmap("<Leader>d", ":LspDiagLine<CR>", {bufnr = bufnr})
-    -- imap("<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", {bufnr = bufnr})
-
-    if client.server_capabilities.document_highlight then
-        api.nvim_exec(
-            [[
-    augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]],
-            false
-        )
-    end
-
-    -- disable document formatting (currently handled by formatter.nvim)
-    client.server_capabilities.documentFormattingProvider = false
-
-    if client.server_capabilities.documentFormattingProvider then
-        api.nvim_exec(
-            [[
-        augroup LspAutocommands
-        autocmd! * <buffer>
-        autocmd BufWritePost <buffer> LspFormatting
-        augroup END
-      ]],
-            true
-        )
-    end
-
-    if client.name == "omnisharp" or client.name == "omnisharp_mono" then
-        client.server_capabilities.semanticTokensProvider = nil
-    end
-
-    if client.name == "ocamllsp" then
-        client.get_language_id = function(_, ftype)
-            return ftype
+            -- Buffer local mappings.
+            -- See `:help vim.lsp.*` for documentation on any of the below functions
+            local opts = {buffer = ev.buf}
+            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {buffer = ev.buf, desc = "Declaration"})
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer = ev.buf, desc = "Definition"})
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer = ev.buf, desc = "Hover"})
+            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer = ev.buf, desc = "Implementation"})
+            vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = ev.buf, desc = "Signature Help"})
+            vim.keymap.set(
+                "n",
+                "<leader>wa",
+                vim.lsp.buf.add_workspace_folder,
+                {buffer = ev.buf, desc = "Add Workspace Folder"}
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>wr",
+                vim.lsp.buf.remove_workspace_folder,
+                {buffer = ev.buf, desc = "Remove Workspace Folder"}
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>wl",
+                function()
+                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                end,
+                {buffer = ev.buf, desc = "List Workspace Folders"}
+            )
+            vim.keymap.set("n", "gs", vim.lsp.buf.type_definition, {buffer = ev.buf, desc = "Type Definition"})
+            vim.keymap.set("n", "gr", vim.lsp.buf.rename, {buffer = ev.buf, desc = "Rename"})
+            vim.keymap.set({"n", "v"}, "ga", vim.lsp.buf.code_action, {buffer = ev.buf, desc = "Code Action"})
+            vim.keymap.set("n", "gR", vim.lsp.buf.references, {buffer = ev.buf, desc = "References"})
+            -- vim.keymap.set('n', '<leader>f', function()
+            --   vim.lsp.buf.format { async = true }
+            -- end, opts)
         end
-    end
-
-    -- require("illuminate").on_attach(client)
-end
+    }
+)
 
 mason_lspconfig.setup()
-
--- mason_lspconfig.setup_handlers {
---     -- This is a default handler that will be called for each installed server (also for new servers that are installed during a session)
---   -- function (server_name)
---   --   lspconfig[server_name].setup {
---   --     on_attach = on_attach,
---   --     -- flags = lsp_flags,
---   --   }
---   -- end,
--- }
 
 -- Lsp Installer
 mason.setup(
     {
-        on_attach = on_attach,
+        -- on_attach = on_attach,
         automatic_installation = true
     }
 )
--- mason.setup(
---     {
---         on_attach = on_attach,
---         automatic_installation = false
---     }
--- )
 
 -- Lua LSP
 lspconfig.lua_ls.setup(
@@ -192,8 +148,8 @@ lspconfig.lua_ls.setup(
                     }
                 }
             }
-        },
-        on_attach = on_attach
+        }
+        -- on_attach = on_attach
     }
 )
 
@@ -204,81 +160,29 @@ lspconfig.rnix.setup({})
 lspconfig.ocamllsp.setup(
     {
         root_dir = lspconfig.util.root_pattern("dune-project"),
-        capabilities = capabilities,
-        on_attach = on_attach
+        capabilities = capabilities
+        -- on_attach = on_attach
     }
 )
 
 -- GO LSP
-lspconfig.gopls.setup(
-    {
-        on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-        end
-    }
-)
+lspconfig.gopls.setup({})
 
 -- Rust LSP
-rust_tools.setup(
-    {
-        server = {
-            on_attach = function(client, bufnr)
-                on_attach(client, bufnr)
-            end
-        }
-    }
-)
+-- rustaceanvim does not need these
+-- lspconfig.rust_analyzer.setup({})
 
 -- JSON
-lspconfig.jsonls.setup({on_attach = on_attach})
+lspconfig.jsonls.setup({})
 
 -- Python
-lspconfig.pyright.setup({on_attach = on_attach})
+lspconfig.pyright.setup({})
 
 -- CSS
-lspconfig.cssls.setup({on_attach = on_attach})
+lspconfig.cssls.setup({})
 
 -- C++
-lspconfig.clangd.setup({on_attach = on_attach})
-
--- C#
--- lspconfig.omnisharp_mono.setup(
---     {
---         handlers = {
---             ["textDocument/definition"] = require("omnisharp_extended").handler
---         },
---         cmd = {
---             "mono",
---             "--assembly-loader=strict",
---             "~/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.omnisharp/1.39.6/omnisharp/OmniSharp.exe",
---             "--loglevel",
---             "information",
---             "--plugin",
---             "~/.vscode/extensions/ms-dotnettools.csharp-1.25.9-darwin-arm64/.razor/OmniSharpPlugin/Microsoft.AspNetCore.Razor.OmniSharpPlugin.dll"
---         },
---         root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
---         use_mono = true,
---         on_attach = on_attach,
---         -- capabilities = capabilities
---         capabilities = vim.tbl_deep_extend(
---             "force",
---             capabilities,
---             {
---                 workspace = {
---                     didChangeWatchedFiles = {
---                         dynamicRegistration = true
---                     }
---                 }
---             }
---         )
---     }
--- )
-
--- Deno LSP
--- lspconfig.denols.setup({
---     on_attach = on_attach,
---     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
--- })
+lspconfig.clangd.setup({})
 
 -- Typescript LSP
 lspconfig.tsserver.setup(
@@ -295,12 +199,12 @@ lspconfig.tsserver.setup(
                 includeInlayEnumMemberValueHints = true
             }
         },
-        root_dir = lspconfig.util.root_pattern("tsconfig.json"),
-        on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-            -- tsutils.setup {}
-            -- tsutils.setup_client(client)
-        end
+        root_dir = lspconfig.util.root_pattern("tsconfig.json")
+        -- on_attach = function(client, bufnr)
+        --     on_attach(client, bufnr)
+        --     -- tsutils.setup {}
+        --     -- tsutils.setup_client(client)
+        -- end
     }
 )
 
