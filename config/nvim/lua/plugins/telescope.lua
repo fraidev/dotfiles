@@ -25,7 +25,11 @@ telescope.setup(
             file_browser = {
                 theme = "ivy",
                 hidden = true
-            }
+            },
+            grep_string = {
+                theme = "ivy",
+                hidden = true
+            },
         },
         defaults = {
             mappings = {
@@ -164,11 +168,13 @@ telescope.setup(
 -- mappings
 nnoremap("<leader>e", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find files" })
 -- nnoremap("<leader>p", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find in files" })
+vim.api.nvim_set_keymap("n", "<leader>P", ':lua require"telescope.builtin".grep_string({ search = vim.fn.input("Grep For > ") })<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>p", ':lua require"telescope.builtin".live_grep({ hidden = true })<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>p", ':lua require"telescope.builtin".grep_string()<CR>', { noremap = true, silent = true })
 nnoremap("<leader>k", "<cmd>Telescope file_browser<cr>", { desc = "File browser" })
 nnoremap("<leader>K", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>" , { desc = "File browser (current file)" })
 nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
-nnoremap("<leader>o", "<cmd>Telescope oldfiles<cr>")
+-- nnoremap("<leader>o", "<cmd>Telescope oldfiles<cr>")
 nnoremap("<leader>tt", "<cmd>Telescope<cr>")
 nnoremap("<leader>tn", "<cmd>Telescope node_modules list<cr>")
 nnoremap("<leader>tr", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>")

@@ -170,7 +170,7 @@ nmap("<leader>c", [[:%s/]])
 nmap("<leader><space>", ":noh<cr>")
 
 -- show end of line marks like "¬"
-nmap("<leader>l", ":set list!<cr>")
+-- nmap("<leader>l", ":set list!<cr>")
 
 inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], { expr = true })
 inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], { expr = true })
