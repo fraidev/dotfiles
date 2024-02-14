@@ -1,5 +1,8 @@
-setlocal tabstop=2
-setlocal softtabstop=2
-setlocal shiftwidth=2
-setlocal shiftwidth=2
+
+" augroup MyTypescriptCommands
+"   au!
+"   autocmd BufWritePost <buffer>  :silent! Prettier
+" augroup END
+
+setlocal shiftwidth=4
 setlocal formatoptions-=o

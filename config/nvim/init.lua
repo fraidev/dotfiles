@@ -1,5 +1,21 @@
--- Neovim-specific configuration
--- require("config.lazy")
+vim.g.mapleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system(
+        {
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
+            "--branch=stable", -- latest stable release
+            lazypath
+        }
+    )
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("custom.plugins")
 
 local opt = vim.opt
 local cmd = vim.cmd
@@ -134,7 +150,6 @@ opt.listchars = {
 	extends = "❯",
 	precedes = "❮",
 }
-vim.g.mapleader = " "
 -- opt.pastetoggle = "<leader>v"
 g.lazygit_floating_window_winblend = 0 --" transparency of floating window
 g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
@@ -231,9 +246,7 @@ if fn.has("nvim") then
 	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
-require("plugins")
-require("plugins.lspconfig")
-require("plugins.completion")
+-- require("custom.plugins")
 require("winmove")
 
 nnoremap("<leader>gr", ":Gread<cr>")
