@@ -6,8 +6,7 @@ if not vim.loop.fs_stat(lazypath) then
         {
             "git",
             "clone",
-            "--filter=blob:none",
-            "https://github.com/folke/lazy.nvim.git",
+            "--filter=blob:none", "https://github.com/folke/lazy.nvim.git",
             "--branch=stable", -- latest stable release
             lazypath
         }
@@ -26,10 +25,7 @@ local env = vim.env
 local utils = require("utils")
 local nmap = utils.nmap
 local vmap = utils.vmap
-local imap = utils.imap
-local xmap = utils.xmap
 local xnoremap = utils.xnoremap
-local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local tnoremap = utils.tnoremap
@@ -46,25 +42,26 @@ opt.updatecount = 0 -- don't write swap files after some number of updates
 opt.autoread = true --autoread
 
 opt.backupdir = {
-	"~/.vim-tmp",
-	"~/.tmp",
-	"~/tmp",
-	"/var/tmp",
-	"/tmp",
+    "~/.vim-tmp",
+    "~/.tmp",
+    "~/tmp",
+    "/var/tmp",
+    "/tmp"
 }
 
 opt.directory = {
-	"~/.vim-tmp",
-	"~/.tmp",
-	"~/tmp",
-	"/var/tmp",
-	"/tmp", }
+    "~/.vim-tmp",
+    "~/.tmp",
+    "~/tmp",
+    "/var/tmp",
+    "/tmp"
+}
 
 opt.history = 1000 -- store the last 1000 commands entered
 opt.textwidth = 120 -- after configured number of characters, wrap line
 opt.inccommand = "nosplit" -- show the results of substition as they're happening
-opt.backspace = { "indent", "eol,start" } -- make backspace behave in a sane manner
-opt.clipboard = { "unnamed", "unnamedplus" } -- use the system clipboard
+opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
+opt.clipboard = {"unnamed", "unnamedplus"} -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
 opt.splitright = true
 
@@ -77,9 +74,9 @@ opt.lazyredraw = false -- don't redraw while executing macros
 opt.magic = true -- set magic on, for regular expressions
 
 if fn.executable("rg") then
-	-- if ripgrep installed, use that as a grepper
-	opt.grepprg = "rg --vimgrep --no-heading"
-	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+    -- if ripgrep installed, use that as a grepper
+    opt.grepprg = "rg --vimgrep --no-heading"
+    opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- error bells
@@ -110,7 +107,7 @@ opt.wildmenu = true -- enhanced command line completion
 opt.hidden = true -- current buffer can be put into background
 opt.showcmd = true -- show incomplete commands
 opt.showmode = true -- don't show which mode disabled for PowerLine
-opt.wildmode = { "list", "longest" } -- complete files like a shell
+opt.wildmode = {"list", "longest"} -- complete files like a shell
 opt.shell = env.SHELL
 opt.cmdheight = 1 -- command bar height
 opt.title = true -- set terminal title
@@ -134,21 +131,16 @@ opt.shiftround = true -- round indent to a multiple of 'shiftwidth'
 opt.foldmethod = "indent"
 opt.foldnestmax = 10
 opt.foldlevel = 2
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"
--- opt.foldlevelstart = 99
--- opt.foldnestmax = 10 -- deepest fold is 10 levels
 opt.foldenable = false -- don't fold by default
--- opt.foldlevel = 1
 
 -- toggle invisible characters
 opt.list = true
 opt.listchars = {
-	tab = "→ ",
-	eol = "¬",
-	trail = "⋅",
-	extends = "❯",
-	precedes = "❮",
+    tab = "→ ",
+    eol = "¬",
+    trail = "⋅",
+    extends = "❯",
+    precedes = "❮"
 }
 -- opt.pastetoggle = "<leader>v"
 g.lazygit_floating_window_winblend = 0 --" transparency of floating window
@@ -166,100 +158,47 @@ cmd("set nolist")
 
 -- Mappings
 nnoremap("<space>", "<nop>")
-vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.keymap.set("n", "<Space>", "<Nop>", {silent = true, remap = false})
 
 -- paste multiple
 xnoremap("p", "pgvy")
-nnoremap("Q", "<nop>")
--- imap("jj", "<Esc>")
--- imap("jj", "<Esc>")
-nmap("<leader>,", ":w<cr>", { desc = "Save file" })
-nmap(",,", "<C-w>10>", { desc = "Pull window horizontally" })
-nmap(",.", "<C-w>10+", { desc = "Pull window vertically" })
-nmap(".,", "<C-w>10-", { desc = "Push window vertically" })
-nmap("..", "<C-w>10<", { desc = "Push window horizontally" })
+nmap("<leader>,", ":w<cr>", {desc = "Save file"})
+nmap(",,", "<C-w>10>", {desc = "Pull window horizontally"})
+nmap(",.", "<C-w>10+", {desc = "Pull window vertically"})
+nmap(".,", "<C-w>10-", {desc = "Push window vertically"})
+nmap("..", "<C-w>10<", {desc = "Push window horizontally"})
 
 nmap("U", ":redo<cr>")
 
 nmap("<leader>c", [[:%s/]])
 nmap("<leader><space>", ":noh<cr>")
 
--- show end of line marks like "¬"
--- nmap("<leader>l", ":set list!<cr>")
-
-inoremap("<C-j>", [[v:lua.completion_nvim.smart_pumvisible('<C-n>', '<C-j>')]], { expr = true })
-inoremap("<C-k>", [[v:lua.completion_nvim.smart_pumvisible('<C-p>', '<C-k>')]], { expr = true })
--- inoremap("<silent><esc>", "<esc>:update<cr>")
 vmap("<", "<gv")
 vmap(">", ">gv")
 nmap("<leader>.", "<c-^>")
 vmap(".", ":normal .<cr>")
 
-nmap("<C-w>h", "<Plug>WinMoveLeft")
-nmap("<C-w>j", "<Plug>WinMoveDown")
-nmap("<C-w>k", "<Plug>WinMoveUp")
-nmap("<C-w>l", "<Plug>WinMoveRight")
-
-nmap("<C-h>", "<Plug>WinMoveLeft")
-nmap("<C-j>", "<Plug>WinMoveDown")
-nmap("<C-k>", "<Plug>WinMoveUp")
-nmap("<C-l>", "<Plug>WinMoveRight")
-
--- helpers for dealing with other people's code
-nmap([[\t]], ":set ts=4 sts=4 sw=4 noet<cr>")
-nmap([[\s]], ":set ts=4 sts=4 sw=4 et<cr>")
-
-nmap("<leader>gl", ":LazyGit<cr>")
-nmap("<leader>gf", ":LazyGitFilter<cr>")
-nmap("<leader>gc", ":LazyGitFilterCurrentFile")
-nmap("<leader>lg", ":FloatermNew! git lg <cr>")
 nmap("<leader>f", ":Neoformat <cr>")
-
--- Reload nvim
-nmap("<leader><CR>", ":luafile %<cr>", { desc = "Reload nvim config" })
 
 -- exit
 nnoremap("<C-q>", ":x<cr>")
-nnoremap("<leader>q", ":bd<cr>", { desc = "Close buffer" })
+nnoremap("<leader>q", ":bd<cr>", {desc = "Close buffer"})
 
 --moving up and down work as you would expect
-nnoremap("j", 'v:count == 0 ? "gj" : "j"', { expr = true })
-nnoremap("k", 'v:count == 0 ? "gk" : "k"', { expr = true })
-nnoremap("^", 'v:count == 0 ? "g^" :  "^"', { expr = true })
-nnoremap("$", 'v:count == 0 ? "g$" : "$"', { expr = true })
-
--- custom text objects
--- inner-line
-xmap("il", ":<c-u>normal! g_v^<cr>")
-omap("il", ":<c-u>normal! g_v^<cr>")
--- around line
-vmap("al", ":<c-u>normal! $v0<cr>")
-omap("al", ":<c-u>normal! $v0<cr>")
-
--- open current buffer in a new tab
-nmap("gT", ":tab sb<cr>")
-nmap("gT", ":tab sb<cr>")
+nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
+nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
+nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
+nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
 
 cmd([[syntax on]])
 
 if fn.has("nvim") then
-	vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
+    vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
--- require("custom.plugins")
-require("winmove")
-
-nnoremap("<leader>gr", ":Gread<cr>")
-nnoremap("<leader>gb", ":G blame<cr>")
-nnoremap("<leader>gg", ":Git<cr>")
-nnoremap("<leader>gi", ":Gedit:<cr>")
-nnoremap("<leader>gd", ":Gdiffsplit<cr>")
-
-
-nnoremap('<F12>', ':ToggleTerm<CR>')
-inoremap('<F12>', '<Esc>:ToggleTerm<CR>')
-tnoremap('<F12>', '<C-\\><C-n>:ToggleTerm<CR>')
-require("toggleterm").setup{
-    open_mapping = [[<F12>]],
+nnoremap("<F12>", ":ToggleTerm<CR>")
+inoremap("<F12>", "<Esc>:ToggleTerm<CR>")
+tnoremap("<F12>", "<C-\\><C-n>:ToggleTerm<CR>")
+require("toggleterm").setup {
+    open_mapping = [[<F12>]]
 }
-
