@@ -41,8 +41,6 @@ return {
                     mappings = {
                         i = {
                             ["<Esc>"] = actions.close, -- don't go into normal mode, just close
-                            ["<C-j>"] = actions.move_selection_next, -- scroll the list with <c-j>
-                            ["<C-k>"] = actions.move_selection_previous, -- scroll the list with <c-k>
                             ["<C-s>"] = actions.select_horizontal, -- open selection in new horizantal split
                             ["<C-v>"] = actions.select_vertical, -- open selection in new vertical split
                             ["<C-t>"] = actions.select_tab, -- open selection in new tab

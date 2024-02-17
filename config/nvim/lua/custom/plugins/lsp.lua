@@ -99,12 +99,6 @@ return {
                         )
                         vim.keymap.set(
                             "n",
-                            "<C-k>",
-                            vim.lsp.buf.signature_help,
-                            {buffer = ev.buf, desc = "Signature Help"}
-                        )
-                        vim.keymap.set(
-                            "n",
                             "<leader>wa",
                             vim.lsp.buf.add_workspace_folder,
                             {buffer = ev.buf, desc = "Add Workspace Folder"}

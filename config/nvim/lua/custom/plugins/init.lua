@@ -24,8 +24,6 @@ return {
         "kkharji/lspsaga.nvim",
         "JoosepAlviste/nvim-ts-context-commentstring"
     },
-    -- Fugitive
-    {"tpope/vim-fugitive", optional = true},
     -- Use devicons for filetypes
     {
         "nvim-tree/nvim-web-devicons",
@@ -46,12 +44,6 @@ return {
                 }
             )
         end
-    },
-    {
-        "kdheepak/lazygit.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim"
-        }
     },
     -- Add color highlighting to hex values
     {
@@ -84,13 +76,6 @@ return {
     -- Vim-illuminate - Vim plugin for automatically highlighting
     -- other uses of the current word under the cursor
     {"RRethy/vim-illuminate"},
-    -- {
-    --     "pocco81/auto-save.nvim",
-    --     config = function()
-    --         -- require("plugins.autosave")
-    --         require("autosave")
-    --     end
-    -- },
     {
         "akinsho/toggleterm.nvim",
         version = "*",
@@ -98,12 +83,6 @@ return {
     },
     -- OCaml
     "ocaml/vim-ocaml",
-    -- {
-    --     "tjdevries/ocaml.nvim",
-    --     config = function()
-    --         require("ocaml").setup()
-    --     end
-    -- },
     -- Rust
     {
         "mrcjkb/rustaceanvim",
