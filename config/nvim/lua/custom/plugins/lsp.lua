@@ -1,8 +1,7 @@
 -- Mason lsp plugin
 return {
     {
-        "neovim/nvim-lspconfig",
-        config = function()
+        "neovim/nvim-lspconfig", config = function()
             local cmd = vim.cmd
             local api = vim.api
             local fn = vim.fn
