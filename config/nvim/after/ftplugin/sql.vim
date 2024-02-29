@@ -23,6 +23,8 @@ function! s:string_newline() abort
   call execute(printf("normal! i\<space>'\<CR>+%sN'", repeat("\<space>", num_spaces)))
 endfunction
 
+lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+
 " Cool substitutions:
 "
 " Use this to change the results of this query:
