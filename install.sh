@@ -35,37 +35,6 @@ get_linkables() {
     find -H "$DOTFILES" -maxdepth 3 -name '*.symlink'
 }
 
-backup() {
-    BACKUP_DIR=$HOME/dotfiles-backup
-
-    echo "Creating backup directory at $BACKUP_DIR"
-    mkdir -p "$BACKUP_DIR"
-
-    for file in $(get_linkables); do
-        filename=".$(basename "$file" '.symlink')"
-        target="$HOME/$filename"
-        if [ -f "$target" ]; then
-            echo "backing up $filename"
-            cp "$target" "$BACKUP_DIR"
-        else
-            warning "$filename does not exist at this location or is a symlink"
-        fi
-    done
-
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-    for filename in "$HOME/.config/nvim" "$HOME/.vim" "$HOME/.vimrc"; do
-        if [ ! -L "$filename" ]; then
-            echo "backing up $filename"
-            cp -rf "$filename" "$BACKUP_DIR"
-        else
-            warning "$filename does not exist at this location or is a symlink"
-        fi
-    done
-}
-
-
 setup_symlinks() {
     title "Creating symlinks"
 
@@ -232,9 +201,6 @@ setup_macos() {
 }
 
 case "$1" in
-    backup)
-        backup
-        ;;
     link)
         setup_symlinks
         ;;
@@ -262,7 +228,7 @@ case "$1" in
         setup_macos
         ;;
     *)
-        echo -e $"\nUsage: $(basename "$0") {backup|link|git|homebrew|shell|terminfo|macos|all}\n"
+        echo -e $"\nUsage: $(basename "$0") {link|git|homebrew|shell|terminfo|macos|all}\n"
         exit 1
         ;;
 esac
