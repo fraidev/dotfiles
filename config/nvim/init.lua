@@ -14,6 +14,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- set log level
+-- vim.lsp.set_log_level("debug")
+
+-- obsidian settings
+vim.opt_local.conceallevel = 1
+-- package.path = package.path .. ";~/.luarocks/share/lua/5.1/magick/init.lua"
+
 require("lazy").setup("custom.plugins")
 
 local opt = vim.opt
