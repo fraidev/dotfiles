@@ -7,9 +7,28 @@ if OS.mac?
     brew "trash" # rm, but put in the trash rather than completely delete
 
     # Applications
-    cask "kitty" # a better terminal emulator
+    cask "wezterm" # a better terminal emulator
     cask "imageoptim" # a tool to optimize images
-	cask "1password/tap/1password-cli"
+    cask "brew"
+    cask "numi"
+    cask "karabiner-elements"
+    cask "google-drive"
+    cask "tg-pro"
+    cask "deepl"
+    cask "languagetool"
+    cask "betterdisplay"
+    cask "scroll-reverser"
+    cask "lm-studio"
+    cask "obsidian"
+    cask "pgadmin4"
+    cask "alfred"
+    cask "cloudflare-warp"
+    cask "nordvpn"
+    cask "wireshark"
+    cask "cyberduck"
+    cask "keepingyouawake"
+    cask "postman"
+
 
     # Fonts
     cask "font-fira-code"
@@ -41,7 +60,6 @@ brew "neofetch" # pretty system info
 brew "neovim" # A better vim
 brew "python" # python (latst)
 brew "ripgrep" # very fast file searcher
-brew "fnm" # Fast Node version manager
 brew "shellcheck" # diagnostics for shell sripts
 brew "tmux" # terminal multiplexer
 brew "tree" # pretty-print directory contents
@@ -57,3 +75,4 @@ brew "opam" # OCaml package manager
 brew "go" # Go programming language
 brew "k9s" # Kubernetes CLI to manage your clusters in terminal
 brew "gnu-sed" # GNU implementation of sed
+
