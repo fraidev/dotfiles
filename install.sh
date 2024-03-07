@@ -225,7 +225,6 @@ case "$1" in
         setup_homebrew
         setup_shell
         setup_git
-        setup_macos
         ;;
     *)
         echo -e $"\nUsage: $(basename "$0") {link|git|homebrew|shell|terminfo|macos|all}\n"
