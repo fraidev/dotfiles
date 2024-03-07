@@ -40,8 +40,11 @@ config.window_padding = {
 -- config.font = wezterm.font "FiraCode Nerd Font Mono"
 -- config.font = wezterm.font "ComicMono NF"
 -- config.font = wezterm.font "ComicShannsMono Nerd Font"
-config.font = wezterm.font "JetBrainsMono Nerd Font"
+-- config.font = wezterm.font "JetBrainsMono Nerd Font"
+-- config.font = wezterm.font "JetBrains Mono NL"
+-- config.font = wezterm.font "JetBrains Mono"
 -- config.font = wezterm.font "JetBrains Mono NF"
+config.font = wezterm.font "Cascadia Mono"
 
 local act = wezterm.action
 

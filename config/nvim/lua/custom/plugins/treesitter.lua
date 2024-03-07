@@ -21,7 +21,6 @@ return {
                 "tsx",
                 "json",
                 "yaml",
-                "rapper",
                 "sql",
                 "toml"
             },
