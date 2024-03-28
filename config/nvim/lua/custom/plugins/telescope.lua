@@ -185,7 +185,7 @@ return {
             {noremap = true, silent = true}
         )
         -- vim.api.nvim_set_keymap("n", "<leader>p", ':lua require"telescope.builtin".grep_string()<CR>', { noremap = true, silent = true })
-        nnoremap("<leader>k", "<cmd>Telescope file_browser<cr>", {desc = "File browser"})
+        nnoremap("<leader>k", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", {desc = "File browser"})
         nnoremap(
             "<leader>K",
             "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",

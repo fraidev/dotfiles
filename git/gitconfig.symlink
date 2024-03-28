@@ -181,3 +181,7 @@
 [rebase]
     instructionFormat = "[%an - %ar] %s"
     autoStash = true
+[merge]
+  tool = nvim
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
