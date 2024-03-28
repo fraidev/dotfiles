@@ -75,6 +75,7 @@ prepend_path $HOME/bin
 prepend_path $HOME/.local/bin
 prepend_path $HOME/.fvm/bin
 prepend_path $HOME/.fluvio/bin
+prepend_path /opt/homebrew/opt/openjdk/bin
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/code ]]; then
@@ -257,6 +258,12 @@ alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
 alias nr="npm run"
 
+# infinyon aliases
+export FLUVIO_DIR="$HOME/workspace/infinyon/fluvio"
+alias flvd="$FLUVIO_DIR/target/debug/fluvio"
+alias flvdr="$FLUVIO_DIR/target/release/fluvio"
+alias flvt="$FLUVIO_DIR/target/debug/flv-test"
+
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
 
@@ -315,3 +322,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
 fi
 
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/frai/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

@@ -57,6 +57,7 @@ return {
         "sbdchd/neoformat",
         config = function()
             vim.g.neoformat_cs_csharpier = {exe = "csharpier", args = {}, stdin = 1}
+            vim.g.neoformat_rust_rustfmt = {exe = "rustfmt", args = {"--edition=2021"}, stdin = 1}
         end
     },
     -- Enable copilot support for Neovim
@@ -116,8 +117,9 @@ return {
     "mfussenegger/nvim-dap",
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = {"mfussenegger/nvim-dap"},
+        dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
         config = function()
+            local nnoremap = require("utils").nnoremap
             require("dapui").setup()
             local dap, dapui = require("dap"), require("dapui")
             dap.listeners.before.attach.dapui_config = function()
@@ -132,8 +134,30 @@ return {
             dap.listeners.before.event_exited.dapui_config = function()
                 dapui.close()
             end
+
+            nnoremap("<F5>", "<cmd>lua require'dap'.continue()<cr>")
+            nnoremap("<F6>", "<cmd>lua require'dap'.step_over()<cr>")
+            nnoremap("<F7>", "<cmd>lua require'dap'.step_into()<cr>")
+            nnoremap("<F8>", "<cmd>lua require'dap'.step_out()<cr>")
+            nnoremap("<F9>", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
         end
     },
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+            require("neotest").setup {
+                adapters = {
+                    require("rustaceanvim.neotest")
+                }
+            }
+        end
+    }
     -- {
     --     "3rd/image.nvim",
     --     config = function()

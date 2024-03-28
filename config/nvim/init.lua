@@ -6,7 +6,8 @@ if not vim.loop.fs_stat(lazypath) then
         {
             "git",
             "clone",
-            "--filter=blob:none", "https://github.com/folke/lazy.nvim.git",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
             "--branch=stable", -- latest stable release
             lazypath
         }
@@ -188,7 +189,7 @@ vmap(".", ":normal .<cr>")
 nmap("<leader>f", ":Neoformat <cr>")
 
 -- exit
-nnoremap("<C-q>", ":x<cr>")
+-- nnoremap("<C-q>", ":x<cr>")
 nnoremap("<leader>q", ":bd<cr>", {desc = "Close buffer"})
 
 --moving up and down work as you would expect
@@ -203,9 +204,18 @@ if fn.has("nvim") then
     vim.env["GIT_EDITOR"] = "nvr -cc split --remote-wait"
 end
 
-nnoremap("<F12>", ":ToggleTerm<CR>")
-inoremap("<F12>", "<Esc>:ToggleTerm<CR>")
-tnoremap("<F12>", "<C-\\><C-n>:ToggleTerm<CR>")
+-- nnoremap("<F12>", ":ToggleTerm<CR>")
+-- inoremap("<F12>", "<Esc>:ToggleTerm<CR>")
+-- tnoremap("<F12>", "<C-\\><C-n>:ToggleTerm<CR>")
 require("toggleterm").setup {
     open_mapping = [[<F12>]]
+}
+
+vim.g.rustaceanvim = {
+    tools = {
+        float_win_config = {
+            max_width = 100,
+            max_height = 100
+        }
+    }
 }
