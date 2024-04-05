@@ -5,10 +5,10 @@ return {
     "dstein64/vim-startuptime",
     "gpanders/editorconfig.nvim",
     -- Easy commenting
-    {
-        "tpope/vim-commentary",
-        lazy = false
-    },
+    -- {
+    --     "tpope/vim-commentary",
+    --     lazy = false
+    -- },
     -- Neovim completion
     {
         "hrsh7th/nvim-cmp",

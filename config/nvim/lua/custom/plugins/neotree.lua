@@ -1,9 +1,10 @@
 -- Neo-tree
 return {
-    -- "nvim-neo-tree/neo-tree.nvim",
-    -- branch = "v3.x"
-    "pysan3/neo-tree.nvim",
-    branch = "restore-session-experimental",
+    "nvim-neo-tree/neo-tree.nvim",
+    tag = "3.22",
+    -- branch = "v3.x",
+    -- "pysan3/neo-tree.nvim",
+    -- branch = "restore-session-experimental",
     version = false,
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -33,9 +34,9 @@ return {
         }
     },
     optional = false,
-    opts = {
-        auto_restore_session_experimental = true
-    },
+    -- opts = {
+    --     auto_restore_session_experimental = true
+    -- },
     config = function()
         local nnoremap = require("utils").nnoremap
         nnoremap("<leader>m", "<cmd>Neotree toggle<CR>")
