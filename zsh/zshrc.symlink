@@ -128,7 +128,7 @@ bindkey "^J" history-beginning-search-forward
 bindkey "^K" history-beginning-search-backward
 
 
-# bindkey -e
+bindkey -e                                          # Disable vi mode
 
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -261,6 +261,7 @@ alias nr="npm run"
 # infinyon aliases
 export FLUVIO_DIR="$HOME/workspace/infinyon/fluvio"
 alias flvd="$FLUVIO_DIR/target/debug/fluvio"
+# alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
 

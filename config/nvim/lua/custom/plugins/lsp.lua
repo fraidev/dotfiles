@@ -1,7 +1,8 @@
 -- Mason lsp plugin
 return {
     {
-        "neovim/nvim-lspconfig", config = function()
+        "neovim/nvim-lspconfig",
+        config = function()
             local cmd = vim.cmd
             local api = vim.api
             local fn = vim.fn
@@ -50,6 +51,7 @@ return {
             lsp.handlers["textDocument/formatting"] = format_async
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
             -- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
