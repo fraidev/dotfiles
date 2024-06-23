@@ -2,10 +2,10 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        lazy = false,
         config = function()
             local cmd = vim.cmd
             local api = vim.api
-            local fn = vim.fn
             local lsp = vim.lsp
             local theme = require("theme")
             local colors = theme.colors
@@ -34,26 +34,26 @@ return {
                 {"▏", "FloatBorder"}
             }
 
-            local format_async = function(err, _, result, _, bufnr)
-                if err ~= nil or result == nil then
-                    return
-                end
-                if not api.nvim_buf_get_option(bufnr, "modified") then
-                    local view = fn.winsaveview()
-                    lsp.util.apply_text_edits(result, bufnr)
-                    fn.winrestview(view)
-                    if bufnr == api.nvim_get_current_buf() then
-                        api.nvim_command("noautocmd :update")
-                    end
-                end
-            end
+            -- local format_async = function(err, _, result, _, bufnr)
+            --     if err ~= nil or result == nil then
+            --         return
+            --     end
+            --     if not api.nvim_buf_get_option(bufnr, "modified") then
+            --         local view = fn.winsaveview()
+            --         lsp.util.apply_text_edits(result, bufnr)
+            --         fn.winrestview(view)
+            --         if bufnr == api.nvim_get_current_buf() then
+            --             api.nvim_command("noautocmd :update")
+            --         end
+            --     end
+            -- end
+            --
+            -- lsp.handlers["textDocument/formatting"] = format_async
 
-            lsp.handlers["textDocument/formatting"] = format_async
-
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-            -- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+            -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+            -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- _G makes this function available to vimscript lua calls
             _G.lsp_organize_imports = function()
@@ -124,6 +124,7 @@ return {
                             vim.lsp.buf.type_definition,
                             {buffer = ev.buf, desc = "Type Definition"}
                         )
+                        -- vim.keymap.set("n", "gr", vim.lsp.buf.rename, {buffer = ev.buf, desc = "Rename"})
                         vim.keymap.set("n", "gr", vim.lsp.buf.rename, {buffer = ev.buf, desc = "Rename"})
                         vim.keymap.set(
                             {"n", "v"},

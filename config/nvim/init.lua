@@ -192,11 +192,16 @@ nmap("<leader>f", ":Neoformat <cr>")
 -- nnoremap("<C-q>", ":x<cr>")
 nnoremap("<leader>q", ":bd<cr>", {desc = "Close buffer"})
 
+nnoremap("<leader>bo", "<cmd>%bd|e#<cr>", {desc = "Close all buffers but the current one"})
+
 --moving up and down work as you would expect
 nnoremap("j", 'v:count == 0 ? "gj" : "j"', {expr = true})
 nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
 nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
 nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
+
+
+nnoremap("<leader>ti", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", {desc = "Toggle inlay hints"})
 
 cmd([[syntax on]])
 
@@ -211,11 +216,8 @@ require("toggleterm").setup {
     open_mapping = [[<F12>]]
 }
 
-vim.g.rustaceanvim = {
-    tools = {
-        float_win_config = {
-            max_width = 100,
-            max_height = 100
-        }
-    }
-}
+vim.filetype.add({
+  extension = {
+    mdx = "markdown",
+  }
+})

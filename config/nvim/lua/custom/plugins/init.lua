@@ -64,7 +64,7 @@ return {
     {
         "github/copilot.vim",
         config = function()
-            vim.g.copilot_filetypes = {markdown = true, yml = true, yaml = true}
+            vim.g.copilot_filetypes = {markdown = true, yml = true, yaml = true, mdx = true}
         end
     },
     -- Improve the default neovim interfaces, such as refactoring
@@ -88,7 +88,27 @@ return {
     {
         "mrcjkb/rustaceanvim",
         version = "^4", -- Recommended
-        ft = {"rust"}
+        lazy = false, -- This plugin is already lazy
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "mfussenegger/nvim-dap"
+        },
+        config = function()
+            vim.g.rustaceanvim = {
+                inlay_hints = {
+                    highlight = "NonText"
+                },
+                tools = {
+                    float_win_config = {
+                        max_width = 100,
+                        max_height = 100
+                    },
+                    hover_actions = {
+                        auto_focus = true
+                    }
+                }
+            }
+        end
     },
     -- Go
     {"fatih/vim-go", build = ":GoUpdateBinaries"},

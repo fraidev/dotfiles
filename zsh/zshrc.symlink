@@ -61,7 +61,7 @@ prepend_path $(go env GOPATH)/bin
 # prepend_path $HOME/.opam/default/bin
 prepend_path $HOME/Library/Python/3.8/bin
 prepend_path $HOME/.local/bin
-prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
+# prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
 prepend_path $HOME/Developer/flutter/bin
 prepend_path $HOME/.dotnet/tools
 prepend_path $HOME/.local/share/bob/nvim-bin 
@@ -264,6 +264,7 @@ alias flvd="$FLUVIO_DIR/target/debug/fluvio"
 # alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
+alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-cloud"
 
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
@@ -273,7 +274,6 @@ NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$PATH:$NPM_PACKAGES/bin"
 PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-# PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer:$PATH"
 
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
@@ -323,6 +323,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
 fi
 
+export FLUVIO_BIN="$FLUVIO_DIR/target/debug/fluvio"
+# export HOME_PROFILE=$("$FLUVIO_BIN profile")
+export HOME_PROFILE=$($FLUVIO_BIN profile)
+# export HOME_PROFILE=$(fluvio profile)
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/frai/.rd/bin:$PATH"
