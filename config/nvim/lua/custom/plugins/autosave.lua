@@ -27,7 +27,8 @@ return {
                     end
                     return false -- can't save
                 end,
-                write_all_buffers = false, -- write all buffers when the current one meets `condition`
+                write_all_buffers = true, -- write all buffers when the current one meets `condition`
+                -- write_all_buffers = false, -- write all buffers when the current one meets `condition`
                 debounce_delay = 135, -- saves the file at most every `debounce_delay` milliseconds
                 callbacks = {
                     -- functions to be executed at different intervals

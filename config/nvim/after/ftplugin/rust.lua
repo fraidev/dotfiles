@@ -8,3 +8,5 @@ vim.keymap.set("n", "<F5>", function()
     R("tj.dap").select_rust_runnable()
   end
 end)
+
+-- vim.lsp.inlay_hint.enable()
