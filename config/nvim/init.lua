@@ -68,7 +68,7 @@ opt.directory = {
 opt.history = 1000 -- store the last 1000 commands entered
 opt.textwidth = 120 -- after configured number of characters, wrap line
 opt.inccommand = "nosplit" -- show the results of substition as they're happening
-opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
+-- opt.backspace = {"indent", "eol,start"} -- make backspace behave in a sane manner
 opt.clipboard = {"unnamed", "unnamedplus"} -- use the system clipboard
 opt.mouse = "a" -- set mouse mode to all modes
 opt.splitright = true
@@ -200,8 +200,11 @@ nnoremap("k", 'v:count == 0 ? "gk" : "k"', {expr = true})
 nnoremap("^", 'v:count == 0 ? "g^" :  "^"', {expr = true})
 nnoremap("$", 'v:count == 0 ? "g$" : "$"', {expr = true})
 
-
-nnoremap("<leader>ti", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", {desc = "Toggle inlay hints"})
+nnoremap(
+    "<leader>ti",
+    ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
+    {desc = "Toggle inlay hints"}
+)
 
 cmd([[syntax on]])
 
@@ -213,11 +216,22 @@ end
 -- inoremap("<F12>", "<Esc>:ToggleTerm<CR>")
 -- tnoremap("<F12>", "<C-\\><C-n>:ToggleTerm<CR>")
 require("toggleterm").setup {
-    open_mapping = [[<F12>]]
+    open_mapping = [[<F12>]],
+    -- save editor before opening terminal
+    -- on_open = function(term)
+    --     -- local bufnr = vim.api.nvim_get_current_buf()
+    --     -- -- local win = vim.api.nvim_get_current_win()
+    --     -- vim.api.nvim_buf_call(bufnr, function()
+    --     vim.cmd("w")
+    --     -- end)
+    --     -- vim.api.nvim_set_current_win(win)
+    -- end
 }
 
-vim.filetype.add({
-  extension = {
-    mdx = "markdown",
-  }
-})
+vim.filetype.add(
+    {
+        extension = {
+            mdx = "markdown"
+        }
+    }
+)
