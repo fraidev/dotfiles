@@ -121,12 +121,12 @@ return {
             local nnoremap = require("utils").nnoremap
 
             -- trouble keymappings
-            nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
-            nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-            nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
-            nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
-            nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
-            nnoremap("gR", "<cmd>TroubleToggle lsp_references<cr>")
+            nnoremap("<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
+            nnoremap("<leader>xw", "<cmd>Trouble diagnostics toggle<cr>")
+            nnoremap("<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
+            nnoremap("<leader>xq", "<cmd>Trouble qflist toggle<cr>")
+            nnoremap("<leader>xl", "<cmd>Trouble loclist toggle<cr>")
+            nnoremap("gR", "<cmd>Trouble lsp_references<cr>")
         end
     },
     {
@@ -142,6 +142,28 @@ return {
             local nnoremap = require("utils").nnoremap
             require("dapui").setup()
             local dap, dapui = require("dap"), require("dapui")
+
+            dap.adapters.lldb = {
+                type = "server",
+                host = "127.0.0.1",
+                port = 13000,
+                executable = {
+                    -- CHANGE THIS to your path!
+                    command = "/Users/frai/bin/codelldb", -- adjust as needed
+                    args = {"--port", "13000"}
+                }
+            }
+            dap.adapters.codelldb = {
+                type = "server",
+                host = "127.0.0.1",
+                port = 13000,
+                executable = {
+                    -- CHANGE THIS to your path!
+                    command = "/Users/frai/bin/codelldb", -- adjust as needed
+                    args = {"--port", "13000"}
+                }
+            }
+
             dap.listeners.before.attach.dapui_config = function()
                 dapui.open()
             end
