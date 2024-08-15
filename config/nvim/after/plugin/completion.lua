@@ -17,11 +17,6 @@ local menu = {
 cmp.setup(
     {
         preselect = cmp.PreselectMode.None,
-        snippet = {
-            expand = function(args)
-                vim.fn["vsnip#anonymous"](args.body)
-            end
-        },
         mapping = {
             ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}), {"i"}),
             ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}), {"i"}),
@@ -38,8 +33,6 @@ cmp.setup(
         sources = {
             {name = "nvim_lsp"},
             {name = "nvim_lsp_signature_help"},
-            {name = "luasnip"},
-            -- {name = "buffer"},
             {name = "nvim_lua"},
             {name = "path"}
         },
