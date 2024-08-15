@@ -12,6 +12,7 @@ end
 
 -- For example, changing the color scheme:
 config.color_scheme = "Horizon Dark (base16)"
+-- config.color_scheme = "VSCodeDark+ (Gogh)"
 -- config.color_scheme = 'Humanoid dark (base16)'
 
 config.colors = {
@@ -45,7 +46,13 @@ config.window_padding = {
 -- config.font = wezterm.font "JetBrains Mono NL"
 -- config.font = wezterm.font "JetBrains Mono"
 -- config.font = wezterm.font "JetBrains Mono NF"
-config.font = wezterm.font "Cascadia Mono"
+-- config.font = wezterm.font "Cascadia Mono"
+-- config.font = wezterm.font "Comic Neue"
+config.font = wezterm.font "Comic Code Ligatures"
+-- config.font = wezterm.font "Comic Code Ligatures SemiBold"
+-- config.font = wezterm.font "Comic Code Ligatures UltraLight"
+-- config.font = wezterm.font "Comic Code Ligatures Thin"
+-- config.font = wezterm.font "Comic Code Ligatures Light"
 
 local act = wezterm.action
 

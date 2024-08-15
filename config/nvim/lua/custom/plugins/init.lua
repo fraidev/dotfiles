@@ -33,13 +33,30 @@ return {
     -- Lualine
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = {"nvim-tree/nvim-web-devicons", "Mofiqul/vscode.nvim"},
+        dependencies = {"nvim-tree/nvim-web-devicons", "Mofiqul/vscode.nvim", "folke/trouble.nvim"},
         config = function()
+            local trouble = require("trouble")
+            local symbols =
+                trouble.statusline(
+                {
+                    mode = "lsp_document_symbols",
+                    groups = {},
+                    title = false,
+                    filter = {range = true},
+                    format = "{kind_icon}{symbol.name:Normal}",
+                    -- The following line is needed to fix the background color
+                    -- Set it to the lualine section you want to use
+                    hl_group = "lualine_c_normal"
+                }
+            )
             require("lualine").setup(
                 {
                     options = {
                         theme = "vscode",
                         path = 3
+                    },
+                    sections = {
+                        lualine_c = {"filename", {symbols.get, cond = symbols.has}}
                     }
                 }
             )
@@ -100,8 +117,7 @@ return {
                 },
                 tools = {
                     float_win_config = {
-                        max_width = 100,
-                        max_height = 100
+                        border = "rounded"
                     },
                     hover_actions = {
                         auto_focus = true
@@ -121,9 +137,9 @@ return {
             local nnoremap = require("utils").nnoremap
 
             -- trouble keymappings
-            nnoremap("<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
+            nnoremap("<leader>xx", "<cmd>Telescope diagnostics previewer=false<cr>")
+            nnoremap("<leader>xX", "<cmd>Telescope diagnostics bufnr=0 previewer=false<cr>")
             nnoremap("<leader>xw", "<cmd>Trouble diagnostics toggle<cr>")
-            nnoremap("<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
             nnoremap("<leader>xq", "<cmd>Trouble qflist toggle<cr>")
             nnoremap("<leader>xl", "<cmd>Trouble loclist toggle<cr>")
             nnoremap("gR", "<cmd>Trouble lsp_references<cr>")
@@ -200,10 +216,4 @@ return {
             }
         end
     }
-    -- {
-    --     "3rd/image.nvim",
-    --     config = function()
-    --         require("image").setup()
-    --     end
-    -- }
 }
