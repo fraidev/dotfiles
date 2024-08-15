@@ -23,6 +23,8 @@ return {
                 disable_nvimtree_bg = true,
                 -- Override colors (see ./lua/vscode/colors.lua)
                 color_overrides = {
+                    -- vscBack = "#000000",
+                    -- vscTabCurrent = "#000000",
                     vscLineNumber = "#FFFFFF",
                     -- vscDiffRedDark = "#FF0000",
                     vscDiffRedLight = "#373D29"
@@ -33,7 +35,7 @@ return {
                 group_overrides = {
                     -- this supports the same val table as vim.api.nvim_set_hl
                     -- use colors from this colorscheme by requiring vscode.colors!
-                    Cursor = {fg = c.vscDarkBlue, bg = c.vscLightGreen}
+                    Cursor = {fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true}
                 }
             }
         )

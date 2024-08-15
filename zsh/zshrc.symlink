@@ -5,60 +5,26 @@ if [[ -d $DOTFILES/zsh/functions ]]; then
     for func in $DOTFILES/zsh/functions/*(:t); autoload -U $func
 fi
 
-
 ########################################################
 # Configuration
 ########################################################
-
-COLOR_BLACK="\e[0;30m"
-COLOR_BLUE="\e[0;34m"
-COLOR_GREEN="\e[0;32m"
-COLOR_CYAN="\e[0;36m"
-COLOR_PINK="\e[0;35m"
-COLOR_RED="\e[0;31m"
-COLOR_PURPLE="\e[0;35m"
-COLOR_BROWN="\e[0;33m"
-COLOR_LIGHTGRAY="\e[0;37m"
-COLOR_DARKGRAY="\e[1;30m"
-COLOR_LIGHTBLUE="\e[1;34m"
-COLOR_LIGHTGREEN="\e[1;32m"
-COLOR_LIGHTCYAN="\e[1;36m"
-COLOR_LIGHTRED="\e[1;31m"
-COLOR_LIGHTPURPLE="\e[1;35m"
-COLOR_YELLOW="\e[1;33m"
-COLOR_WHITE="\e[1;37m"
-COLOR_NONE="\e[0m"
-
-# [ -z "$TMUX" ] && export TERM=xterm-256color-italic
-
-# if [ "$TERM" = xterm ]; then TERM=xterm-256color-italic; fi
-
-# export TERM=xterm-256color-italic
-
-# if [ -z "$TMUX" ]; then
-#     export TERM=xterm-256color-italic
-# else
-#     export TERM=tmux-256color
-# fi
-
 
 # initialize autocomplete
 autoload -U compinit add-zsh-hook
 compinit
 
-
 # prepend_path $HOME/npmbin/node_modules/.bin
 prepend_path /usr/local/opt/grep/libexec/gnubin
 prepend_path /usr/local/sbin
 prepend_path $DOTFILES/bin
+prepend_path $DOTFILES/scripts
 prepend_path $HOME/bin
 prepend_path $HOME/Library/Android/sdk/platform-tools
 prepend_path $HOME/Library/Android/sdk/emulator
 prepend_path /opt/homebrew/bin
 prepend_path $GOPATH/bin
 prepend_path /usr/local/bin
-prepend_path $(go env GOPATH)/bin
-# prepend_path $HOME/.opam/default/bin
+prepend_path $HOME/go
 prepend_path $HOME/Library/Python/3.8/bin
 prepend_path $HOME/.local/bin
 # prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
@@ -104,29 +70,6 @@ setopt HIST_IGNORE_ALL_DUPS      # delete old recorded entry if new entry is a d
 
 setopt COMPLETE_ALIASES
 
-# make terminal command navigation sane again
-bindkey "^[[1;5C" forward-word                      # [Ctrl-right] - forward one word
-bindkey "^[[1;5D" backward-word                     # [Ctrl-left] - backward one word
-bindkey '^[^[[C' forward-word                       # [Ctrl-right] - forward one word
-bindkey '^[^[[D' backward-word                      # [Ctrl-left] - backward one word
-bindkey '^[[1;3D' beginning-of-line                 # [Alt-left] - beginning of line
-bindkey '^[[1;3C' end-of-line                       # [Alt-right] - end of line
-bindkey '^[[5D' beginning-of-line                   # [Alt-left] - beginning of line
-bindkey '^[[5C' end-of-line                         # [Alt-right] - end of line
-bindkey '^?' backward-delete-char                   # [Backspace] - delete backward
-if [[ "${terminfo[kdch1]}" != "" ]]; then
-    bindkey "${terminfo[kdch1]}" delete-char        # [Delete] - delete forward
-else
-    bindkey "^[[3~" delete-char                     # [Delete] - delete forward
-    bindkey "^[3;5~" delete-char
-    bindkey "\e[3~" delete-char
-fi
-bindkey "^A" vi-beginning-of-line
-bindkey -M viins "^F" vi-forward-word               # [Ctrl-f] - move to next word
-bindkey -M viins "^E" vi-add-eol                    # [Ctrl-e] - move to end of line
-bindkey "^J" history-beginning-search-forward
-bindkey "^K" history-beginning-search-backward
-
 
 bindkey -e                                          # Disable vi mode
 
@@ -155,10 +98,6 @@ zfetch zsh-users/zsh-autosuggestions
 zfetch chriskempson/base16-shell
 zfetch Aloxaf/fzf-tab
 
-if [[ -x "$(command -v fnm)" ]]; then
-    eval "$(fnm env --use-on-cd)"
-fi
-
 [[ -e ~/.terminfo ]] && export TERMINFO_DIRS=~/.terminfo:/usr/share/terminfo
 
 ########################################################
@@ -169,18 +108,6 @@ fi
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-
-# add color to man pages
-export MANROFFOPT='-c'
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
 
 # user env vars
 export GO111MODULE="on"
@@ -275,10 +202,6 @@ NPM_PACKAGES="${HOME}/.npm-packages"
 export PATH="$PATH:$NPM_PACKAGES/bin"
 PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
-# Preserve MANPATH if you already defined it somewhere in your config.
-# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
-export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-
 # If a local zshrc exists, source it
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
@@ -289,15 +212,6 @@ fi
 #flux completion
 command -v flux >/dev/null && . <(flux completion zsh)
 
-# opam configuration
-[[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
- 
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '$HOME/tools/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/path.zsh.inc'; fi
@@ -306,22 +220,7 @@ if [ -f '$HOME/tools/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/tools/googl
 if [ -f '$HOME/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
-
-
 source <(kubectl completion zsh)
-
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        # ...
-        
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # Mac OSX
-    # LLVM 
-    # LLVM_PATH=$(brew --prefix llvm)
-    # export AR="${LLVM_PATH}/bin/llvm-ar"
-    # export CC="${LLVM_PATH}/bin/clang"
-    # export SOPS_AGE_KEY_FILE=$HOME/.secrets/sops.yaml
-fi
 
 export FLUVIO_BIN="$FLUVIO_DIR/target/debug/fluvio"
 # export HOME_PROFILE=$("$FLUVIO_BIN profile")
@@ -331,3 +230,4 @@ export HOME_PROFILE=$($FLUVIO_BIN profile)
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/frai/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export AWS_PROFILE=infinyon

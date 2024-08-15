@@ -34,25 +34,6 @@ return {
                 {"▏", "FloatBorder"}
             }
 
-            -- local format_async = function(err, _, result, _, bufnr)
-            --     if err ~= nil or result == nil then
-            --         return
-            --     end
-            --     if not api.nvim_buf_get_option(bufnr, "modified") then
-            --         local view = fn.winsaveview()
-            --         lsp.util.apply_text_edits(result, bufnr)
-            --         fn.winrestview(view)
-            --         if bufnr == api.nvim_get_current_buf() then
-            --             api.nvim_command("noautocmd :update")
-            --         end
-            --     end
-            -- end
-            --
-            -- lsp.handlers["textDocument/formatting"] = format_async
-
-            -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-            -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-            -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- _G makes this function available to vimscript lua calls
