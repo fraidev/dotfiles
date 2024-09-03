@@ -52,7 +52,7 @@ return {
                             "**/.vscode",
                             "**/node_modules",
                             "**/dist",
-                            "**/build",
+                            -- "**/build",
                             "**/_build",
                             "**/_opam",
                             "**/.git",
