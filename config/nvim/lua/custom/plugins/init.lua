@@ -73,6 +73,32 @@ return {
                     hover_actions = {
                         auto_focus = true
                     }
+                },
+                server = {
+                    default_settings = {
+                        -- rust-analyzer language server configuration
+                        ["rust-analyzer"] = {
+                            imports = {
+                                granularity = {
+                                    group = "module"
+                                },
+                                prefix = "self"
+                            },
+                            cargo = {
+                                loadOutDirsFromCheck = true,
+                                buildScripts = {
+                                    enable = true
+                                }
+                            },
+                            checkOnSave = {allTargets = true, command = "clippy"},
+                            -- checkOnSave = {
+                            --     enable = false
+                            -- },
+                            procMacro = {
+                                enable = true
+                            }
+                        }
+                    }
                 }
             }
         end
@@ -84,20 +110,20 @@ return {
         dependencies = {"nvim-lua/plenary.nvim"},
         opts = {}
     },
-    {
-        "nvim-neotest/neotest",
-        dependencies = {
-            "nvim-neotest/nvim-nio",
-            "nvim-lua/plenary.nvim",
-            "antoinemadec/FixCursorHold.nvim",
-            "nvim-treesitter/nvim-treesitter"
-        },
-        config = function()
-            require("neotest").setup {
-                adapters = {
-                    require("rustaceanvim.neotest")
-                }
-            }
-        end
-    }
+    -- {
+    --     "nvim-neotest/neotest",
+    --     dependencies = {
+    --         "nvim-neotest/nvim-nio",
+    --         "nvim-lua/plenary.nvim",
+    --         "antoinemadec/FixCursorHold.nvim",
+    --         "nvim-treesitter/nvim-treesitter"
+    --     },
+    --     config = function()
+    --         require("neotest").setup {
+    --             adapters = {
+    --                 require("rustaceanvim.neotest")
+    --             }
+    --         }
+    --     end
+    -- }
 }

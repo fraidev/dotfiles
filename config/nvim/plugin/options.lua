@@ -1,4 +1,5 @@
 local opt = vim.opt
+local g = vim.g
 
 ----- Interesting Options -----
 
@@ -17,7 +18,7 @@ opt.splitbelow = true
 opt.splitright = true
 
 opt.signcolumn = "yes"
-opt.shada = { "'10", "<0", "s10", "h" }
+opt.shada = {"'10", "<0", "s10", "h"}
 
 opt.clipboard = "unnamedplus"
 
@@ -28,3 +29,14 @@ opt.wrap = true
 opt.linebreak = true
 
 vim.opt.laststatus = 3
+
+----- Global Variables -----
+
+g.lazygit_floating_window_winblend = 0 --" transparency of floating window
+g.lazygit_floating_window_scaling_factor = 0.9 --" scaling factor for floating window
+g.lazygit_floating_window_use_plenary = 1 -- " use plenary.nvim to manage floating window if available
+g.lazygit_use_neovim_remote = 1 --" fallback to 0 if neovim-remote is not installed
+g.loaded_tutor_mode_plugin = 1
+g.go_fmt_autosave = 0
+g.go_imports_autosave = 0
+g.suda_smart_edit = 1

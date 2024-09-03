@@ -66,7 +66,7 @@ return {
                         ".vale/",
                         ".vscode/",
                         "__pycache__/*",
-                        "build/",
+                        -- "build/",
                         "env/",
                         "gradle/",
                         "node_modules/",
