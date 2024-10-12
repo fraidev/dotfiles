@@ -200,6 +200,42 @@ setup_macos() {
     fi
 }
 
+function setup_debian() {
+	:
+}
+
+function setup_apt() {
+	# Update package list and upgrade installed packages
+	sudo apt update && sudo apt upgrade
+
+	# Install packages
+	sudo apt install -y bat cloc fzf git grep highlight htop jq neofetch neovim python3 ripgrep shellcheck tmux tree vim wdiff wget zsh golang
+}
+
+function setup_packagemanager() {
+    title "Setting up package manager"
+
+    if [[ "$(uname)" == "Darwin" ]]; then
+	setup_homebrew
+    else
+	setup_apt
+    fi
+}
+
+function setup_os() {
+    title "Setting up OS"
+
+    if [[ "$(uname)" == "Darwin" ]]; then
+	setup_macos
+    else
+	setup_debian
+    fi
+}
+
+function setup_install() {
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+}
+
 case "$1" in
     link)
         setup_symlinks
@@ -207,8 +243,8 @@ case "$1" in
     git)
         setup_git
         ;;
-    homebrew)
-        setup_homebrew
+    packagemanager)
+        setup_packagemanager
         ;;
     shell)
         setup_shell
@@ -222,7 +258,9 @@ case "$1" in
     all)
         setup_symlinks
         setup_terminfo
-        setup_homebrew
+        setup_packagemanager
+	setup_os
+	setup_install
         setup_shell
         setup_git
         ;;
