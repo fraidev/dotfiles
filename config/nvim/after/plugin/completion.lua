@@ -41,7 +41,7 @@ cmp.setup(
             {name = "nvim_lua"},
             {name = "luasnip"},
             {name = "path"},
-            {name = "buffer"}
+            -- {name = "buffer"}
         },
         window = {
             documentation = cmp.config.window.bordered()
