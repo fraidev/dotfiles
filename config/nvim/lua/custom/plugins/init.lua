@@ -102,7 +102,10 @@ return {
                                     enable = true
                                 }
                             },
-                            checkOnSave = {allTargets = true, command = "clippy"},
+                            checkOnSave = {
+                                extraArgs = {"--target-dir", "/tmp/rust-analyzer-check"}
+                            },
+                            -- checkOnSave = {allTargets = true, command = "clippy"},
                             -- checkOnSave = {
                             --     enable = false
                             -- },

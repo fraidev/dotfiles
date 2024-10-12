@@ -183,7 +183,7 @@ return {
             lspconfig.clangd.setup({})
 
             -- Typescript LSP
-            lspconfig.tsserver.setup(
+            lspconfig.ts_ls.setup(
                 {
                     init_options = {
                         hostInfo = "neovim",
