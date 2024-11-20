@@ -1,6 +1,7 @@
 local colors = {
     -- bg = "#202328",
-    bg = "#000000",
+    -- bg = "#000000",
+    bg = "#292C33",
     -- bg = "none",
     fg = "#bbc2cf",
     aqua = "#3affdb",

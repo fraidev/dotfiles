@@ -12,14 +12,23 @@ end
 
 -- For example, changing the color scheme:
 config.color_scheme = "Horizon Dark (base16)"
+-- config.color_scheme = "Doom One"
 -- config.color_scheme = "VSCodeDark+ (Gogh)"
 -- config.color_scheme = 'Humanoid dark (base16)'
 
+-- config.colors = {
+--   -- The default text color
+--   foreground = '#E0E0E0',
+--   -- The default background color
+--   background = '#1F1E1E',
+-- }
+
 config.colors = {
   -- The default text color
-  foreground = '#E0E0E0',
+  -- foreground = '#E0E0E0',
   -- The default background color
-  background = '#1F1E1E',
+  background = '#292c33',
+  -- background = '#292C2D',
 }
 
 

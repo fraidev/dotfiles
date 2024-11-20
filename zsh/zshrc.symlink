@@ -220,7 +220,15 @@ if [ -f '$HOME/tools/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/tools/googl
 if [ -f '$HOME/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.config/gcloud/application_default_credentials.json
-source <(kubectl completion zsh)
+# lazy load kubectl completion
+kubectl () {
+    command kubectl $*
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        source <(command kubectl completion zsh)
+        KUBECTL_COMPLETE=1 
+    fi
+}
 
 export FLUVIO_BIN="$FLUVIO_DIR/target/debug/fluvio"
 # export HOME_PROFILE=$("$FLUVIO_BIN profile")
