@@ -3,6 +3,8 @@ local g = vim.g
 
 ----- Interesting Options -----
 
+opt.termguicolors = true
+
 -- You have to turn this one on :)
 opt.inccommand = "split"
 
