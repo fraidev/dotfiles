@@ -9,10 +9,16 @@
         "path": "./snippets/all.json"
       },
       {
-        "language": [
-          "lua"
-        ],
+        "language": "lua",
         "path": "./lua.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript.json"
+      },
+      {
+        "language": "rust",
+        "path": "./rust.json"
       }
     ]
   }

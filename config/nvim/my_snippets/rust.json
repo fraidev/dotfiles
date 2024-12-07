@@ -1,0 +1,50 @@
+{
+  "pln": {
+    "prefix": "pln",
+    "body": [
+      "println!(${1:log}: {}\", ${2:var});"
+    ]
+  },
+  "ln": {
+    "prefix": "ln",
+    "body": [
+      "println!(\"{}\", ${1:var});"
+    ]
+  },
+  "dbg": {
+    "prefix": "dbg",
+    "body": [
+      "dbg!(${1:var});"
+    ]
+  },
+  "debug": {
+    "prefix": "debug",
+    "body": [
+      "debug!(\"${1:log}: {}\", ${2:var});"
+    ]
+  },
+  "trace": {
+    "prefix": "trace",
+    "body": [
+      "trace!(\"${1:log}: {}\", ${2:var});"
+    ]
+  },
+  "info": {
+    "prefix": "info",
+    "body": [
+      "info!(\"${1:log}: {}\", ${2:var});"
+    ]
+  },
+  "warn": {
+    "prefix": "warn",
+    "body": [
+      "warn!(\"${1:log}: {}\", ${2:var});"
+    ]
+  },
+  "error": {
+    "prefix": "error",
+    "body": [
+      "error!(\"${1:log}: {}\", ${2:var});"
+    ]
+  }
+}

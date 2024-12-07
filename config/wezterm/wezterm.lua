@@ -16,20 +16,20 @@ config.color_scheme = "Horizon Dark (base16)"
 -- config.color_scheme = "VSCodeDark+ (Gogh)"
 -- config.color_scheme = 'Humanoid dark (base16)'
 
--- config.colors = {
---   -- The default text color
---   foreground = '#E0E0E0',
---   -- The default background color
---   background = '#1F1E1E',
--- }
-
 config.colors = {
   -- The default text color
   -- foreground = '#E0E0E0',
   -- The default background color
-  background = '#292c33',
-  -- background = '#292C2D',
+  background = '#1F1E1E',
 }
+
+-- config.colors = {
+--   -- The default text color
+--   -- foreground = '#E0E0E0',
+--   -- The default background color
+--   background = '#292c33',
+--   -- background = '#292C2D',
+-- }
 
 
 -- enable_tab_bar = false
@@ -57,7 +57,7 @@ config.window_padding = {
 -- config.font = wezterm.font "JetBrains Mono NF"
 -- config.font = wezterm.font "Cascadia Mono"
 -- config.font = wezterm.font "Comic Neue"
-config.font = wezterm.font "Comic Code Ligatures"
+-- config.font = wezterm.font "Comic Code Ligatures"
 -- config.font = wezterm.font "Comic Code Ligatures SemiBold"
 -- config.font = wezterm.font "Comic Code Ligatures UltraLight"
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
