@@ -191,6 +191,7 @@ alias flvd="$FLUVIO_DIR/target/debug/fluvio"
 # alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
+alias cdk="$FLUVIO_DIR/target/debug/cdk"
 alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-cloud"
 
 source "$DOTFILES/zsh/utils.zsh"

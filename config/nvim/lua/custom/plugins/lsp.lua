@@ -3,6 +3,17 @@ return {
     {
         "neovim/nvim-lspconfig",
         lazy = false,
+        dependencies = {
+            {
+                "williamboman/mason-lspconfig.nvim",
+                "williamboman/mason.nvim",
+                build = ":MasonUpdate" -- :MasonUpdate updates registry contents
+            },
+            {
+                "j-hui/fidget.nvim",
+                opts = {}
+            }
+        },
         config = function()
             local cmd = vim.cmd
             local api = vim.api
@@ -34,7 +45,10 @@ return {
                 {"▏", "FloatBorder"}
             }
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local capabilities = nil
+            if pcall(require, "cmp_nvim_lsp") then
+                capabilities = require("cmp_nvim_lsp").default_capabilities()
+            end
 
             -- _G makes this function available to vimscript lua calls
             _G.lsp_organize_imports = function()
@@ -44,11 +58,6 @@ return {
                     title = ""
                 }
                 lsp.buf.execute_command(params)
-            end
-
-            -- show diagnostic line with custom border and styling
-            _G.lsp_show_diagnostics = function()
-                vim.diagnostic.open_float({border = border})
             end
 
             vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
@@ -114,9 +123,6 @@ return {
                             {buffer = ev.buf, desc = "Code Action"}
                         )
                         vim.keymap.set("n", "gR", vim.lsp.buf.references, {buffer = ev.buf, desc = "References"})
-                        -- vim.keymap.set('n', '<leader>f', function()
-                        --   vim.lsp.buf.format { async = true }
-                        -- end, opts)
                     end
                 }
             )
@@ -166,13 +172,6 @@ return {
             -- GO LSP
             lspconfig.gopls.setup({})
 
-            -- Rust LSP
-            -- rustaceanvim does not need these
-            -- lspconfig.rust_analyzer.setup({})
-
-            -- -- JSON
-            -- lspconfig.jsonls.setup({})
-
             -- Python
             lspconfig.pyright.setup({})
 
@@ -198,44 +197,36 @@ return {
                         }
                     },
                     root_dir = lspconfig.util.root_pattern("tsconfig.json")
-                    -- on_attach = function(client, bufnr)
-                    --     on_attach(client, bufnr)
-                    --     -- tsutils.setup {}
-                    --     -- tsutils.setup_client(client)
-                    -- end
                 }
             )
 
-            -- Tailwind CSS
-            -- lspconfig.tailwindcss.setup({on_attach = on_attach})
-
             -- Setup Cursor highlight
-            vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
-            vim.api.nvim_command([[ hi def link LspReferenceWrite CursorLine ]])
-            vim.api.nvim_command([[ hi def link LspReferenceRead CursorLine ]])
+            -- vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
+            -- vim.api.nvim_command([[ hi def link LspReferenceWrite CursorLine ]])
+            -- vim.api.nvim_command([[ hi def link LspReferenceRead CursorLine ]])
 
             -- set up custom symbols for LSP errors
-            local signs = {
-                Error = icons.error,
-                Warning = icons.warning,
-                Warn = icons.warning,
-                Hint = icons.hint,
-                Info = icons.hint
-            }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, {text = icon, texthl = hl})
-            end
+            -- local signs = {
+            --     Error = icons.error,
+            --     Warning = icons.warning,
+            --     Warn = icons.warning,
+            --     Hint = icons.hint,
+            --     Info = icons.hint
+            -- }
+            -- for type, icon in pairs(signs) do
+            --     local hl = "DiagnosticSign" .. type
+            --     vim.fn.sign_define(hl, {text = icon, texthl = hl})
+            -- end
 
-            for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
-                local default_diagnostic_handler = vim.lsp.handlers[method]
-                vim.lsp.handlers[method] = function(err, result, context, config)
-                    if err ~= nil and err.code == -32802 then
-                        return
-                    end
-                    return default_diagnostic_handler(err, result, context, config)
-                end
-            end
+            -- for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
+            --     local default_diagnostic_handler = vim.lsp.handlers[method]
+            --     vim.lsp.handlers[method] = function(err, result, context, config)
+            --         if err ~= nil and err.code == -32802 then
+            --             return
+            --         end
+            --         return default_diagnostic_handler(err, result, context, config)
+            --     end
+            -- end
 
             -- Set colors for completion items
             cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=" .. colors.lightblue)
@@ -245,10 +236,5 @@ return {
             cmd("highlight! CmpItemKindVariable guibg=NONE guifg=" .. colors.blue)
             cmd("highlight! CmpItemKindKeyword guibg=NONE guifg=" .. colors.fg)
         end
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate" -- :MasonUpdate updates registry contents
     }
 }
