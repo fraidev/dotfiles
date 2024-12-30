@@ -42,6 +42,7 @@ prepend_path $HOME/.local/bin
 prepend_path $HOME/.fvm/bin
 prepend_path $HOME/.fluvio/bin
 prepend_path /opt/homebrew/opt/openjdk/bin
+# prepend_path $HOME/.vscode/extensions/rust-lang.rust-analyzer-0.3.2228-darwin-arm64/server
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/code ]]; then
@@ -188,10 +189,10 @@ alias nr="npm run"
 # infinyon aliases
 export FLUVIO_DIR="$HOME/workspace/infinyon/fluvio"
 alias flvd="$FLUVIO_DIR/target/debug/fluvio"
-# alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
+alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
-alias cdk="$FLUVIO_DIR/target/debug/cdk"
+# alias cdk="$FLUVIO_DIR/target/debug/cdk"
 alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-cloud"
 
 source "$DOTFILES/zsh/utils.zsh"
@@ -211,8 +212,7 @@ if [[ -a ~/.localrc ]]; then
 fi
 
 #flux completion
-command -v flux >/dev/null && . <(flux completion zsh)
-
+# command -v flux >/dev/null && . <(flux completion zsh)
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '$HOME/tools/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/tools/google-cloud-sdk/path.zsh.inc'; fi
@@ -232,6 +232,7 @@ kubectl () {
 }
 
 export FLUVIO_BIN="$FLUVIO_DIR/target/debug/fluvio"
+export CDK_BIN="$FLUVIO_DIR/target/debug/cdk"
 # export HOME_PROFILE=$("$FLUVIO_BIN profile")
 export HOME_PROFILE=$($FLUVIO_BIN profile)
 # export HOME_PROFILE=$(fluvio profile)
@@ -240,3 +241,7 @@ export HOME_PROFILE=$($FLUVIO_BIN profile)
 export PATH="/Users/frai/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export AWS_PROFILE=infinyon
+export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
+
+export COLORTERM=truecolor
+

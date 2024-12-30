@@ -206,27 +206,27 @@ return {
             -- vim.api.nvim_command([[ hi def link LspReferenceRead CursorLine ]])
 
             -- set up custom symbols for LSP errors
-            -- local signs = {
-            --     Error = icons.error,
-            --     Warning = icons.warning,
-            --     Warn = icons.warning,
-            --     Hint = icons.hint,
-            --     Info = icons.hint
-            -- }
-            -- for type, icon in pairs(signs) do
-            --     local hl = "DiagnosticSign" .. type
-            --     vim.fn.sign_define(hl, {text = icon, texthl = hl})
-            -- end
+            local signs = {
+                Error = icons.error,
+                Warning = icons.warning,
+                Warn = icons.warning,
+                Hint = icons.hint,
+                Info = icons.hint
+            }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, {text = icon, texthl = hl})
+            end
 
-            -- for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
-            --     local default_diagnostic_handler = vim.lsp.handlers[method]
-            --     vim.lsp.handlers[method] = function(err, result, context, config)
-            --         if err ~= nil and err.code == -32802 then
-            --             return
-            --         end
-            --         return default_diagnostic_handler(err, result, context, config)
-            --     end
-            -- end
+            for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
+                local default_diagnostic_handler = vim.lsp.handlers[method]
+                vim.lsp.handlers[method] = function(err, result, context, config)
+                    if err ~= nil and err.code == -32802 then
+                        return
+                    end
+                    return default_diagnostic_handler(err, result, context, config)
+                end
+            end
 
             -- Set colors for completion items
             cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=" .. colors.lightblue)

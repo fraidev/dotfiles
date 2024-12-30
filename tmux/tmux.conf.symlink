@@ -1,8 +1,14 @@
 # tmux display things in 258 colors
-set -g default-terminal "tmux-256color"
-set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 set -s set-clipboard on
-set -as terminal-features ',xterm-256color-italic:clipboard'
+# set -g default-terminal "tmux-256color"
+# set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
+# set -as terminal-features ',xterm-256color-italic:clipboard'
+
+# set -g default-terminal "screen-256color"
+# set-option -ga terminal-overrides ",screen-256color:Tc"
+set -g default-terminal "rio"
+set-option -ga terminal-overrides ",rio:Tc"
+
 
 set -g history-limit 20000
 
@@ -33,9 +39,7 @@ set -sg escape-time 0
 
 # tile all windows
 unbind =
-bind = select-layout tiled
-
-# cycle through panes
+bind = select-layout tiled # cycle through panes
 # unbind C-a
 # unbind o # this is the default key for cycling panes
 # bind ^A select-pane -t:.+

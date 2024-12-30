@@ -8,7 +8,13 @@ return {
     },
     {
         "nvim-telescope/telescope.nvim",
-        dependencies = {{"nvim-lua/plenary.nvim"}},
+        dependencies = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-telescope/telescope-fzf-native.nvim", build = "make"},
+            "nvim-telescope/telescope-smart-history.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+            "kkharji/sqlite.lua"
+        },
         cmd = "Telescope",
         keys = {
             -- Lazy-load on specific keybindings
@@ -89,6 +95,7 @@ return {
                         "vendor/*",
                         "%.min.js"
                     },
+                    find_command = {"fd", "--type", "f", "--hidden"},
                     vimgrep_arguments = {
                         "rg",
                         "--hidden",
