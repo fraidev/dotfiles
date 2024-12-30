@@ -1,8 +1,8 @@
 -- Neo-tree
 return {
     "nvim-neo-tree/neo-tree.nvim",
-    tag = "3.22",
-    -- branch = "v3.x",
+    -- tag = "3.22",
+    branch = "v3.x",
     -- "pysan3/neo-tree.nvim",
     -- branch = "restore-session-experimental",
     version = false,

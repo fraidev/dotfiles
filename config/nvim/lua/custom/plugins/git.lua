@@ -11,6 +11,7 @@ return {
             nnoremap("<leader>gg", ":Git<cr>")
             nnoremap("<leader>gi", ":Gedit:<cr>")
             nnoremap("<leader>gd", ":Gdiffsplit<cr>")
+            nnoremap("<leader>gh", ":0Gclog<cr>")
         end
     },
     {

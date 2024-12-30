@@ -3,6 +3,7 @@ local nmap = utils.nmap
 local vmap = utils.vmap
 local xnoremap = utils.xnoremap
 local nnoremap = utils.nnoremap
+local tnoremap = utils.tnoremap
 
 
 -- Mappings
@@ -46,3 +47,6 @@ nnoremap(
     ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
     {desc = "Toggle inlay hints"}
 )
+
+-- back to normal mode from terminal
+tnoremap("<Esc><Esc>", "<C-\\><C-n>")

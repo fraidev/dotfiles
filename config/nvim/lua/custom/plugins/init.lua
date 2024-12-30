@@ -29,7 +29,7 @@ return {
     -- Rust
     {
         "mrcjkb/rustaceanvim",
-        version = "^4", -- Recommended
+        version = "^5", -- Recommended
         lazy = false, -- This plugin is already lazy
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -37,45 +37,69 @@ return {
         },
         config = function()
             vim.g.rustaceanvim = {
-                inlay_hints = {
-                    highlight = "NonText"
-                },
                 tools = {
-                    float_win_config = {
-                        border = "rounded"
-                    },
-                    hover_actions = {
-                        auto_focus = true
-                    }
+                    executor = "toggleterm"
                 },
                 server = {
                     default_settings = {
-                        -- rust-analyzer language server configuration
                         ["rust-analyzer"] = {
-                            imports = {
-                                granularity = {
-                                    group = "module"
-                                },
-                                prefix = "self"
-                            },
                             cargo = {
                                 allFeatures = true,
                                 loadOutDirsFromCheck = true,
-                                buildScripts = {
-                                    enable = true
-                                }
-                            },
-                            assist = {
-                                importMergeBehavior = "last",
-                                importPrefix = "by_self"
+                                runBuildScripts = true
                             },
                             procMacro = {
                                 enable = true
+                            },
+                            inlayHints = {
+                                lifetimeElisionHints = {
+                                    enable = true,
+                                    useParameterNames = true
+                                }
                             }
                         }
                     }
                 }
             }
+            -- inlay_hints = {
+            --     highlight = "NonText"
+            -- },
+            -- tools = {
+            --     float_win_config = {
+            --         border = "rounded"
+            --     },
+            --     hover_actions = {
+            --         auto_focus = true
+            --     }
+            -- },
+            -- server = {
+            --     default_settings = {
+            --         -- rust-analyzer language server configuration
+            --         ["rust-analyzer"] = {
+            --             imports = {
+            --                 granularity = {
+            --                     group = "module"
+            --                 },
+            --                 prefix = "self"
+            --             },
+            --             cargo = {
+            --                 allFeatures = true,
+            --                 loadOutDirsFromCheck = true,
+            --                 buildScripts = {
+            --                     enable = true
+            --                 }
+            --             },
+            --             assist = {
+            --                 importMergeBehavior = "last",
+            --                 importPrefix = "by_self"
+            --             },
+            --             procMacro = {
+            --                 enable = true
+            --             }
+            --         }
+            --     }
+            -- }
+            -- }
         end
     },
     -- Go

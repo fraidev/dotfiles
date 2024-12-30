@@ -1,0 +1,23 @@
+# theme = "xcodedarkhc"
+theme = "Horizon"
+use-kitty-keyboard-protocol = true
+
+[window]
+mode = "Maximized"
+blur = false
+decorations = "Disabled"
+
+[editor]
+program = "vi"
+args = []
+
+
+[cursor]
+blinking = true 
+
+# [navigation]
+# mode = ""
+
+# [fonts]
+# family = "Comic Code Ligatures"
+# family = "Comic Code light"
