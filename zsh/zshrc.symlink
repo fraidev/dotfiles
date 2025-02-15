@@ -189,7 +189,7 @@ alias nr="npm run"
 # infinyon aliases
 export FLUVIO_DIR="$HOME/workspace/infinyon/fluvio"
 alias flvd="$FLUVIO_DIR/target/debug/fluvio"
-alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
+# alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
 # alias cdk="$FLUVIO_DIR/target/debug/cdk"
@@ -241,7 +241,17 @@ export HOME_PROFILE=$($FLUVIO_BIN profile)
 export PATH="/Users/frai/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export AWS_PROFILE=infinyon
-export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
+# export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
 
 export COLORTERM=truecolor
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/frai/.lmstudio/bin"
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
