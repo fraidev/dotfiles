@@ -19,5 +19,6 @@ blinking = true
 # mode = ""
 
 # [fonts]
+# family = "Fira Code"
 # family = "Comic Code Ligatures"
 # family = "Comic Code light"

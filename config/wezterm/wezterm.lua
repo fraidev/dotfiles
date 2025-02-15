@@ -17,10 +17,10 @@ config.color_scheme = "Horizon Dark (base16)"
 -- config.color_scheme = 'Humanoid dark (base16)'
 
 config.colors = {
-  -- The default text color
-  -- foreground = '#E0E0E0',
-  -- The default background color
-  background = '#1F1E1E',
+    -- The default text color
+    -- foreground = '#E0E0E0',
+    -- The default background color
+    background = "#1F1E1E"
 }
 
 -- config.colors = {
@@ -31,19 +31,19 @@ config.colors = {
 --   -- background = '#292C2D',
 -- }
 
-
 -- enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 
 -- config.window_decorations = "MACOS_FORCE_ENABLE_SHADOW"
 
 config.window_decorations = "RESIZE"
+config.cursor_blink_rate = 500
 
 config.window_padding = {
     left = 0,
     right = 0,
     top = 20,
-    bottom = 0,
+    bottom = 0
 }
 
 -- config.font = wezterm.font "Fira Code"
@@ -57,11 +57,14 @@ config.window_padding = {
 -- config.font = wezterm.font "JetBrains Mono NF"
 -- config.font = wezterm.font "Cascadia Mono"
 -- config.font = wezterm.font "Comic Neue"
-config.font = wezterm.font "Comic Code Ligatures"
+-- config.font = wezterm.font "Comic Code Ligatures"
+
+config.font = wezterm.font "cascadia mono"
 -- config.font = wezterm.font "Comic Code Ligatures SemiBold"
 -- config.font = wezterm.font "Comic Code Ligatures UltraLight"
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
 -- config.font = wezterm.font "Comic Code Ligatures Light"
+config.enable_kitty_keyboard = true
 
 local act = wezterm.action
 
@@ -69,8 +72,8 @@ local act = wezterm.action
 config.font_size = 18.0
 
 config.keys = {
-  { key = 'PageUp', mods = 'SHIFT', action = act.ScrollByPage(-1) },
-  { key = 'PageDown', mods = 'SHIFT', action = act.ScrollByPage(1) },
+    {key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1)},
+    {key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(1)}
 }
 
 -- and finally, return the configuration to wezterm

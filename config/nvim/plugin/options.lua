@@ -30,6 +30,11 @@ opt.formatoptions:remove "o"
 opt.wrap = true
 opt.linebreak = true
 
+
+-- Disable adding EOL at the end of files
+-- vim.opt.eol = false
+vim.opt.fixeol = false
+
 vim.opt.laststatus = 3
 
 ----- Global Variables -----
