@@ -18,7 +18,8 @@ blinking = true
 # [navigation]
 # mode = ""
 
-# [fonts]
+[fonts]
+family = "Comic Code Ligatures"
 # family = "Fira Code"
-# family = "Comic Code Ligatures"
+# family = "Comic Code"
 # family = "Comic Code light"

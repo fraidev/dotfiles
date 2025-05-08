@@ -8,11 +8,11 @@ return {
                 "williamboman/mason-lspconfig.nvim",
                 "williamboman/mason.nvim",
                 build = ":MasonUpdate" -- :MasonUpdate updates registry contents
-            },
-            {
-                "j-hui/fidget.nvim",
-                opts = {}
             }
+            -- {
+            --     "j-hui/fidget.nvim",
+            --     opts = {}
+            -- }
         },
         config = function()
             local cmd = vim.cmd

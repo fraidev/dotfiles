@@ -5,8 +5,9 @@ cursor-style = block
 
 selection-background = #264F78
 selection-foreground = #D4D4D4
-font-family = cascadia mono
-# font-family = Comic Code Ligatures
+#font-family = cascadia mono
+font-family = Comic Code Ligatures
+#font-family = Comic Code Ligatures Light
 
 
 window-padding-x = 0

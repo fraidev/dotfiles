@@ -34,6 +34,21 @@ node_prompt() {
     dotfiles::print '029' "$node_icon $version"
 }
 
+rust_prompt() {
+    [[ -f Cargo.toml ]] || return
+
+    local version=''
+    local rust_icon='\ue7a8'
+
+    if dotfiles::exists rustc; then
+	version=$(rustc --version 2>/dev/null)
+    fi
+
+    [[ -n version ]] || return
+
+    dotfiles::print '167' "$rust_icon $version"
+}
+
 git_status_done() {
     # $3 is the stdout of the git_status command
     RPROMPT="$3 $(suspended_jobs)"
@@ -147,7 +162,7 @@ async_start_worker vcs_info
 async_register_callback vcs_info git_status_done
 
 add-zsh-hook precmd () {
-    print -P "\n%F{005}%~ $(node_prompt)"
+    print -P "\n%F{005}%~ $(rust_prompt)"
     async_job vcs_info git_status "$PWD"
 }
 
