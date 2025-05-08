@@ -9,9 +9,9 @@ fi
 # Configuration
 ########################################################
 
-# initialize autocomplete
-autoload -U compinit add-zsh-hook
-compinit
+# Load compinit with caching for faster startup
+autoload -Uz compinit
+compinit -C
 
 # prepend_path $HOME/npmbin/node_modules/.bin
 prepend_path /usr/local/opt/grep/libexec/gnubin
@@ -152,7 +152,7 @@ alias l="ls -lah ${colorflag}"
 alias ls="ls ${colorflag}"
 alias la="ls -AF ${colorflag}"
 alias ll="ls -lFh ${colorflag}"
-alias lld="ls -l | grep ^d"
+# alias lld="ls -l | grep ^d"
 alias rmf="rm -rf"
 
 # Helpers

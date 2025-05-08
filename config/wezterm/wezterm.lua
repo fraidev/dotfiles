@@ -20,7 +20,7 @@ config.colors = {
     -- The default text color
     -- foreground = '#E0E0E0',
     -- The default background color
-    background = "#1F1E1E"
+    background = "#1F1E1E",
 }
 
 -- config.colors = {
@@ -57,9 +57,9 @@ config.window_padding = {
 -- config.font = wezterm.font "JetBrains Mono NF"
 -- config.font = wezterm.font "Cascadia Mono"
 -- config.font = wezterm.font "Comic Neue"
--- config.font = wezterm.font "Comic Code Ligatures"
+config.font = wezterm.font "Comic Code Ligatures"
 
-config.font = wezterm.font "cascadia mono"
+-- config.font = wezterm.font "cascadia mono"
 -- config.font = wezterm.font "Comic Code Ligatures SemiBold"
 -- config.font = wezterm.font "Comic Code Ligatures UltraLight"
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
