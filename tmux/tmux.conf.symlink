@@ -4,10 +4,20 @@ set -s set-clipboard on
 # set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 # set -as terminal-features ',xterm-256color-italic:clipboard'
 
+
+# NEW WAY
+set -as terminal-features 'xterm-256color:RGB'
+
 # set -g default-terminal "screen-256color"
 # set-option -ga terminal-overrides ",screen-255color:Tc"
-set -g default-terminal "tmux-256color"
-set-option -ga terminal-overrides ",tmux-255color:Tc"
+
+
+
+# set -g default-terminal "tmux-256color"
+
+# OLD WAY
+# set-option -ga terminal-overrides ",tmux-255color:Tc"
+
 # set -g default-terminal "rio"
 # set-option -ga terminal-overrides ",rio:Tc"
 # set -g default-terminal "xterm-ghostty"
@@ -110,7 +120,7 @@ bind -n S-Right next-window
 
 bind C-o rotate-window
 
-bind e new-session
+# bind e new-session
 
 # enable mouse support for switching panes/windows
 setw -g mouse on
@@ -141,3 +151,8 @@ source-file "$DOTFILES/tmux/themes/bubbles.conf"
 # order windows
 bind < swap-window -t -1
 bind > swap-window -t +1
+
+
+bind e command-prompt -p "New Session:" "new-session -A -s '%%'"
+# bind k confirm kill-session
+

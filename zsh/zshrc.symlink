@@ -188,10 +188,13 @@ alias nr="npm run"
 
 # infinyon aliases
 export FLUVIO_DIR="$HOME/workspace/infinyon/fluvio"
+export SDF_DIR="$HOME/workspace/infinyon/sdf"
 alias flvd="$FLUVIO_DIR/target/debug/fluvio"
 # alias fluvio="$FLUVIO_DIR/target/debug/fluvio"
 alias flvdr="$FLUVIO_DIR/target/release/fluvio"
 alias flvt="$FLUVIO_DIR/target/debug/flv-test"
+alias sdfd="$SDF_DIR/target/debug/sdf"
+alias sdfr="$SDF_DIR/target/release/sdf"
 # alias cdk="$FLUVIO_DIR/target/debug/cdk"
 alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-cloud"
 
@@ -236,10 +239,6 @@ export CDK_BIN="$FLUVIO_DIR/target/debug/cdk"
 # export HOME_PROFILE=$("$FLUVIO_BIN profile")
 export HOME_PROFILE=$($FLUVIO_BIN profile)
 # export HOME_PROFILE=$(fluvio profile)
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/frai/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export AWS_PROFILE=infinyon
 # export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
 
@@ -255,3 +254,5 @@ export PATH="$WASMTIME_HOME/bin:$PATH"
   export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+export SSLKEYLOGFILE=~/sslkeys.log

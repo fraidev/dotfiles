@@ -1,5 +1,6 @@
 local opt = vim.opt
 local g = vim.g
+local opt_local = vim.opt_local
 
 ----- Interesting Options -----
 
@@ -36,6 +37,9 @@ opt.linebreak = true
 vim.opt.fixeol = false
 
 vim.opt.laststatus = 3
+
+----- Obsidian -----
+opt_local.conceallevel = 2 --" 0: no conceal, 1: conceal some, 2: conceal all
 
 ----- Global Variables -----
 
