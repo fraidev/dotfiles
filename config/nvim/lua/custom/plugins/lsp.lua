@@ -127,6 +127,23 @@ return {
                 }
             )
 
+            lsp.config(
+                "rust_analyzer",
+                {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = {
+                                command = "clippy"
+                            },
+                            cargo = {
+                                allFeatures = true
+                            }
+                        }
+                    },
+                    capabilities = capabilities
+                }
+            )
+
             local lspconfig = require("lspconfig")
 
             -- Lua LSP

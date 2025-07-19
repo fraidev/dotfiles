@@ -3,6 +3,15 @@ return {
     "windwp/nvim-spectre",
     dependencies = {"nvim-tree/nvim-web-devicons"},
     config = function()
+        -- require("spectre").setup(
+        --     {
+        --         default = {
+        --             replace = {
+        --                 cmd = "oxi"
+        --             }
+        --         }
+        --     }
+        -- )
         local nnoremap = require("utils").nnoremap
         local vnoremap = require("utils").vnoremap
 
