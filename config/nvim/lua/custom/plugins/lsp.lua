@@ -190,10 +190,81 @@ return {
             lspconfig.gopls.setup({})
 
             -- Python
-            lspconfig.pyright.setup({})
+
+            -- lspconfig.pylsp.setup(
+            --     {
+            --         settings = {
+            --             pylsp = {
+            --                 plugins = {
+            --                     pyflakes = {enabled = false},
+            --                     pycodestyle = {enabled = false},
+            --                     autopep8 = {enabled = false},
+            --                     yapf = {enabled = false},
+            --                     mccabe = {enabled = false},
+            --                     pylsp_mypy = {enabled = false},
+            --                     pylsp_black = {enabled = false},
+            --                     pylsp_isort = {enabled = false}
+            --                 }
+            --             }
+            --         }
+            --     }
+            -- )
+
+            lspconfig.basedpyright.setup(
+                {
+                    settings = {
+                        basedpyright = {
+                            disableOrganizeImports = true, -- Using Ruff's import organizer
+                            disableLanguageServices = false,
+                            analysis = {
+                                ignore = {"*"}, -- Ignore all files for analysis to exclusively use Ruff for linting
+                                -- typeCheckingMode = "off",
+                                diagnosticMode = "openFilesOnly", -- Only analyze open files
+                                autoImportCompletions = true, -- whether pyright offers auto-import completions
+                                autoSearchPath = true,
+                                -- typeCheckingMode = "basic",
+                                useLibraryCodeForTypes = true,
+                                -- diagnosticMode = "workspace",
+                                inlayHints = {
+                                    callArgumentNames = true
+                                }
+                            }
+                        }
+                    }
+                    -- capabilities = capabilities
+                }
+            )
 
             -- CSS
             lspconfig.cssls.setup({})
+
+            -- Svelte LSP
+            lspconfig.svelte.setup({
+                capabilities = capabilities,
+                settings = {
+                    svelte = {
+                        plugin = {
+                            html = {
+                                completions = {
+                                    enable = true,
+                                    emmet = false
+                                }
+                            },
+                            svelte = {
+                                completions = {
+                                    enable = true
+                                }
+                            },
+                            css = {
+                                completions = {
+                                    enable = true,
+                                    emmet = true
+                                }
+                            }
+                        }
+                    }
+                }
+            })
 
             -- C++
             lspconfig.clangd.setup({})
@@ -230,10 +301,18 @@ return {
                 Hint = icons.hint,
                 Info = icons.hint
             }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, {text = icon, texthl = hl})
-            end
+            vim.diagnostic.config(
+                {
+                    signs = {
+                        text = {
+                            [vim.diagnostic.severity.ERROR] = signs.Error,
+                            [vim.diagnostic.severity.WARN] = signs.Warning,
+                            [vim.diagnostic.severity.HINT] = signs.Hint,
+                            [vim.diagnostic.severity.INFO] = signs.Info
+                        }
+                    }
+                }
+            )
 
             for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
                 local default_diagnostic_handler = vim.lsp.handlers[method]
