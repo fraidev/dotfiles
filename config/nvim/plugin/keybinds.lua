@@ -5,7 +5,6 @@ local xnoremap = utils.xnoremap
 local nnoremap = utils.nnoremap
 local tnoremap = utils.tnoremap
 
-
 -- Mappings
 nnoremap("<space>", "<nop>")
 vim.keymap.set("n", "<Space>", "<Nop>", {silent = true, remap = false})
@@ -50,3 +49,17 @@ nnoremap(
 
 -- back to normal mode from terminal
 tnoremap("<Esc><Esc>", "<C-\\><C-n>")
+
+-- copy file path and line number to clipboard
+vim.keymap.set(
+    "n",
+    "<leader>y",
+    function()
+      local file = vim.fn.expand('%:p')
+      local line = vim.fn.line('.')
+      local col = vim.fn.col('.')
+      vim.fn.setreg('+', file .. ':' .. line .. ':' .. col)
+      print('Copied: ' .. file .. ':' .. line .. ':' .. col)
+    end,
+    {noremap = true, silent = true}
+)
