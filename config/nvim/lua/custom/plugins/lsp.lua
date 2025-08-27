@@ -61,8 +61,8 @@ return {
             end
 
             vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
-            vim.keymap.set("n", "[a", vim.diagnostic.goto_prev)
-            vim.keymap.set("n", "]a", vim.diagnostic.goto_next)
+            vim.keymap.set("n", "[a", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+            vim.keymap.set("n", "]a", function() vim.diagnostic.jump({ count = 1, float = true }) end)
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
             vim.api.nvim_create_autocmd(
