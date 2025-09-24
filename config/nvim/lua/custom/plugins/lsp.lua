@@ -61,8 +61,20 @@ return {
             end
 
             vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
-            vim.keymap.set("n", "[a", function() vim.diagnostic.jump({ count = -1, float = true }) end)
-            vim.keymap.set("n", "]a", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+            vim.keymap.set(
+                "n",
+                "[a",
+                function()
+                    vim.diagnostic.jump({count = -1, float = true})
+                end
+            )
+            vim.keymap.set(
+                "n",
+                "]a",
+                function()
+                    vim.diagnostic.jump({count = 1, float = true})
+                end
+            )
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
             vim.api.nvim_create_autocmd(
@@ -127,27 +139,29 @@ return {
                 }
             )
 
-            lsp.config(
-                "rust_analyzer",
-                {
-                    settings = {
-                        ["rust-analyzer"] = {
-                            checkOnSave = {
-                                command = "clippy"
-                            },
-                            cargo = {
-                                allFeatures = true
-                            }
-                        }
-                    },
-                    capabilities = capabilities
-                }
-            )
+            -- lsp.config(
+            --     "rust_analyzer",
+            --     {
+            --         settings = {
+            --             ["rust-analyzer"] = {
+            --                 checkOnSave = {
+            --                     command = "clippy"
+            --                 },
+            --                 cargo = {
+            --                     allFeatures = true
+            --                 }
+            --             }
+            --         },
+            --         capabilities = capabilities
+            --     }
+            -- )
 
-            local lspconfig = require("lspconfig")
+            -- local lspconfig = require("lspconfig")
+            local lspconfig = vim.lsp.config
 
             -- Lua LSP
-            lspconfig.lua_ls.setup(
+            lspconfig(
+                "lua_ls",
                 {
                     settings = {
                         Lua = {
@@ -175,23 +189,24 @@ return {
             )
 
             -- Nix LSP
-            lspconfig.rnix.setup({})
+            lspconfig("rnix", {})
 
             -- OCaml LSP
-            lspconfig.ocamllsp.setup(
+            lspconfig(
+                "ocamllsp",
                 {
-                    root_dir = lspconfig.util.root_pattern("dune-project"),
+                    root_dir = require("lspconfig").util.root_pattern("dune-project"),
                     capabilities = capabilities
                     -- on_attach = on_attach
                 }
             )
 
             -- GO LSP
-            lspconfig.gopls.setup({})
+            lspconfig("gopls", {})
 
             -- Python
 
-            -- lspconfig.pylsp.setup(
+            -- lspconfig("pylsp",
             --     {
             --         settings = {
             --             pylsp = {
@@ -210,7 +225,8 @@ return {
             --     }
             -- )
 
-            lspconfig.basedpyright.setup(
+            lspconfig(
+                "basedpyright",
                 {
                     settings = {
                         basedpyright = {
@@ -236,41 +252,45 @@ return {
             )
 
             -- CSS
-            lspconfig.cssls.setup({})
+            lspconfig("cssls", {})
 
             -- Svelte LSP
-            lspconfig.svelte.setup({
-                capabilities = capabilities,
-                settings = {
-                    svelte = {
-                        plugin = {
-                            html = {
-                                completions = {
-                                    enable = true,
-                                    emmet = false
-                                }
-                            },
-                            svelte = {
-                                completions = {
-                                    enable = true
-                                }
-                            },
-                            css = {
-                                completions = {
-                                    enable = true,
-                                    emmet = true
+            lspconfig(
+                "svelte",
+                {
+                    capabilities = capabilities,
+                    settings = {
+                        svelte = {
+                            plugin = {
+                                html = {
+                                    completions = {
+                                        enable = true,
+                                        emmet = false
+                                    }
+                                },
+                                svelte = {
+                                    completions = {
+                                        enable = true
+                                    }
+                                },
+                                css = {
+                                    completions = {
+                                        enable = true,
+                                        emmet = true
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            })
+            )
 
             -- C++
-            lspconfig.clangd.setup({})
+            lspconfig("clangd", {})
 
             -- Typescript LSP
-            lspconfig.ts_ls.setup(
+            lspconfig(
+                "ts_ls",
                 {
                     init_options = {
                         hostInfo = "neovim",
@@ -284,7 +304,7 @@ return {
                             includeInlayEnumMemberValueHints = true
                         }
                     },
-                    root_dir = lspconfig.util.root_pattern("tsconfig.json")
+                    root_dir = require("lspconfig").util.root_pattern("tsconfig.json")
                 }
             )
 
@@ -323,6 +343,82 @@ return {
                     return default_diagnostic_handler(err, result, context, config)
                 end
             end
+
+            vim.diagnostic.config(
+                {
+                    signs = {
+                        text = {
+                            [vim.diagnostic.severity.ERROR] = " ",
+                            [vim.diagnostic.severity.WARN] = " ",
+                            [vim.diagnostic.severity.HINT] = "󰠠 ",
+                            [vim.diagnostic.severity.INFO] = " "
+                        }
+                    }
+                }
+            )
+
+            vim.lsp.config(
+                "*",
+                {
+                    capabilities = capabilities
+                }
+            )
+
+            vim.lsp.config(
+                "svelte",
+                {
+                    on_attach = function(client, bufnr)
+                        vim.api.nvim_create_autocmd(
+                            "BufWritePost",
+                            {
+                                pattern = {"*.js", "*.ts"},
+                                callback = function(ctx)
+                                    -- Here use ctx.match instead of ctx.file
+                                    client.notify("$/onDidChangeTsOrJsFile", {uri = ctx.match})
+                                end
+                            }
+                        )
+                    end
+                }
+            )
+
+            vim.lsp.config(
+                "graphql",
+                {
+                    filetypes = {"graphql", "gql", "svelte", "typescriptreact", "javascriptreact"}
+                }
+            )
+
+            vim.lsp.config(
+                "emmet_ls",
+                {
+                    filetypes = {"html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte"}
+                }
+            )
+
+            vim.lsp.config(
+                "eslint",
+                {
+                    filetypes = {"html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte"}
+                }
+            )
+
+            vim.lsp.config(
+                "lua_ls",
+                {
+                    settings = {
+                        Lua = {
+                            -- make the language server recognize "vim" global
+                            diagnostics = {
+                                globals = {"vim"}
+                            },
+                            completion = {
+                                callSnippet = "Replace"
+                            }
+                        }
+                    }
+                }
+            )
 
             -- Set colors for completion items
             cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=" .. colors.lightblue)

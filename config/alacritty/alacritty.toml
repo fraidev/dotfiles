@@ -1,0 +1,28 @@
+[general]
+import = [
+"~/.config/alacritty/themes/horizon_dark.toml",
+]
+
+
+[colors]
+primary.background = "#1F1E1E"
+
+
+# [font] 
+# normal = { family = "ComicShannsMono Nerd Font Propo", style = "Regular" }
+# normal = { family = "ComicCodeLigatures Nerd Font", style = "Light" }
+# normal = { family = " Font", style = "Light" }
+
+# [font.normal]
+# family = "3270 Nerd Font Propo"
+
+[font]
+normal = { family = "MesloLGS Nerd Font Mono", style = "Regular" }
+bold = { family = "MesloLGS Nerd Font Mono", style = "Bold" }
+italic = { family = "MesloLGS Nerd Font Mono", style = "Italic" }
+bold_italic = { family = "MesloLGS Nerd Font Mono", style = "Bold Italic" }
+
+
+
+[window]
+decorations = "None"

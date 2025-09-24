@@ -33,11 +33,16 @@ local icons = {
     macos = " ",
     windows = " ",
     -- diagnostic icons
-    error = "",
+    -- error = "",
+    error = " ",
     warning = "",
+    warning_sign = " ",
+  
     info = "",
+    info_sign = " ",
     -- hint = "",
-    hint = "",
+    hint = "󰠠 ",
+    -- hint = "",
     lsp = "",
     line = "☰",
     -- git icons

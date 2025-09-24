@@ -57,7 +57,11 @@ config.window_padding = {
 -- config.font = wezterm.font "JetBrains Mono NF"
 -- config.font = wezterm.font "Cascadia Mono"
 -- config.font = wezterm.font "Comic Neue"
-config.font = wezterm.font "Comic Code Ligatures"
+-- config.font = wezterm.font "Comic Code Ligatures"
+config.font = wezterm.font "Menlo"
+-- config.font = wezterm.font "MesloLGS Nerd Font Mono"
+-- config.font = wezterm.font "MesloLGSDZ Nerd Font Mono"
+
 
 -- config.font = wezterm.font "cascadia mono"
 -- config.font = wezterm.font "Comic Code Ligatures SemiBold"
