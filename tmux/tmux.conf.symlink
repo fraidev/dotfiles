@@ -132,7 +132,12 @@ unbind [
 bind Escape copy-mode
 unbind p
 bind p paste-buffer
-bind -T copy-mode-vi v send -X begin-selection
+# Normal visual selection
+bind -T copy-mode-vi v send-keys -X begin-selection
+# Line-wise selection
+bind -T copy-mode-vi V send-keys -X select-line
+# Block (rectangular) selection like Vim’s Ctrl-v
+bind -T copy-mode-vi C-v send-keys -X begin-selection \; send-keys -X rectangle-toggle
 
 if-shell "uname | grep -q Darwin" {
     bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'tmux save-buffer - | pbcopy'; \

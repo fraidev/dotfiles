@@ -156,11 +156,8 @@ return {
             --     }
             -- )
 
-            -- local lspconfig = require("lspconfig")
-            local lspconfig = vim.lsp.config
-
             -- Lua LSP
-            lspconfig(
+            vim.lsp.config(
                 "lua_ls",
                 {
                     settings = {
@@ -189,10 +186,10 @@ return {
             )
 
             -- Nix LSP
-            lspconfig("rnix", {})
+            vim.lsp.config("rnix", {})
 
             -- OCaml LSP
-            lspconfig(
+            vim.lsp.config(
                 "ocamllsp",
                 {
                     root_dir = require("lspconfig").util.root_pattern("dune-project"),
@@ -202,7 +199,7 @@ return {
             )
 
             -- GO LSP
-            lspconfig("gopls", {})
+            vim.lsp.config("gopls", {})
 
             -- Python
 
@@ -225,7 +222,7 @@ return {
             --     }
             -- )
 
-            lspconfig(
+            vim.lsp.config(
                 "basedpyright",
                 {
                     settings = {
@@ -252,10 +249,10 @@ return {
             )
 
             -- CSS
-            lspconfig("cssls", {})
+            vim.lsp.config("cssls", {})
 
             -- Svelte LSP
-            lspconfig(
+            vim.lsp.config(
                 "svelte",
                 {
                     capabilities = capabilities,
@@ -286,10 +283,10 @@ return {
             )
 
             -- C++
-            lspconfig("clangd", {})
+            vim.lsp.config("clangd", {})
 
             -- Typescript LSP
-            lspconfig(
+            vim.lsp.config(
                 "ts_ls",
                 {
                     init_options = {

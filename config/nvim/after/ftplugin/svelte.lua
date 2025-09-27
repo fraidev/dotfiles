@@ -9,3 +9,5 @@ vim.bo.expandtab = true
 
 -- Enable syntax highlighting for embedded languages
 vim.bo.syntax = "svelte"
+
+vim.lsp.enable("svelte")
