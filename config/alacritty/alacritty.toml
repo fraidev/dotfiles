@@ -16,11 +16,37 @@ primary.background = "#1F1E1E"
 # [font.normal]
 # family = "3270 Nerd Font Propo"
 
+# [font]
+# normal = { family = "3270 Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGS Nerd Font Mono", style = "Regular" }
+# bold = { family = "MesloLGS Nerd Font Mono", style = "Bold" }
+# italic = { family = "MesloLGS Nerd Font Mono", style = "Italic" }
+# bold_italic = { family = "MesloLGS Nerd Font Mono", style = "Bold Italic" }
+
+# normal = { family = "MesloLGL Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGLDZ Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGM Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGMDZ Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGS Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGSDZ Nerd Font Mono", style = "Regular" }
+# normal = { family = "MesloLGL Nerd Font", style = "Regular" }
+# normal = { family = "MesloLGL Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGLDZ Nerd Font", style = "Regular" }
+# normal = { family = "MesloLGLDZ Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGM Nerd Font", style = "Regular" }
+# normal = { family = "MesloLGM Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGMDZ Nerd Font", style = "Regular" }
+# normal = { family = "MesloLGMDZ Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGS Nerd Font", style = "Regular" }
+# normal = { family = "MesloLGS Nerd Font Propo", style = "Regular" }
+# normal = { family = "MesloLGSDZ Nerd Font", style = "Regular" }
+
 [font]
-normal = { family = "MesloLGS Nerd Font Mono", style = "Regular" }
-bold = { family = "MesloLGS Nerd Font Mono", style = "Bold" }
-italic = { family = "MesloLGS Nerd Font Mono", style = "Italic" }
-bold_italic = { family = "MesloLGS Nerd Font Mono", style = "Bold Italic" }
+normal = { family = "MesloLGSDZ Nerd Font Propo", style = "Regular" }
+bold = { family = "MesloLGSDZ Nerd Font Propo", style = "Bold" }
+italic = { family = "MesloLGSDZ Nerd Font Propo", style = "Italic" }
+bold_italic = { family = "MesloLGSDZ Nerd Font Propo", style = "Bold Italic" }
+
 
 
 
