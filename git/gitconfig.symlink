@@ -185,3 +185,9 @@
   tool = nvim
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+# macOS include
+[includeIf "gitdir:/Users/"]
+    path = ~/.gitconfig-macos
+# Linux include
+[includeIf "gitdir:/home/"]
+    path = ~/.gitconfig-linux
