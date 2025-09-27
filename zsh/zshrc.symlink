@@ -24,6 +24,7 @@ prepend_path $HOME/Library/Android/sdk/emulator
 prepend_path /opt/homebrew/bin
 prepend_path $GOPATH/bin
 prepend_path /usr/local/bin
+prepend_path /usr/local/go/bin
 prepend_path $HOME/go
 prepend_path $HOME/Library/Python/3.8/bin
 prepend_path $HOME/.local/bin
