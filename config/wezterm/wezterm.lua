@@ -14,13 +14,23 @@ end
 config.color_scheme = "Horizon Dark (base16)"
 -- config.color_scheme = "Doom One"
 -- config.color_scheme = "VSCodeDark+ (Gogh)"
+local home = wezterm.home_dir
+-- config.color_scheme = "vscode-dark"
+config.color_scheme_dirs = {home .. "./config/wezterm/colors"}
 -- config.color_scheme = 'Humanoid dark (base16)'
 
 config.colors = {
     -- The default text color
     -- foreground = '#E0E0E0',
     -- The default background color
-    background = "#1F1E1E",
+    -- background = "#282C34"
+    -- background = "#21242A"
+
+    background = "#1E1E1E"
+
+    -- background = "#1c1e26"
+    -- background = "#1F1E1E"
+    -- background = "#000000"
 }
 
 -- config.colors = {
@@ -42,7 +52,7 @@ config.cursor_blink_rate = 500
 config.window_padding = {
     left = 0,
     right = 0,
-    top = 20,
+    top = 0,
     bottom = 0
 }
 
@@ -58,22 +68,29 @@ config.window_padding = {
 -- config.font = wezterm.font "Cascadia Mono"
 -- config.font = wezterm.font "Comic Neue"
 -- config.font = wezterm.font "Comic Code Ligatures"
-config.font = wezterm.font "Menlo"
+-- config.font = wezterm.font "MesloLGSDZ Nerd Font Propo"
 -- config.font = wezterm.font "MesloLGS Nerd Font Mono"
 -- config.font = wezterm.font "MesloLGSDZ Nerd Font Mono"
-
 
 -- config.font = wezterm.font "cascadia mono"
 -- config.font = wezterm.font "Comic Code Ligatures SemiBold"
 -- config.font = wezterm.font "Comic Code Ligatures UltraLight"
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
 -- config.font = wezterm.font "Comic Code Ligatures Light"
+
+if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
+    config.font = wezterm.font "Menlo"
+else
+    config.font = wezterm.font "Fira Code"
+end
+-- config.font = wezterm.font "Menlo"
+
 config.enable_kitty_keyboard = true
 
 local act = wezterm.action
 
 -- font size
-config.font_size = 18.0
+config.font_size = 14.0
 
 config.keys = {
     {key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1)},

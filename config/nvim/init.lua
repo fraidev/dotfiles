@@ -15,5 +15,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.cmd.colorscheme("my_theme")
 
 require("lazy").setup("custom.plugins")

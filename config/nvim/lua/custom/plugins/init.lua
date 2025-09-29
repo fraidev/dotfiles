@@ -3,7 +3,7 @@ return {
     "nvim-lua/plenary.nvim",
     -- Plugin to show the startuptime of neovim using :StartupTime
     "dstein64/vim-startuptime",
-    "gpanders/editorconfig.nvim",
+    -- "gpanders/editorconfig.nvim",
     {"JoosepAlviste/nvim-ts-context-commentstring", ft = {"typescript", "typescriptreact"}},
     -- Use devicons for filetypes
     "nvim-tree/nvim-web-devicons",
