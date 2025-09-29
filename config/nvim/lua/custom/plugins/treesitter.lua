@@ -26,10 +26,11 @@ return {
                     "json",
                     "yaml",
                     "sql",
-                    "toml"
+                    "toml",
+		    "zig"
                 },
                 sync_install = false,
-                indent = {enable = true},
+                indent = {enable = false},
                 highlight = {
                     enable = true,
                     use_languagetree = true

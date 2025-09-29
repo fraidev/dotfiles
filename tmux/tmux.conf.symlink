@@ -1,12 +1,20 @@
 # tmux display things in 258 colors
 set -s set-clipboard on
 # set -g default-terminal "tmux-256color"
+# set -g default-terminal "xterm-256color"
 # set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 # set -as terminal-features ',xterm-256color-italic:clipboard'
 
 
 # NEW WAY
-set -as terminal-features 'xterm-256color:RGB'
+# set -sa terminal-features ',xterm-256color:RGB'
+
+set -g default-terminal "tmux-256color"
+# set -sa terminal-features ',xterm-256color:RGB'
+# set -sa terminal-features ',tmux-256color:RGB'
+set -as terminal-features ',xterm*:RGB'
+# set -g default-terminal "tmux-256color"
+# set -ga terminal-overrides ",*256col*:Tc"
 
 # set -g default-terminal "screen-256color"
 # set-option -ga terminal-overrides ",screen-255color:Tc"

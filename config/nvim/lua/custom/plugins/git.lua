@@ -18,6 +18,8 @@ return {
         "lewis6991/gitsigns.nvim",
         config = function()
             require("gitsigns").setup()
+            nnoremap("[g", ":Gitsigns nav_hunk prev<cr>")
+            nnoremap("]g", ":Gitsigns nav_hunk next<cr>")
             nnoremap("<leader>gp", ":Gitsigns preview_hunk<cr>")
             nnoremap("<leader>gt", ":Gitsigns toggle_current_line_blame<cr>")
         end

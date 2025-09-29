@@ -6,7 +6,10 @@ return {
         dependencies = {
             {
                 "williamboman/mason-lspconfig.nvim",
-                "williamboman/mason.nvim",
+                {
+                    "mason-org/mason.nvim",
+                    opts = {}
+                },
                 build = ":MasonUpdate" -- :MasonUpdate updates registry contents
             }
             -- {
@@ -15,12 +18,9 @@ return {
             -- }
         },
         config = function()
-            local cmd = vim.cmd
             local api = vim.api
             local lsp = vim.lsp
-            local theme = require("theme")
-            local colors = theme.colors
-            local icons = theme.icons
+            local icons = require("icons")
 
             -- Lsp Installer
             require("mason").setup(
@@ -29,10 +29,11 @@ return {
                 }
             )
 
-            require("mason-lspconfig").setup()
-
-            cmd("autocmd ColorScheme * highlight NormalFloat guibg=" .. colors.bg)
-            cmd("autocmd ColorScheme * highlight FloatBorder guifg=white guibg=" .. colors.bg)
+            require("mason-lspconfig").setup(
+                {
+                    automatic_enable = false
+                }
+            )
 
             local border = {
                 {"🭽", "FloatBorder"},
@@ -51,14 +52,14 @@ return {
             end
 
             -- _G makes this function available to vimscript lua calls
-            _G.lsp_organize_imports = function()
-                local params = {
-                    command = "_typescript.organizeImports",
-                    arguments = {api.nvim_buf_get_name(0)},
-                    title = ""
-                }
-                lsp.buf.execute_command(params)
-            end
+            -- _G.lsp_organize_imports = function()
+            --     local params = {
+            --         command = "_typescript.organizeImports",
+            --         arguments = {api.nvim_buf_get_name(0)},
+            --         title = ""
+            --     }
+            --     lsp.buf.execute_command(params)
+            -- end
 
             vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
             vim.keymap.set(
@@ -178,6 +179,9 @@ return {
                                     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                                     [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
                                 }
+                            },
+                            completion = {
+                                callSnippet = "Replace"
                             }
                         }
                     }
@@ -285,6 +289,30 @@ return {
             -- C++
             vim.lsp.config("clangd", {})
 
+            -- Deno
+            vim.lsp.config(
+                "denols",
+                {
+                    root_markers = {"deno.json", "deno.jsonc"},
+                    -- root_dir = vim.fs.root(0, {"deno.json", "deno.jsonc"}),
+                    -- root_dir = require("lspconfig").util.root_pattern({"deno.json", "deno.jsonc"}),
+                    single_file_support = false,
+                    init_options = {
+                        lint = true,
+                        unstable = true,
+                        suggest = {
+                            imports = {
+                                hosts = {
+                                    ["https://deno.land"] = true,
+                                    ["https://jsr.io"] = true,
+                                    ["https://esm.sh"] = true
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+
             -- Typescript LSP
             vim.lsp.config(
                 "ts_ls",
@@ -301,7 +329,17 @@ return {
                             includeInlayEnumMemberValueHints = true
                         }
                     },
-                    root_dir = require("lspconfig").util.root_pattern("tsconfig.json")
+                    single_file_support = false,
+                    -- root_dir = require("lspconfig").util.root_pattern({"package.json", "tsconfig.json"})
+                    root_markers = {"package.json"}
+                    -- root_dir = require("lspconfig").util.root_pattern("tsconfig.json")
+                }
+            )
+
+            vim.lsp.config(
+                "zls",
+                {
+                    filetypes = {"zig"}
                 }
             )
 
@@ -399,31 +437,6 @@ return {
                     filetypes = {"html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte"}
                 }
             )
-
-            vim.lsp.config(
-                "lua_ls",
-                {
-                    settings = {
-                        Lua = {
-                            -- make the language server recognize "vim" global
-                            diagnostics = {
-                                globals = {"vim"}
-                            },
-                            completion = {
-                                callSnippet = "Replace"
-                            }
-                        }
-                    }
-                }
-            )
-
-            -- Set colors for completion items
-            cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=" .. colors.lightblue)
-            cmd("highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=" .. colors.lightblue)
-            cmd("highlight! CmpItemKindFunction guibg=NONE guifg=" .. colors.magenta)
-            cmd("highlight! CmpItemKindMethod guibg=NONE guifg=" .. colors.magenta)
-            cmd("highlight! CmpItemKindVariable guibg=NONE guifg=" .. colors.blue)
-            cmd("highlight! CmpItemKindKeyword guibg=NONE guifg=" .. colors.fg)
         end
     }
 }

@@ -5,6 +5,8 @@ local opt_local = vim.opt_local
 ----- Interesting Options -----
 
 opt.termguicolors = true
+vim.g.high_contrast_theme = true
+vim.g.deno_enable_lsp = 1
 
 -- You have to turn this one on :)
 opt.inccommand = "split"
@@ -30,7 +32,6 @@ opt.formatoptions:remove "o"
 
 opt.wrap = true
 opt.linebreak = true
-
 
 -- Disable adding EOL at the end of files
 -- vim.opt.eol = false

@@ -198,6 +198,12 @@ alias sdfr="$SDF_DIR/target/release/sdf"
 # alias cdk="$FLUVIO_DIR/target/debug/cdk"
 alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-cloud"
 
+
+# deno aliases
+export DENO_WORKSPACE="$HOME/workspace/deno/deno"
+alias denod="$DENO_WORKSPACE/target/debug/deno"
+alias denor="$DENO_WORKSPACE/target/release/deno"
+
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
 
@@ -237,12 +243,17 @@ kubectl () {
 export FLUVIO_BIN="$FLUVIO_DIR/target/debug/fluvio"
 export CDK_BIN="$FLUVIO_DIR/target/debug/cdk"
 # export HOME_PROFILE=$("$FLUVIO_BIN profile")
-export HOME_PROFILE=$($FLUVIO_BIN profile)
-# export HOME_PROFILE=$(fluvio profile)
+#
+if [ -x "$FLUVIO_BIN" ]; then
+    export HOME_PROFILE=$("$FLUVIO_BIN" profile)
+fi
 export AWS_PROFILE=infinyon
 # export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
 
 export COLORTERM=truecolor
+if [ -n "$TMUX" ]; then
+    export TERM="tmux-256color"
+fi
 
 
 # Added by LM Studio CLI (lms)
@@ -264,3 +275,14 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# bun completions
+[ -s "/Users/frai/.bun/_bun" ] && source "/Users/frai/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# opencode
+export PATH=/Users/frai/.opencode/bin:$PATH
