@@ -78,11 +78,11 @@ config.window_padding = {
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
 -- config.font = wezterm.font "Comic Code Ligatures Light"
 
-if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
+-- if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
     config.font = wezterm.font "Menlo"
-else
-    config.font = wezterm.font "Fira Code"
-end
+-- else
+    -- config.font = wezterm.font "Fira Code"
+-- end
 -- config.font = wezterm.font "Menlo"
 
 config.enable_kitty_keyboard = true

@@ -30,5 +30,11 @@ return {
         "folke/todo-comments.nvim",
         dependencies = {"nvim-lua/plenary.nvim"},
         opts = {}
+    },
+    {
+        "nmac427/guess-indent.nvim",
+        config = function()
+            require("guess-indent").setup {}
+        end
     }
 }
