@@ -6,7 +6,7 @@ return {
         lazy = false,
         opt = false,
         dependencies = {
-            "HiPhish/rainbow-delimiters.nvim",
+            "HiPhish/rainbow-delimiters.nvim"
         },
         config = function()
             require "nvim-treesitter.configs".setup {
@@ -27,9 +27,10 @@ return {
                     "yaml",
                     "sql",
                     "toml",
-		    "zig"
+                    "zig"
                 },
-                sync_install = false,
+                -- sync_install = false,
+                sync_install = true,
                 indent = {enable = false},
                 highlight = {
                     enable = true,
@@ -45,6 +46,9 @@ return {
                     query = "rainbow-parens",
                     -- Highlight the entire buffer all at once
                     max_file_lines = 3000
+                },
+                fold = {
+                    enable = true
                 }
             }
         end

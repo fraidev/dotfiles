@@ -7,6 +7,9 @@ local opt_local = vim.opt_local
 opt.termguicolors = true
 vim.g.high_contrast_theme = true
 vim.g.deno_enable_lsp = 1
+-- vim.wo.foldmethod = 'indent'
+-- vim.opt.foldlevel = 99 
+vim.g._ts_force_sync_parsing = true
 
 -- You have to turn this one on :)
 opt.inccommand = "split"

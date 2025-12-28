@@ -8,7 +8,8 @@ return {
 
         -- trouble keymappings
         nnoremap("<leader>xX", "<cmd>Trouble diagnostics toggle<cr>")
-        nnoremap("<leader>xx", "<cmd>Telescope diagnostics previewer=false<cr>")
+        -- nnoremap("<leader>xx", "<cmd>Telescope diagnostics previewer=false<cr>")
+        -- nnoremap("<leader>xx", "<cmd>FzfLua diagnostics_workspace<cr>")
         -- nnoremap("<leader>xX", "<cmd>Telescope diagnostics bufnr=0 previewer=false<cr>")
         nnoremap("<leader>xw", "<cmd>Trouble diagnostics toggle<cr>")
         nnoremap("<leader>xq", "<cmd>Trouble qflist toggle<cr>")

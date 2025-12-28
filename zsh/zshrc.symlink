@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/Users/frai/.zsh/completions:"* ]]; then export FPATH="/Users/frai/.zsh/completions:$FPATH"; fi
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
 
@@ -203,6 +205,7 @@ alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-clo
 export DENO_WORKSPACE="$HOME/workspace/deno/deno"
 alias denod="$DENO_WORKSPACE/target/debug/deno"
 alias denor="$DENO_WORKSPACE/target/release/deno"
+. "/Users/frai/.deno/env"
 
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
@@ -247,8 +250,6 @@ export CDK_BIN="$FLUVIO_DIR/target/debug/cdk"
 if [ -x "$FLUVIO_BIN" ]; then
     export HOME_PROFILE=$("$FLUVIO_BIN" profile)
 fi
-export AWS_PROFILE=infinyon
-# export FLUVIO_CLOUD_REMOTE="http://localhost:3035"
 
 export COLORTERM=truecolor
 if [ -n "$TMUX" ]; then

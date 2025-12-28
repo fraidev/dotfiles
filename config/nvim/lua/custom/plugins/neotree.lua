@@ -57,8 +57,8 @@ return {
                         hide_gitignored = false,
                         hide_by_pattern = {
                             "**/.vscode",
-                            "**/node_modules",
-                            "**/dist",
+                            -- "**/node_modules",
+                            -- "**/dist",
                             -- "**/build",
                             "**/_build",
                             "**/_opam",
