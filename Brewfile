@@ -76,4 +76,7 @@ brew "go" # Go programming language
 brew "kubernetes-cli" # Kubernetes CLI
 brew "k9s" # Kubernetes CLI to manage your clusters in terminal
 brew "gnu-sed" # GNU implementation of sed
+brew "cmake"
+brew "llvm"
+brew "lld"
 

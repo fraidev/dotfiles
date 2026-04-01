@@ -9,7 +9,8 @@ return {
         opts = {
             grep = {
                 -- IMPORTANT: --column is what enables col jumps
-                rg_opts = "--column --line-number --no-heading --color=always --smart-case"
+                -- rg_opts = "--column --line-number --no-heading --color=always --smart-case
+                rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git'"
             }
         },
         keys = function()

@@ -22,4 +22,5 @@ typeset -aU path
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 . "$HOME/.cargo/env"
-. "/Users/frai/.local/share/bob/env/env.sh"
+. "$HOME/.deno/env"
+# . "$HOME/.local/share/bob/env/env.sh"

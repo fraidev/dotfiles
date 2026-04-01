@@ -93,6 +93,7 @@ local act = wezterm.action
 config.font_size = 14.0
 
 config.keys = {
+    {key="Enter", mods="SHIFT", action=wezterm.action{SendString="\x1b\r"}},
     {key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1)},
     {key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(1)}
 }
