@@ -86,15 +86,26 @@ return {
                         -- Enable completion triggered by <c-x><c-o>
                         vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-                        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-                        vim.lsp.handlers["textDocument/signatureHelp"] =
-                            vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-
                         -- Buffer local mappings.
                         -- See `:help vim.lsp.*` for documentation on any of the below functions
                         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {buffer = ev.buf, desc = "Declaration"})
                         vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer = ev.buf, desc = "Definition"})
-                        vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer = ev.buf, desc = "Hover"})
+                        vim.keymap.set(
+                            "n",
+                            "K",
+                            function()
+                                vim.lsp.buf.hover({border = border})
+                            end,
+                            {buffer = ev.buf, desc = "Hover"}
+                        )
+                        vim.keymap.set(
+                            "n",
+                            "<C-k>",
+                            function()
+                                vim.lsp.buf.signature_help({border = border})
+                            end,
+                            {buffer = ev.buf, desc = "Signature Help"}
+                        )
                         vim.keymap.set(
                             "n",
                             "gi",

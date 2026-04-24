@@ -26,7 +26,7 @@ return {
         config = true
     },
     -- Go
-    {"fatih/vim-go", build = ":GoUpdateBinaries"},
+    -- {"fatih/vim-go", build = ":GoUpdateBinaries"},
     {
         "folke/todo-comments.nvim",
         dependencies = {"nvim-lua/plenary.nvim"},
