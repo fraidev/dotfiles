@@ -1,5 +1,10 @@
 # Add deno completions to search path
-if [[ ":$FPATH:" != *":/Users/frai/.zsh/completions:"* ]]; then export FPATH="/Users/frai/.zsh/completions:$FPATH"; fi
+COMPLETIONS_DIR="$HOME/.zsh/completions"
+
+if [[ ":$FPATH:" != *":$COMPLETIONS_DIR:"* ]]; then
+  export FPATH="$COMPLETIONS_DIR:$FPATH"
+fi
+
 export ZSH=$DOTFILES/zsh
 export MYVIMRC=$HOME/.config/nvim/init.lua
 
@@ -288,4 +293,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=/Users/frai/.opencode/bin:$PATH
 export RUSTC_WRAPPER="/opt/homebrew/bin/sccache"
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
-. "/Users/frai/.deno/env"
+
+# OpenClaw Completion
+source "/home/frai/.openclaw/completions/openclaw.zsh"
+export PATH=$PATH:/usr/local/go/bin
