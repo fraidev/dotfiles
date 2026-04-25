@@ -262,7 +262,7 @@ fi
 
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/frai/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 export WASMTIME_HOME="$HOME/.wasmtime"
 
@@ -274,7 +274,7 @@ export PATH="$WASMTIME_HOME/bin:$PATH"
 export SSLKEYLOGFILE=~/sslkeys.log
 
 # pnpm
-export PNPM_HOME="/Users/frai/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -282,7 +282,7 @@ esac
 # pnpm end
 
 # bun completions
-[ -s "/Users/frai/.bun/_bun" ] && source "/Users/frai/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -290,10 +290,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 # opencode
-export PATH=/Users/frai/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 export RUSTC_WRAPPER="/opt/homebrew/bin/sccache"
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 
 # OpenClaw Completion
-source "/home/frai/.openclaw/completions/openclaw.zsh"
+[ -s "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
 export PATH=$PATH:/usr/local/go/bin
