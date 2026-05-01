@@ -23,4 +23,4 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 . "$HOME/.cargo/env"
 . "$HOME/.deno/env"
-# . "$HOME/.local/share/bob/env/env.sh"
+. "$HOME/.local/share/bob/env/env.sh"
