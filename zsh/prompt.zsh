@@ -51,7 +51,7 @@ rust_prompt() {
 
 git_status_done() {
     # $3 is the stdout of the git_status command
-    RPROMPT="$3 $(suspended_jobs) %F{243}%m%f"
+    RPROMPT="$3 $(suspended_jobs)"
     zle reset-prompt
 }
 
@@ -162,7 +162,7 @@ async_start_worker vcs_info
 async_register_callback vcs_info git_status_done
 
 _prompt_precmd() {
-    print -P "\n%F{005}%~ $(rust_prompt)"
+    print -P "\n%F{005}%~ $(rust_prompt)%f %F{243}%m%f"
     async_job vcs_info git_status "$PWD" 2>/dev/null || {
         async_start_worker vcs_info
         async_register_callback vcs_info git_status_done
@@ -173,4 +173,4 @@ add-zsh-hook precmd _prompt_precmd
 
 
 export PROMPT='%(?.%F{006}.%F{009})$PROMPT_SYMBOL%f '
-export RPROMPT="$(suspended_jobs) %F{243}%m%f"
+export RPROMPT="$(suspended_jobs)"
