@@ -7,6 +7,15 @@ zstyle ':vcs_info:git*' formats ' %b'
 
 PROMPT_SYMBOL='▷'
 
+_os_icon() {
+    case "$(uname)" in
+        Darwin) printf '' ;;  #
+        Linux)  printf '' ;;  #
+        *)      printf '%m' ;;
+    esac
+}
+OS_ICON="$(_os_icon)"
+
 # indicate a job (for example, vim) has been backgrounded
 # If there is a job in the background, display a ✱
 suspended_jobs() {
@@ -51,7 +60,7 @@ rust_prompt() {
 
 git_status_done() {
     # $3 is the stdout of the git_status command
-    RPROMPT="$3 $(suspended_jobs)"
+    RPROMPT="$3 $(suspended_jobs) %F{243}${OS_ICON}%f"
     zle reset-prompt
 }
 
@@ -162,7 +171,7 @@ async_start_worker vcs_info
 async_register_callback vcs_info git_status_done
 
 _prompt_precmd() {
-    print -P "\n%F{005}%~ $(rust_prompt)%f %F{243}%m%f"
+    print -P "\n%F{005}%~ $(rust_prompt)%f"
     async_job vcs_info git_status "$PWD" 2>/dev/null || {
         async_start_worker vcs_info
         async_register_callback vcs_info git_status_done
@@ -173,4 +182,4 @@ add-zsh-hook precmd _prompt_precmd
 
 
 export PROMPT='%(?.%F{006}.%F{009})$PROMPT_SYMBOL%f '
-export RPROMPT="$(suspended_jobs)"
+export RPROMPT="$(suspended_jobs) %F{243}\${OS_ICON}%f"
