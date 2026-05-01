@@ -116,6 +116,8 @@ zfetch Aloxaf/fzf-tab
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+# Linux (apt) fzf doesn't create ~/.fzf.zsh — source system key bindings directly
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # user env vars
 export GO111MODULE="on"

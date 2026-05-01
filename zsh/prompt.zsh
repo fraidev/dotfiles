@@ -161,10 +161,15 @@ async_init
 async_start_worker vcs_info
 async_register_callback vcs_info git_status_done
 
-add-zsh-hook precmd () {
-    print -P "\n%F{005}%~ $(rust_prompt)"
-    async_job vcs_info git_status "$PWD"
+_prompt_precmd() {
+    print -P "\n%F{243}%m %F{005}%~ $(rust_prompt)"
+    async_job vcs_info git_status "$PWD" 2>/dev/null || {
+        async_start_worker vcs_info
+        async_register_callback vcs_info git_status_done
+        async_job vcs_info git_status "$PWD"
+    }
 }
+add-zsh-hook precmd _prompt_precmd
 
 
 export PROMPT='%(?.%F{006}.%F{009})$PROMPT_SYMBOL%f '
