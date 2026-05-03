@@ -41,6 +41,10 @@
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
       "src": "https://github.com/stevearc/dressing.nvim"
     },
+    "elixir-tools.nvim": {
+      "rev": "a554f526de7f4fc6ec50cc34b977dbaed68b3b04",
+      "src": "https://github.com/elixir-tools/elixir-tools.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"

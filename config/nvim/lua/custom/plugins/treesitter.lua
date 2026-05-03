@@ -32,7 +32,10 @@ return {
                 "zig",
                 "bash",
                 "markdown",
-                "markdown_inline"
+                "markdown_inline",
+                "elixir",
+                "heex",
+                "eex"
             }
 
             require("nvim-treesitter").install(parsers)

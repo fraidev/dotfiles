@@ -7,6 +7,8 @@ return {
         vim.g.neoformat_python_black = {exe = "black", args = {}, stdin = 1}
         vim.g.neoformat_zig_zigfmt = {exe = "zig", args = {"fmt", "--stdin"}, stdin = 1}
         vim.g.neoformat_enabled_typescript = {"denofmt"}
+        vim.g.neoformat_elixir_mixformat = {exe = "mix", args = {"format", "-"}, stdin = 1}
+        vim.g.neoformat_enabled_elixir = {"mixformat"}
 	-- vim.g.neoformat_verbose = 1
     end
 }

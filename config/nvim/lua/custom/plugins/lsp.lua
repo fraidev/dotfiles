@@ -98,14 +98,14 @@ return {
                             end,
                             {buffer = ev.buf, desc = "Hover"}
                         )
-                        vim.keymap.set(
-                            "n",
-                            "<C-k>",
-                            function()
-                                vim.lsp.buf.signature_help({border = border})
-                            end,
-                            {buffer = ev.buf, desc = "Signature Help"}
-                        )
+                        -- vim.keymap.set(
+                        --     "n",
+                        --     "<C-k>",
+                        --     function()
+                        --         vim.lsp.buf.signature_help({border = border})
+                        --     end,
+                        --     {buffer = ev.buf, desc = "Signature Help"}
+                        -- )
                         vim.keymap.set(
                             "n",
                             "gi",
