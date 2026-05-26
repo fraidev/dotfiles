@@ -29,13 +29,13 @@
         };
     in {
       homeConfigurations = {
-        "felipe-mac" = mkHome {
+        "frai-mac" = mkHome {
           system = "aarch64-darwin";
           homeDirectory = "/Users/${username}";
           extraModules = [ ./nix/darwin.nix ];
         };
 
-        "felipe-linux" = mkHome {
+        "frai-linux" = mkHome {
           system = "x86_64-linux";
           homeDirectory = "/home/${username}";
           extraModules = [ ./nix/linux.nix ];

@@ -122,8 +122,8 @@ setup_home_manager() {
 
     local profile
     case "$(uname)" in
-        Darwin) profile="felipe-mac" ;;
-        Linux)  profile="felipe-linux" ;;
+        Darwin) profile="frai-mac" ;;
+        Linux)  profile="frai-linux" ;;
         *)      error "Unsupported OS: $(uname)" ;;
     esac
 

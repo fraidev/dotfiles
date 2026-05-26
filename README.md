@@ -8,7 +8,7 @@ Cross-platform dotfiles for macOS and Linux. Packages managed by [Nix](https://n
 
 | Path | Purpose |
 | --- | --- |
-| `flake.nix` | Entry point — exposes `homeConfigurations.felipe-mac` (aarch64-darwin) and `homeConfigurations.felipe-linux` (x86_64-linux). |
+| `flake.nix` | Entry point — exposes `homeConfigurations.frai-mac` (aarch64-darwin) and `homeConfigurations.frai-linux` (x86_64-linux). |
 | `nix/home.nix` | Shared package list + home-manager settings. |
 | `nix/darwin.nix` | macOS-only extras. |
 | `nix/linux.nix` | Linux-only extras (e.g. `xclip`). |
@@ -44,8 +44,8 @@ cd ~/dotfiles
 Edit `nix/home.nix` (or `nix/darwin.nix` / `nix/linux.nix`), then:
 
 ```bash
-nix run home-manager/master -- switch --flake .#felipe-mac     # macOS
-nix run home-manager/master -- switch --flake .#felipe-linux   # Linux
+nix run home-manager/master -- switch --flake .#frai-mac     # macOS
+nix run home-manager/master -- switch --flake .#frai-linux   # Linux
 ```
 
 To bump pinned nixpkgs:
