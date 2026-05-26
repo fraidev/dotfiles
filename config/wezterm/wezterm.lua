@@ -73,13 +73,15 @@ config.window_padding = {
 -- config.font = wezterm.font "MesloLGSDZ Nerd Font Mono"
 
 -- config.font = wezterm.font "cascadia mono"
--- config.font = wezterm.font "Comic Code Ligatures SemiBold"
+-- config.font = wezterm.font "Comic Code Ligatures"
+-- config.font = wezterm.font "Comic Code Ligatures Light"
+config.font = wezterm.font "Comic Code Ligatures SemiBold"
 -- config.font = wezterm.font "Comic Code Ligatures UltraLight"
 -- config.font = wezterm.font "Comic Code Ligatures Thin"
 -- config.font = wezterm.font "Comic Code Ligatures Light"
 
 -- if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
-    config.font = wezterm.font "Menlo"
+    -- config.font = wezterm.font "Menlo"
 -- else
     -- config.font = wezterm.font "Fira Code"
 -- end

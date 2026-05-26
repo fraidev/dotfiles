@@ -354,6 +354,29 @@ return {
                 }
             )
 
+            -- Elixir
+            vim.lsp.config(
+                "expert",
+                {
+                    cmd = {"expert", "--stdio"},
+                    root_markers = {"mix.exs", ".git"},
+                    filetypes = {"elixir", "eelixir", "heex"},
+                    -- handlers = {
+                    --     ["window/showMessageRequest"] = function(err, result, ctx, config)
+                    --         if result.message and result.message:find("fetch them") then
+                    --             for _, action in ipairs(result.actions or {}) do
+                    --                 if action.title:lower():find("yes") then
+                    --                     return action
+                    --                 end
+                    --             end
+                    --         end
+                    --         return vim.lsp.handlers["window/showMessageRequest"](err, result, ctx, config)
+                    --     end
+                    -- }
+                }
+            )
+            vim.lsp.enable("expert")
+
             -- Setup Cursor highlight
             -- vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
             -- vim.api.nvim_command([[ hi def link LspReferenceWrite CursorLine ]])

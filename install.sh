@@ -94,35 +94,57 @@ setup_git() {
     fi
 }
 
-setup_homebrew() {
-    title "Setting up Homebrew"
+setup_nix() {
+    title "Installing Nix"
 
-    if test ! "$(command -v brew)"; then
-        info "Homebrew not installed. Installing."
-        # Run as a login shell (non-interactive) so that the script doesn't pause for user input
-        curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash --login
+    if command -v nix >/dev/null 2>&1; then
+        info "Nix already installed: $(nix --version)"
+    else
+        info "Installing Nix via Determinate Systems installer"
+        curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
     fi
 
-    if [ "$(uname)" == "Linux" ]; then
-        test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-        test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+    # source nix env in current shell so we can run home-manager right after
+    if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+        # shellcheck disable=SC1091
+        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    elif [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+        # shellcheck disable=SC1091
+        . "$HOME/.nix-profile/etc/profile.d/nix.sh"
     fi
 
-    # install brew dependencies from Brewfile
-    brew bundle
+    # enable flakes + nix-command for this invocation (Determinate installer already enables them, but be safe)
+    export NIX_CONFIG="experimental-features = nix-command flakes"
+}
 
-    # install fzf
-    echo -e
-    info "Installing fzf"
-    "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+setup_home_manager() {
+    title "Applying home-manager config"
+
+    local profile
+    case "$(uname)" in
+        Darwin) profile="felipe-mac" ;;
+        Linux)  profile="felipe-linux" ;;
+        *)      error "Unsupported OS: $(uname)" ;;
+    esac
+
+    info "Switching to home-manager profile: $profile"
+    nix run --extra-experimental-features 'nix-command flakes' \
+        home-manager/master -- switch --flake "$DOTFILES#$profile" -b backup
 }
 
 setup_shell() {
     title "Configuring shell"
 
-    [[ -n "$(command -v brew)" ]] && zsh_path="$(brew --prefix)/bin/zsh" || zsh_path="$(which zsh)"
-    if ! grep "$zsh_path" /etc/shells; then
+    local zsh_path
+    if [ -x "$HOME/.nix-profile/bin/zsh" ]; then
+        zsh_path="$HOME/.nix-profile/bin/zsh"
+    else
+        zsh_path="$(command -v zsh)"
+    fi
+
+    [ -z "$zsh_path" ] && warning "zsh not found in PATH; skipping" && return
+
+    if ! grep -q "$zsh_path" /etc/shells; then
         info "adding $zsh_path to /etc/shells"
         echo "$zsh_path" | sudo tee -a /etc/shells
     fi
@@ -133,7 +155,7 @@ setup_shell() {
     fi
 }
 
-function setup_terminfo() {
+setup_terminfo() {
     title "Configuring terminfo"
 
     info "adding tmux.terminfo"
@@ -145,127 +167,90 @@ function setup_terminfo() {
 
 setup_macos() {
     title "Configuring macOS"
-    if [[ "$(uname)" == "Darwin" ]]; then
-
-        echo "Finder: show all filename extensions"
-        defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
-        echo "show hidden files by default"
-        defaults write com.apple.Finder AppleShowAllFiles -bool false
-
-        echo "only use UTF-8 in Terminal.app"
-        defaults write com.apple.terminal StringEncodings -array 4
-
-        echo "expand save dialog by default"
-        defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-
-        echo "show the ~/Library folder in Finder"
-        chflags nohidden ~/Library
-
-        echo "Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)"
-        defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
-        echo "Enable subpixel font rendering on non-Apple LCDs"
-        defaults write NSGlobalDomain AppleFontSmoothing -int 2
-
-        echo "Use current directory as default search scope in Finder"
-        defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-
-        echo "Show Path bar in Finder"
-        defaults write com.apple.finder ShowPathbar -bool true
-
-        echo "Show Status bar in Finder"
-        defaults write com.apple.finder ShowStatusBar -bool true
-
-        echo "Disable press-and-hold for keys in favor of key repeat"
-        defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-
-        echo "Set a blazingly fast keyboard repeat rate"
-        defaults write NSGlobalDomain KeyRepeat -int 1
-
-        echo "Set a shorter Delay until key repeat"
-        defaults write NSGlobalDomain InitialKeyRepeat -int 15
-
-        echo "Enable tap to click (Trackpad)"
-        defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-
-        echo "Enable Safari’s debug menu"
-        defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-
-        echo "Kill affected applications"
-
-        for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done
-    else
+    if [[ "$(uname)" != "Darwin" ]]; then
         warning "macOS not detected. Skipping."
+        return
     fi
+
+    echo "Finder: show all filename extensions"
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+    echo "show hidden files by default"
+    defaults write com.apple.Finder AppleShowAllFiles -bool false
+
+    echo "only use UTF-8 in Terminal.app"
+    defaults write com.apple.terminal StringEncodings -array 4
+
+    echo "expand save dialog by default"
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+
+    echo "show the ~/Library folder in Finder"
+    chflags nohidden ~/Library
+
+    echo "Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)"
+    defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+    echo "Enable subpixel font rendering on non-Apple LCDs"
+    defaults write NSGlobalDomain AppleFontSmoothing -int 2
+
+    echo "Use current directory as default search scope in Finder"
+    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+    echo "Show Path bar in Finder"
+    defaults write com.apple.finder ShowPathbar -bool true
+
+    echo "Show Status bar in Finder"
+    defaults write com.apple.finder ShowStatusBar -bool true
+
+    echo "Disable press-and-hold for keys in favor of key repeat"
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+    echo "Set a blazingly fast keyboard repeat rate"
+    defaults write NSGlobalDomain KeyRepeat -int 1
+
+    echo "Set a shorter Delay until key repeat"
+    defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+    echo "Enable tap to click (Trackpad)"
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
+    echo "Enable Safari’s debug menu"
+    defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+
+    echo "Kill affected applications"
+    for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done
 }
 
-function setup_debian() {
-	:
-}
-
-function setup_apt() {
-	# Update package list and upgrade installed packages
-	sudo apt update && sudo apt upgrade
-
-	# Install packages
-	sudo apt install -y bat cloc fzf git grep highlight htop jq neofetch neovim python3 ripgrep shellcheck tmux tree vim wdiff wget zsh golang
-}
-
-function setup_packagemanager() {
-    title "Setting up package manager"
-
-    if [[ "$(uname)" == "Darwin" ]]; then
-	setup_homebrew
+setup_rust() {
+    title "Installing rustup"
+    if command -v rustup >/dev/null 2>&1; then
+        info "rustup already installed"
     else
-	setup_apt
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     fi
-}
-
-function setup_os() {
-    title "Setting up OS"
-
-    if [[ "$(uname)" == "Darwin" ]]; then
-	setup_macos
-    else
-	setup_debian
-    fi
-}
-
-function setup_install() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 }
 
 case "$1" in
-    link)
-        setup_symlinks
-        ;;
-    git)
-        setup_git
-        ;;
-    packagemanager)
-        setup_packagemanager
-        ;;
-    shell)
-        setup_shell
-        ;;
-    terminfo)
-        setup_terminfo
-        ;;
-    macos)
-        setup_macos
-        ;;
+    link)        setup_symlinks ;;
+    git)         setup_git ;;
+    nix)         setup_nix ;;
+    home)        setup_home_manager ;;
+    shell)       setup_shell ;;
+    terminfo)    setup_terminfo ;;
+    macos)       setup_macos ;;
+    rust)        setup_rust ;;
     all)
+        setup_nix
+        setup_home_manager
         setup_symlinks
         setup_terminfo
-        setup_packagemanager
-	setup_os
-	setup_install
+        setup_macos
+        setup_rust
         setup_shell
         setup_git
         ;;
     *)
-        echo -e $"\nUsage: $(basename "$0") {link|git|homebrew|shell|terminfo|macos|all}\n"
+        echo -e "\nUsage: $(basename "$0") {link|git|nix|home|shell|terminfo|macos|rust|all}\n"
         exit 1
         ;;
 esac

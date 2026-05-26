@@ -26,21 +26,13 @@ prepend_path /usr/local/sbin
 prepend_path $DOTFILES/bin
 prepend_path $DOTFILES/scripts
 prepend_path $HOME/bin
-prepend_path $HOME/Library/Android/sdk/platform-tools
-prepend_path $HOME/Library/Android/sdk/emulator
-prepend_path /opt/homebrew/bin
 prepend_path $GOPATH/bin
 prepend_path /usr/local/bin
 prepend_path $HOME/go
-prepend_path $HOME/Library/Python/3.8/bin
 prepend_path $HOME/.local/bin
-# prepend_path $HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin
 prepend_path $HOME/Developer/flutter/bin
 prepend_path $HOME/.dotnet/tools
-# prepend_path $HOME/.local/share/bob/nvim-bin 
-prepend_path /opt/homebrew/opt/curl/bin
 prepend_path /usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin
-prepend_path /opt/homebrew/opt/llvm/bin
 prepend_path $HOME/.cargo/env
 prepend_path $HOME/workspace/tezos
 prepend_path $HOME/.npm-global/bin
@@ -48,7 +40,18 @@ prepend_path $HOME/bin
 prepend_path $HOME/.local/bin
 prepend_path $HOME/.fvm/bin
 prepend_path $HOME/.fluvio/bin
-prepend_path /opt/homebrew/opt/openjdk/bin
+
+# Nix / home-manager paths
+prepend_path $HOME/.nix-profile/bin
+prepend_path /nix/var/nix/profiles/default/bin
+
+# macOS-only extras
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    prepend_path $HOME/Library/Android/sdk/platform-tools
+    prepend_path $HOME/Library/Android/sdk/emulator
+    prepend_path $HOME/Library/Python/3.8/bin
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+fi
 # prepend_path $HOME/.vscode/extensions/rust-lang.rust-analyzer-0.3.2228-darwin-arm64/server
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
@@ -123,8 +126,7 @@ export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
 export GO111MODULE="on"
 export GOPATH="$HOME/go"
 export TEZOS_ALPHANET_DO_NOT_PULL=yes
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export CLOUDSDK_PYTHON=/opt/homebrew/bin/python3
+[[ -x "$(command -v python3)" ]] && export CLOUDSDK_PYTHON="$(command -v python3)"
 
 
 ########################################################
@@ -220,7 +222,6 @@ source "$DOTFILES/zsh/prompt.zsh"
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$PATH:$NPM_PACKAGES/bin"
-PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
 # If a local zshrc exists, source it
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
@@ -269,9 +270,9 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 export WASMTIME_HOME="$HOME/.wasmtime"
 
 export PATH="$WASMTIME_HOME/bin:$PATH"
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 export SSLKEYLOGFILE=~/sslkeys.log
 
@@ -293,9 +294,12 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
-export RUSTC_WRAPPER="/opt/homebrew/bin/sccache"
+[[ -x "$(command -v sccache)" ]] && export RUSTC_WRAPPER="$(command -v sccache)"
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 
 # OpenClaw Completion
 [ -s "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
 export PATH=$PATH:/usr/local/go/bin
+
+
+# export AWS_PROFILE=default

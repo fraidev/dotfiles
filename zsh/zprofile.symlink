@@ -1,19 +1,23 @@
 # .zprofile is sourced on login shells and before .zshrc. As a general rule, it should not change the
 # shell environment at all.
 
-if [[ -f /opt/homebrew/bin/brew ]]; then
-    # Homebrew exists at /opt/homebrew for arm64 macos
-    eval $(/opt/homebrew/bin/brew shellenv)
-elif [[ -f /usr/local/bin/brew ]]; then
-    # or at /usr/local for intel macos
-    eval $(/usr/local/bin/brew shellenv)
-elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
-    # or from linuxbrew
-    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Nix (multi-user daemon install)
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
-# Add .NET Core SDK tools
-export PATH="$PATH:/Users/frai/.dotnet/tools"
 
-# Added by OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+# Nix (single-user / fallback)
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+
+# home-manager session vars
+if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+# Add .NET Core SDK tools
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+# Added by OrbStack: command-line tools and integration (macOS only)
+[ -f ~/.orbstack/shell/init.zsh ] && source ~/.orbstack/shell/init.zsh
