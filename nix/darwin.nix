@@ -6,8 +6,12 @@
     wezterm
     obsidian
     postman
-    wireshark
-    pgadmin4
+    scroll-reverser
+    rectangle
+    claude-code
+    #karabiner-elements
+    #wireshark
+    #pgadmin4
 
     # Fonts (auto-linked to ~/Library/Fonts by home-manager on darwin)
     nerd-fonts.fira-code

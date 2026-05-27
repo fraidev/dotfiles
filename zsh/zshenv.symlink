@@ -2,7 +2,10 @@
 # It should contain commands to set the command search path, plus other important environment variables.
 # .zshenv' should not contain commands that produce output or assume the shell is attached to a tty.
 
-export DOTFILES="$(dirname "$(dirname "$(readlink "${(%):-%N}")")")"
+# Under home-manager, ~/.zshenv is a multi-hop symlink into the nix store, so
+# deriving this via `readlink` (single-level) breaks. Pin it; the nix config
+# also assumes ~/dotfiles. Override by exporting DOTFILES before this is sourced.
+export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
 export CACHEDIR="$HOME/.local/share"
 export VIM_TMP="$HOME/.vim-tmp"
 
@@ -21,5 +24,5 @@ typeset -aU path
 
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
-. "$HOME/.cargo/env"
-. "$HOME/.deno/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"
