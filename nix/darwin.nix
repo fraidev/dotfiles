@@ -6,9 +6,9 @@
     wezterm
     obsidian
     postman
-    scroll-reverser
+    # scroll-reverser
     rectangle
-    claude-code
+    # claude-code
     #karabiner-elements
     #wireshark
     #pgadmin4

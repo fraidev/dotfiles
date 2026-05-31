@@ -53,6 +53,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     prepend_path $HOME/Library/Android/sdk/platform-tools
     prepend_path $HOME/Library/Android/sdk/emulator
     prepend_path $HOME/Library/Python/3.8/bin
+    prepend_path $HOME/Library/Python/3.9/bin
     export ANDROID_HOME=$HOME/Library/Android/sdk
 fi
 # prepend_path $HOME/.vscode/extensions/rust-lang.rust-analyzer-0.3.2228-darwin-arm64/server
@@ -217,6 +218,9 @@ alias fcld="$FLUVIO_DIR/../platform-local/infinyon-cloud/target/debug/fluvio-clo
 export DENO_WORKSPACE="$HOME/workspace/deno/deno"
 alias denod="$DENO_WORKSPACE/target/debug/deno"
 alias denor="$DENO_WORKSPACE/target/release/deno"
+
+# claude aliases
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"

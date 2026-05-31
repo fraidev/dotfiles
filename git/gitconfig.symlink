@@ -1,3 +1,6 @@
+[user]
+    name = Felipe Cardozo
+    email = fraifelipe@gmail.com
 [init]
     defaultBranch = main
 [include]

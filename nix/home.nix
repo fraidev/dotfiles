@@ -38,8 +38,6 @@ in
   home.packages = with pkgs; [
     bat
     cloc
-    #delta
-    #entr
     fd
     fzf
     gh
@@ -50,7 +48,7 @@ in
     highlight
     htop
     jq
-    #fastfetch
+    fastfetch
     python3
     ripgrep
     shellcheck
@@ -60,17 +58,17 @@ in
     wget
     zsh
     lazygit
-    #nodejs_22
-    #opam
+    nodejs_24
+    elixir_1_19 
     go
     kubectl
     k9s
+    postgresql
     cmake
     llvm
     lld
-    #trash-cli
-    #noti
     coreutils
-    #zoxide
+    # localstack
+    ngrok
   ];
 }
