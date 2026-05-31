@@ -40,6 +40,9 @@ prepend_path $HOME/bin
 prepend_path $HOME/.local/bin
 prepend_path $HOME/.fvm/bin
 prepend_path $HOME/.fluvio/bin
+prepend_path $HOME/.lmstudio/bin
+prepend_path $HOME/.grok/bin
+
 
 # Nix / home-manager paths
 prepend_path $HOME/.nix-profile/bin
