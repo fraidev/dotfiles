@@ -22,6 +22,15 @@ return {
             local lsp = vim.lsp
             local icons = require("icons")
 
+            -- Restore :LspLog (removed from nvim-lspconfig)
+            api.nvim_create_user_command(
+                "LspLog",
+                function()
+                    vim.cmd("tabnew " .. lsp.get_log_path())
+                end,
+                {desc = "Open the LSP log file"}
+            )
+
             -- Lsp Installer
             require("mason").setup(
                 {

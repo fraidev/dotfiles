@@ -70,5 +70,7 @@ in
     coreutils
     # localstack
     ngrok
+    parallel
+    postgresql
   ];
 }
