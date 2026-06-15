@@ -59,7 +59,8 @@ in
     zsh
     lazygit
     nodejs_24
-    elixir_1_19 
+    beam27Packages.erlang
+    beam27Packages.elixir_1_20
     go
     kubectl
     k9s

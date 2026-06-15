@@ -108,10 +108,17 @@ export ZPLUGDIR="$CACHEDIR/zsh/plugins"
 typeset -A plugins
 
 zfetch mafredri/zsh-async async.plugin.zsh
-zfetch zsh-users/zsh-syntax-highlighting
-zfetch zsh-users/zsh-autosuggestions
 zfetch chriskempson/base16-shell
-zfetch Aloxaf/fzf-tab
+
+# zle-dependent UI plugins. Only load when attached to a terminal: tools that
+# probe the env via `zsh -ic` (e.g. the Expert Elixir LSP resolving PATH) run
+# interactive-but-no-tty, where these plugins' option save/restore tries to set
+# `zle on` and dies with "can't change option: zle", aborting the probe.
+if [[ -t 1 ]]; then
+    zfetch zsh-users/zsh-syntax-highlighting
+    zfetch zsh-users/zsh-autosuggestions
+    zfetch Aloxaf/fzf-tab
+fi
 
 [[ -e ~/.terminfo ]] && export TERMINFO_DIRS=~/.terminfo:/usr/share/terminfo
 
@@ -122,7 +129,9 @@ zfetch Aloxaf/fzf-tab
 # add a config file for ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
-if command -v fzf >/dev/null 2>&1; then
+# fzf's --zsh integration binds zle widgets (CTRL-R/CTRL-T); skip when no tty
+# so env-probing `zsh -ic` callers (Expert LSP) don't hit "can't change option: zle"
+if [[ -t 1 ]] && command -v fzf >/dev/null 2>&1; then
     source <(fzf --zsh)
 fi
 
