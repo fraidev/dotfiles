@@ -231,6 +231,11 @@ alias denor="$DENO_WORKSPACE/target/release/deno"
 # claude aliases
 alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 
+# streamfy
+export STREAMFY_DIR="$HOME/workspace/streamfy-io/streamfy"
+alias sfyd="$HOME/workspace/streamfy-io/streamfy/target/debug/streamfy"
+alias sfyr="$HOME/workspace/streamfy-io/streamfy/target/release/streamfy"
+
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
 

@@ -72,6 +72,7 @@ in
     # localstack
     ngrok
     parallel
-    postgresql
+    ffmpeg
+    uv
   ];
 }
