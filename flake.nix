@@ -7,11 +7,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Expert: unified Elixir language server (not yet in nixpkgs).
-    expert.url = "github:expert-lsp/expert";
   };
 
-  outputs = { self, nixpkgs, home-manager, expert, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }:
     let
       username = "frai";
 
@@ -21,7 +19,6 @@
             inherit system;
             config.allowUnfree = true;
           };
-          extraSpecialArgs = { inherit expert system; };
           modules = [
             ./nix/home.nix
             {
