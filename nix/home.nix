@@ -74,5 +74,6 @@ in
     parallel
     ffmpeg
     uv
+    rtk
   ];
 }
