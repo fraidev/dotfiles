@@ -31,6 +31,30 @@ return {
                 {desc = "Open the LSP log file"}
             )
 
+            -- Restore :Lsp{Start,Stop,Restart,Info} as aliases to the native
+            -- :lsp command. nvim 0.12 ships a built-in :lsp, so nvim-lspconfig
+            -- detects it (exists(':lsp')==2) and skips registering these.
+            api.nvim_create_user_command(
+                "LspStart",
+                "lsp enable <args>",
+                {nargs = "?", desc = "Alias to :lsp enable"}
+            )
+            api.nvim_create_user_command(
+                "LspStop",
+                "lsp stop <args>",
+                {nargs = "?", desc = "Alias to :lsp stop"}
+            )
+            api.nvim_create_user_command(
+                "LspRestart",
+                "lsp restart <args>",
+                {nargs = "?", desc = "Alias to :lsp restart"}
+            )
+            api.nvim_create_user_command(
+                "LspInfo",
+                "checkhealth vim.lsp",
+                {desc = "Alias to :checkhealth vim.lsp"}
+            )
+
             -- Lsp Installer
             require("mason").setup(
                 {

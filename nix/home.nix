@@ -75,5 +75,6 @@ in
     ffmpeg
     uv
     rtk
+    lima
   ];
 }

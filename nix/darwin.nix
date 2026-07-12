@@ -7,7 +7,7 @@
     obsidian
     postman
     # scroll-reverser
-    rectangle
+    # rectangle
     # claude-code
     #karabiner-elements
     #wireshark

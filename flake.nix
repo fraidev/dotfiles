@@ -13,11 +13,19 @@
     let
       username = "frai";
 
+      # lima from nixpkgs fails to link on macOS 26 (cctools ld crash on
+      # Virtualization.framework) and is not cached for aarch64-darwin.
+      # Use the official prebuilt binary instead.
+      limaOverlay = final: prev: {
+        lima = final.callPackage ./nix/packages/lima-bin.nix { };
+      };
+
       mkHome = { system, extraModules, homeDirectory }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            overlays = [ limaOverlay ];
           };
           modules = [
             ./nix/home.nix

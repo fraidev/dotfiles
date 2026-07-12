@@ -40,6 +40,8 @@ prepend_path $HOME/bin
 prepend_path $HOME/.local/bin
 prepend_path $HOME/.fvm/bin
 prepend_path $HOME/.fluvio/bin
+prepend_path $HOME/.sfy/bin
+prepend_path $HOME/.streamfy/bin
 prepend_path $HOME/.lmstudio/bin
 prepend_path $HOME/.grok/bin
 
@@ -324,3 +326,9 @@ export PATH=$PATH:/usr/local/go/bin
 
 
 # export AWS_PROFILE=default
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
