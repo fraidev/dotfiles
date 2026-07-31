@@ -1,0 +1,164 @@
+# herdr configuration (migrated from tmux/tmux.conf.symlink + bubbles theme)
+# Reload: prefix+r  or  `herdr server reload-config`
+# Help:   prefix+?
+
+onboarding = false
+
+[theme]
+# Match outer terminal ANSI palette (similar spirit to tmux bubbles on terminal)
+name = "terminal"
+auto_switch = false
+
+# Optional color accents closer to tmux/themes/bubbles.conf
+# [theme.custom]
+# accent = "#57a8d3"
+# blue = "#57a8d3"
+# green = "#b3e1a3"
+# red = "#e28c8c"
+# yellow = "#eadda0"
+# peach = "#f7c196"
+# mauve = "#c6aae8"
+
+[terminal]
+new_cwd = "follow"
+shell_mode = "auto"
+
+[keys]
+# tmux: unbind C-b; set prefix C-a
+prefix = "ctrl+a"
+
+# tmux: bind r source-file ... (herdr default r is resize; we swap)
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# tmux: bind v split-window -h / bind s split-window -v
+# herdr names: vertical = side-by-side, horizontal = stacked
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+# settings was prefix+s by default; moved so `s` can split
+settings = "prefix+comma"
+
+# tmux: bind h/j/k/l select-pane + Alt-h/j/k/l without prefix
+# alt+ may need terminal "option as alt" (not compose). ctrl+alt is more portable.
+focus_pane_left = ["prefix+h", "alt+h"]
+focus_pane_down = ["prefix+j", "alt+j"]
+focus_pane_up = ["prefix+k", "alt+k"]
+focus_pane_right = ["prefix+l", "alt+l"]
+
+# tmux: bind Tab / BTab select-window next/prev
+# herdr default uses tab for cycle_pane; remap to match tmux windows -> tabs
+next_tab = ["prefix+n", "prefix+tab"]
+previous_tab = ["prefix+p", "prefix+shift+tab"]
+cycle_pane_next = "prefix+semicolon"
+cycle_pane_previous = "prefix+colon"
+
+# copy mode on prefix+z (tmux used Escape; z was zoom)
+copy_mode = ["prefix+z", "prefix+["]
+# zoom moved off z so copy mode can own it
+zoom = "prefix+shift+z"
+
+# tmux: bind e new-session (workspace is the herdr session analogue)
+# edit_scrollback was prefix+e; moved to free `e`
+new_workspace = "prefix+e"
+edit_scrollback = "prefix+shift+e"
+
+# keep useful herdr defaults that don't fight the map above
+new_tab = "prefix+c"
+switch_tab = "prefix+1..9"
+close_pane = "prefix+x"
+close_tab = "prefix+shift+x"
+toggle_sidebar = ["prefix+b", "prefix+m"]
+help = "prefix+?"
+detach = "prefix+q"
+goto = "prefix+g"
+workspace_picker = "prefix+w"
+rename_tab = "prefix+shift+t"
+rename_pane = "prefix+shift+p"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+
+# tmux used H/J/K/L to resize. Herdr defaults bind shift+hjkl to swap_pane_*.
+# Unbind swap here; resize is wired via [[keys.command]] below (no native resize_* keys).
+# Swap still available on ctrl+shift+hjkl if you need it.
+swap_pane_left = "prefix+ctrl+shift+h"
+swap_pane_down = "prefix+ctrl+shift+j"
+swap_pane_up = "prefix+ctrl+shift+k"
+swap_pane_right = "prefix+ctrl+shift+l"
+
+# navigate-mode (after prefix+w / prefix+g): vim keys still work
+navigate_pane_left = "h"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+
+# --- not portable from tmux (no first-class herdr action) ---
+# bind y synchronize-panes
+# bind C-o rotate-window
+# bind < > swap-window
+# bind a send-prefix (nested tmux)
+
+# tmux: bind -r H/J/K/L resize-pane -L/-D/-U/-R 5
+# amount is a fraction of the split parent (~0.025 ≈ 5 cols on a ~200-wide pane)
+[[keys.command]]
+key = "prefix+shift+h"
+type = "shell"
+command = "\"${HERDR_BIN_PATH:-herdr}\" pane resize --current --direction left --amount 0.05"
+description = "resize pane left (narrower)"
+
+[[keys.command]]
+key = "prefix+shift+l"
+type = "shell"
+command = "\"${HERDR_BIN_PATH:-herdr}\" pane resize --current --direction right --amount 0.05"
+description = "resize pane right (wider)"
+
+[[keys.command]]
+key = "prefix+shift+j"
+type = "shell"
+command = "\"${HERDR_BIN_PATH:-herdr}\" pane resize --current --direction down --amount 0.05"
+description = "resize pane down (taller)"
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "shell"
+command = "\"${HERDR_BIN_PATH:-herdr}\" pane resize --current --direction up --amount 0.05"
+description = "resize pane up (shorter)"
+
+# rename all tabs from pane cwds (pairs with zsh chpwd hook in zshrc)
+[[keys.command]]
+key = "prefix+shift+n"
+type = "shell"
+command = "herdr-sync-tab-names"
+description = "sync tab names from cwd"
+
+[ui]
+mouse_capture = true
+copy_on_select = true
+pane_borders = true
+pane_gaps = false
+hide_tab_bar_when_single_tab = true
+# skip name prompt; zsh hook renames to directory basename
+prompt_new_tab_name = false
+# pink-ish active borders in bubbles were thm_pink; accent drives chrome
+accent = "#57a8d3"
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"
+
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace"],
+  ["branch", "git_status"],
+]
+
+# Do not put `tab` next to `workspace` here: cwd auto-rename updates tab labels,
+# which looked like the space name was changing when both sat on one line.
+# Tab names still show in the tab bar only.
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace"],
+  ["agent"],
+]
+
+[experimental]
+pane_history = false

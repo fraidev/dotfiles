@@ -33,6 +33,8 @@ in
     "ghostty".source = link "config/ghostty";
     "kitty".source = link "config/kitty";
     "rio".source = link "config/rio";
+    # only the toml; runtime socks/logs stay in ~/.config/herdr/
+    "herdr/config.toml".source = link "config/herdr/config.toml";
   };
 
   home.packages = with pkgs; [
@@ -62,6 +64,7 @@ in
     beam27Packages.erlang
     beam27Packages.elixir_1_20
     go
+    zig_0_15 # 0.15.2
     kubectl
     k9s
     postgresql
@@ -76,5 +79,6 @@ in
     uv
     rtk
     lima
+    just
   ];
 }

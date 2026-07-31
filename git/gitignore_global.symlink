@@ -23,3 +23,6 @@ tscommand*.txt
 npm-debug.log
 
 **/.claude/settings.local.json
+
+# Local planning / machine-only project notes
+.local/

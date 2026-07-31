@@ -150,7 +150,7 @@
     # do not warn about missing whitespace at EOF
     whitespace = nowarn
 [core]
-    excludesfile = ~/.gitignore_global
+	excludesfile = /Users/frai/.config/git/ignore
     pager = delta
     editor = nvim
     whitespace = cr-at-eol

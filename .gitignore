@@ -1,5 +1,6 @@
 .netrwhist
 npm-debug.log
+*.log
 
 plug.vim.old
 
@@ -7,9 +8,16 @@ config/nvim/spell
 config/nvim/shada
 config/nvim/plugged
 config/nvim/autoload/plug.vim
+config/nvim/nvim.log
 vim/vim.symlink/spell/
 vim/vim.symlink/plugged/
 
 zsh/
 
 Brewfile.lock.json
+
+# nix build output (symlink into /nix/store)
+result
+
+# local AI / editor tooling
+.claude/

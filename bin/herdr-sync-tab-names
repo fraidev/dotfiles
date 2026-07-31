@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Rename each Herdr tab to the basename of its focused pane cwd (home -> ~).
+# Usage: herdr-sync-tab-names
+set -euo pipefail
+
+command -v herdr >/dev/null 2>&1 || exit 0
+command -v python3 >/dev/null 2>&1 || exit 0
+
+HOME_DIR="${HOME}" python3 <<'PY'
+import json, os, subprocess, sys
+
+home = os.path.realpath(os.environ.get("HOME_DIR") or os.path.expanduser("~"))
+try:
+    raw = subprocess.check_output(["herdr", "pane", "list"], text=True)
+    data = json.loads(raw)
+except Exception:
+    sys.exit(0)
+
+panes = data.get("result", {}).get("panes") or []
+by_tab: dict = {}
+for p in panes:
+    tid = p.get("tab_id")
+    if not tid:
+        continue
+    cur = by_tab.get(tid)
+    if cur is None or (p.get("focused") and not cur.get("focused")):
+        by_tab[tid] = p
+
+for tid, p in by_tab.items():
+    cwd = p.get("foreground_cwd") or p.get("cwd") or ""
+    if not cwd:
+        continue
+    try:
+        real = os.path.realpath(cwd)
+    except OSError:
+        real = cwd
+    if real == home or real == home + os.sep:
+        label = "~"
+    else:
+        label = os.path.basename(real.rstrip(os.sep)) or real
+    if not label:
+        continue
+    subprocess.run(
+        ["herdr", "tab", "rename", tid, label],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+PY

@@ -208,6 +208,23 @@ alias tls='tmux ls'
 alias tat='tmux attach -t'
 alias tns='tmux new-session -s'
 
+# herdr: name active tab after cwd basename (tmux-like automatic-rename)
+if [[ -n ${HERDR_ENV:-} && -n ${HERDR_TAB_ID:-} ]]; then
+  _herdr_tab_from_cwd() {
+    local label
+    if [[ $PWD == "$HOME" || $PWD == "$HOME/" ]]; then
+      label='~'
+    else
+      label="${PWD:t}"
+    fi
+    [[ -n $label ]] || return 0
+    herdr tab rename "$HERDR_TAB_ID" "$label" &>/dev/null
+  }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook chpwd _herdr_tab_from_cwd
+  _herdr_tab_from_cwd
+fi
+
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
 alias nr="npm run"
@@ -237,6 +254,9 @@ alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 export STREAMFY_DIR="$HOME/workspace/streamfy-io/streamfy"
 alias sfyd="$HOME/workspace/streamfy-io/streamfy/target/debug/streamfy"
 alias sfyr="$HOME/workspace/streamfy-io/streamfy/target/release/streamfy"
+
+#nix
+alias nixus="cd $DOTFILES && nix flake update && nix run home-manager/master -- switch --flake .#frai-mac"
 
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"
