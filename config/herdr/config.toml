@@ -65,6 +65,10 @@ edit_scrollback = "prefix+shift+e"
 # keep useful herdr defaults that don't fight the map above
 new_tab = "prefix+c"
 switch_tab = "prefix+1..9"
+# workspaces: prefix+shift+1..9 (also matches shifted punctuation like ! @ # on most terminals)
+switch_workspace = "prefix+shift+1..9"
+# agents: indexed jumps only support 1..9, so alt+digits (F1..F9 cannot be used here)
+focus_agent = "prefix+alt+1..9"
 close_pane = "prefix+x"
 close_tab = "prefix+shift+x"
 toggle_sidebar = ["prefix+b", "prefix+m"]
