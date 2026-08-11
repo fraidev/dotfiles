@@ -6,6 +6,7 @@
     wezterm
     obsidian
     postman
+    ghidra
     # scroll-reverser
     # rectangle
     # claude-code

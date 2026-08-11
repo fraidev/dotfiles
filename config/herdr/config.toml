@@ -53,7 +53,8 @@ cycle_pane_next = "prefix+semicolon"
 cycle_pane_previous = "prefix+colon"
 
 # copy mode on prefix+z (tmux used Escape; z was zoom)
-copy_mode = ["prefix+z", "prefix+["]
+copy_mode = ["prefix+z", "prefix+[", "prefix+esc"]
+# copy_mode = ["prefix+z", "prefix+[", "prefix+esc"]
 # zoom moved off z so copy mode can own it
 zoom = "prefix+shift+z"
 
@@ -139,6 +140,7 @@ mouse_capture = true
 copy_on_select = true
 pane_borders = true
 pane_gaps = false
+tab_bar_position = "bottom"
 hide_tab_bar_when_single_tab = true
 # skip name prompt; zsh hook renames to directory basename
 prompt_new_tab_name = false
@@ -166,3 +168,23 @@ rows = [
 
 [experimental]
 pane_history = false
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+description = "run lazygit"
+width = "80%"
+height = "80%"
+
+
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "exec \"${SHELL:-sh}\""
+description = "open scratch terminal"
+width = "80%"
+height = "80%"
+
+[ui.toast]
+delivery = "off"

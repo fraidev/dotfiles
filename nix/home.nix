@@ -13,7 +13,6 @@ in
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
-
   # *.symlink files -> ~/.<name>  (was: find -name '*.symlink' in install.sh)
   home.file = {
     ".zshrc".source = link "zsh/zshrc.symlink";
