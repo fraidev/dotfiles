@@ -79,5 +79,6 @@ in
     rtk
     lima
     just
+    zoxide
   ];
 }
