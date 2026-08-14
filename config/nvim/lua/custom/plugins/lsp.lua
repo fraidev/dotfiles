@@ -387,6 +387,30 @@ return {
                 }
             )
 
+            -- GitHub-style markdown in repos: [text](./path/file.md#heading)
+            vim.lsp.config("marksman", {})
+
+            -- Obsidian / wiki links only. Skip normal git repos so it does not
+            -- flag relative README links as "Unresolved Reference".
+            vim.lsp.config(
+                "markdown_oxide",
+                {
+                    root_dir = function(bufnr, on_dir)
+                        local root = vim.fs.root(bufnr, {".obsidian", ".moxide.toml"})
+                        if root then
+                            on_dir(root)
+                        end
+                    end,
+                    capabilities = {
+                        workspace = {
+                            didChangeWatchedFiles = {
+                                dynamicRegistration = true
+                            }
+                        }
+                    }
+                }
+            )
+
             -- Elixir
             vim.lsp.config(
                 "expert",

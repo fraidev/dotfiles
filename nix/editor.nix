@@ -8,5 +8,7 @@
     lua-language-server   # LSP for editing the nvim lua config
     beam27Packages.expert # Expert: Elixir LSP (nixpkgs, beam27/OTP-27 toolchain)
     zls_0_15              # Zig LSP for 0.15.x (enabled in after/ftplugin/zig.lua)
+    marksman              # Markdown LSP for repo docs and relative links
+    markdown-oxide        # Obsidian / wiki-link LSP (only attaches in a vault)
   ];
 }

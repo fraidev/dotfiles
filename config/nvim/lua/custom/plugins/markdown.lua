@@ -7,7 +7,13 @@ return {
             "nvim-tree/nvim-web-devicons"
         },
         opts = {
-            completions = {lsp = {enabled = true}}
+            completions = {lsp = {enabled = true}},
+            heading = {
+                -- Keep the raw '#', '##', ... markers instead of replacing them.
+                icons = {},
+                sign = false,
+                backgrounds = {}
+            }
         },
         keys = {
             {"<leader>tr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle render markdown"}
