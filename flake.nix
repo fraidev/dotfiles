@@ -20,12 +20,12 @@
         lima = final.callPackage ./nix/packages/lima-bin.nix { };
       };
 
-      mkHome = { system, extraModules, homeDirectory }:
+      mkHome = { system, extraModules, homeDirectory, overlays ? [ ] }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
-            overlays = [ limaOverlay ];
+            inherit overlays;
           };
           modules = [
             ./nix/home.nix
@@ -40,7 +40,8 @@
         "frai-mac" = mkHome {
           system = "aarch64-darwin";
           homeDirectory = "/Users/${username}";
-          extraModules = [ ./nix/darwin.nix ];
+          overlays = [ limaOverlay ];
+          extraModules = [ ./nix/darwin.nix ./nix/gui.nix ];
         };
 
         "frai-linux" = mkHome {

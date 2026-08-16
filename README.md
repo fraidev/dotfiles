@@ -9,8 +9,9 @@ Cross-platform dotfiles for macOS and Linux. Packages managed by [Nix](https://n
 | Path | Purpose |
 | --- | --- |
 | `flake.nix` | Entry point — exposes `homeConfigurations.frai-mac` (aarch64-darwin) and `homeConfigurations.frai-linux` (x86_64-linux). |
-| `nix/home.nix` | Shared package list + home-manager settings. |
-| `nix/darwin.nix` | macOS-only extras. |
+| `nix/home.nix` | Shared CLI package list + home-manager settings. |
+| `nix/darwin.nix` | macOS-only CLI extras (e.g. `lima`). |
+| `nix/gui.nix` | macOS GUI apps + fonts (wezterm, obsidian, postman, ghidra). |
 | `nix/linux.nix` | Linux-only extras (e.g. `xclip`). |
 | `install.sh` | Bootstrap: installs Nix, runs home-manager switch, symlinks `*.symlink` files + `config/*`, applies macOS defaults. |
 | `*.symlink`, `config/*` | Dotfiles symlinked into `$HOME` / `$HOME/.config` by `install.sh link`. |
@@ -41,7 +42,7 @@ cd ~/dotfiles
 
 ## Updating packages
 
-Edit `nix/home.nix` (or `nix/darwin.nix` / `nix/linux.nix`), then:
+Edit `nix/home.nix` (or `nix/darwin.nix` / `nix/gui.nix` / `nix/linux.nix`), then:
 
 ```bash
 nix run home-manager/master -- switch --flake .#frai-mac     # macOS
@@ -56,4 +57,5 @@ nix flake update
 
 ## GUI apps (macOS)
 
-Casks that used to be in `Brewfile` are no longer auto-installed. Install GUI apps manually or via `mas`/your method of choice.
+GUI apps and fonts live in `nix/gui.nix` and are only pulled in by `frai-mac`.
+Linux (`frai-linux`) stays CLI-only.

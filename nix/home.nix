@@ -77,7 +77,6 @@ in
     ffmpeg
     uv
     rtk
-    lima
     just
     zoxide
   ];
