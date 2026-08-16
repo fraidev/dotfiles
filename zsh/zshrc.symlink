@@ -256,7 +256,18 @@ alias sfyd="$HOME/workspace/streamfy-io/streamfy/target/debug/streamfy"
 alias sfyr="$HOME/workspace/streamfy-io/streamfy/target/release/streamfy"
 
 #nix
-alias nixus="cd $DOTFILES && nix flake update && nix run home-manager/master -- switch --flake .#frai-mac"
+nixus() {
+    local profile
+    case "$(uname)" in
+        Darwin) profile="frai-mac" ;;
+        Linux)  profile="frai-linux" ;;
+        *)
+            echo "nixus: unsupported OS: $(uname)" >&2
+            return 1
+            ;;
+    esac
+    cd "$DOTFILES" && nix flake update && nix run home-manager/master -- switch --flake ".#$profile"
+}
 
 source "$DOTFILES/zsh/utils.zsh"
 source "$DOTFILES/zsh/prompt.zsh"

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Start the homelab Samba share. Works both inside nix-user-chroot (interactive
+# shells) and outside it (systemd --user, which cannot see /nix/store).
+set -euo pipefail
+
+HOME_DIR="${HOME:-/home/frai}"
+NIX_ROOT="${HOME_DIR}/.nix"
+CHROOT="${HOME_DIR}/.local/bin/nix-user-chroot"
+SMBD="${HOME_DIR}/.nix-profile/bin/smbd"
+CONF="${HOME_DIR}/dotfiles/nix/smb.conf"
+STATE="${HOME_DIR}/.local/share/samba"
+
+mkdir -p "${STATE}"/{private,lock,pid,state,cache,log,ncalrpc}
+chmod 755 "${STATE}" "${STATE}/state" "${STATE}/cache" "${STATE}/log"
+chmod 700 "${STATE}/private"
+
+if [[ ! -f "$CONF" ]]; then
+  echo "smbd-homelab: missing $CONF" >&2
+  exit 1
+fi
+
+run_smbd() {
+  exec "$@" --foreground --no-process-group --log-basename="${STATE}/log" --configfile="$CONF"
+}
+
+# Inside the chroot the profile binaries resolve through /nix/store.
+if [[ -x "$SMBD" ]]; then
+  run_smbd "$SMBD"
+fi
+
+if [[ -x "$CHROOT" && -d "$NIX_ROOT" ]]; then
+  run_smbd "$CHROOT" "$NIX_ROOT" "$SMBD"
+fi
+
+echo "smbd-homelab: cannot find smbd (looked at $SMBD)" >&2
+exit 1

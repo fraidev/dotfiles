@@ -1,0 +1,11 @@
+[Unit]
+Description=Samba SMB/CIFS file share (user)
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/home/frai/dotfiles/bin/smbd-homelab
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

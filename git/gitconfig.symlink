@@ -154,6 +154,7 @@
     pager = delta
     editor = nvim
     whitespace = cr-at-eol
+	sshCommand = ssh -F /home/frai/.ssh/config
 [delta]
     features = unobtrusive-line-numbers decorations
     whitespace-error-style = 22 reverse
