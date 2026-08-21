@@ -1,23 +1,27 @@
-local obsidian_path = vim.fn.expand("~/Obsidian/*.md")
+local obsidian_path = vim.fn.expand("~/obsidian/*.md")
 
 return {
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
-    lazy = true,
+    -- lazy = true,
     -- ft = "markdown",
     -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-    event = {
-        "BufReadPre " .. obsidian_path,
-        "BufNewFile " .. obsidian_path
-    },
+    -- event = {
+    --     "BufReadPre " .. obsidian_path,
+    --     "BufNewFile " .. obsidian_path
+    -- },
     dependencies = {
         "nvim-lua/plenary.nvim"
     },
-    opts = {
+    config = function()
+      require("obsidian").setup({
+        ui = {
+          enabled = false,
+        }
         workspaces = {
             {
                 name = "personal",
-                path = "~/Obsidian/Frai/"
+                path = "~/obsidian/"
             }
         },
         daily_notes = {
@@ -32,5 +36,6 @@ return {
             -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
             template = nil
         }
-    }
+      })
+    end,
 }

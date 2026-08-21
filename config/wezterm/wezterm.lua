@@ -26,7 +26,13 @@ config.colors = {
     -- background = "#282C34"
     -- background = "#21242A"
 
-    background = "#1E1E1E"
+    -- background = "#1E1E1E",
+    -- background = "#000000"
+    -- background = "#242424",
+  -- background = "#16181D",
+    background = '#282C34',
+
+    foreground = "#E6EDF3"
 
     -- background = "#1c1e26"
     -- background = "#1F1E1E"
@@ -46,16 +52,24 @@ config.hide_tab_bar_if_only_one_tab = true
 
 -- config.window_decorations = "MACOS_FORCE_ENABLE_SHADOW"
 
+-- config.window_decorations = "RESIZE"
+-- config.window_decorations = "NONE"
 config.window_decorations = "RESIZE"
 config.cursor_blink_rate = 500
 
+-- config.window_padding = {
+--     left = 0,
+--     right = 0,
+--     top = 0,
+--     bottom = 0
+-- }
 config.window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0
+  left = '0cell',
+  right = '0cell',
+  -- top = '0.65cell',
+  top = '0.65cell',
+  bottom = '0cell',
 }
-
 -- config.font = wezterm.font "Fira Code"
 -- config.font = wezterm.font "FiraCode Nerd Font Mono"
 -- config.font = wezterm.font "ComicMono NF"

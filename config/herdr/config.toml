@@ -10,14 +10,11 @@ name = "terminal"
 auto_switch = false
 
 # Optional color accents closer to tmux/themes/bubbles.conf
-# [theme.custom]
-# accent = "#57a8d3"
-# blue = "#57a8d3"
-# green = "#b3e1a3"
-# red = "#e28c8c"
-# yellow = "#eadda0"
-# peach = "#f7c196"
-# mauve = "#c6aae8"
+[theme.custom]
+# Inactive tab fill: tmux bubbles window-status-format name bg (thm_gray)
+panel_bg = "#21242A"
+surface0 = "#21242A"
+sidebar_bg = "#21242A"
 
 [terminal]
 new_cwd = "follow"

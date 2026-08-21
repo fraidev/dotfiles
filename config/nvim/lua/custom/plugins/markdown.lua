@@ -17,7 +17,10 @@ return {
         },
         keys = {
             {"<leader>tr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle render markdown"}
-        }
+        },
+        -- config = function()
+          -- vim.opt.conceallevel = 2
+        -- end
     },
     {
         "iamcco/markdown-preview.nvim",

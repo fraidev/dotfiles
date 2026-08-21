@@ -7,12 +7,16 @@ colors.get_colors = function()
             vscNone = "NONE",
             vscFront = "#D4D4D4",
             -- vscBack = '#1F1F1F',
-            vscBack = "#1E1E1E",
+            -- vscBack = "#16181D",
+
+
+
+            -- vscBack = "#1E1E1E",
             -- vscBack = '#1c1e26',
             -- vscBack = '#1B1B1B',
             -- vscBack = '#151515',
             -- doom
-            -- vscBack = '#282C34',
+            vscBack = '#282C34',
             -- vscBack = '#21242A',
 
             vscTabCurrent = "#1F1F1F",
