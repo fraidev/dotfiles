@@ -1,0 +1,86 @@
+#!/bin/sh
+# Rewrite home-manager's /nix/store symlinks to their real targets under
+# ~/dotfiles. On this host the store is only mounted inside nix-user-chroot,
+# so ~/.config/herdr/config.toml (and nvim, zshrc, ...) look missing to
+# anything running on the real root — including herdr.
+set -eu
+
+STORE="${HOME}/.nix/store"
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+PROFILES="${HOME}/.local/state/nix/profiles"
+
+to_host() {
+    case "$1" in
+        /nix/store/*) printf '%s\n' "${STORE}/${1#/nix/store/}" ;;
+        *) printf '%s\n' "$1" ;;
+    esac
+}
+
+follow() {
+    cur=$1
+    n=0
+    while [ -L "$cur" ]; do
+        n=$((n + 1))
+        [ "$n" -lt 30 ] || return 1
+        next=$(readlink "$cur") || return 1
+        case "$next" in
+            /*) cur=$(to_host "$next") ;;
+            *) cur=$(to_host "$(dirname "$cur")/$next") ;;
+        esac
+    done
+    printf '%s\n' "$cur"
+}
+
+resolve_path() {
+    raw=$1
+    case "$raw" in
+        /*) ;;
+        *) raw="$(pwd)/$raw" ;;
+    esac
+    current=""
+    oldifs=$IFS
+    IFS=/
+    # shellcheck disable=SC2086
+    set -- $raw
+    IFS=$oldifs
+    for comp; do
+        [ -z "$comp" ] && continue
+        if [ -z "$current" ]; then
+            current="/$comp"
+        else
+            current="$current/$comp"
+        fi
+        current=$(to_host "$current")
+        current=$(follow "$current") || return 1
+    done
+    [ -n "$current" ] && [ -e "$current" ] || return 1
+    printf '%s\n' "$current"
+}
+
+hm=$(resolve_path "${PROFILES}/home-manager") || exit 0
+files=$(resolve_path "${hm}/home-files") || exit 0
+
+find "$files" -type l | while IFS= read -r src; do
+    rel=${src#"$files"/}
+    dest="${HOME}/${rel}"
+    final=$(resolve_path "$src") || continue
+    case "$final" in
+        "$DOTFILES"/*) ;;
+        *) continue ;;
+    esac
+
+    if [ -L "$dest" ]; then
+        cur=$(readlink "$dest")
+        [ "$cur" = "$final" ] && continue
+        case "$cur" in
+            /nix/store/*|"$STORE"/*) ;;
+            "$DOTFILES"/*) continue ;;
+            *) continue ;;
+        esac
+    elif [ -e "$dest" ]; then
+        continue
+    fi
+
+    mkdir -p "$(dirname "$dest")"
+    ln -sfn "$final" "$dest"
+done

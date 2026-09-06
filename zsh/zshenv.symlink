@@ -2,6 +2,16 @@
 # It should contain commands to set the command search path, plus other important environment variables.
 # .zshenv' should not contain commands that produce output or assume the shell is attached to a tty.
 
+# Host SSH/login: ~/.zshenv is a dangling /nix/store link, so host-zsh sets
+# ZDOTDIR to zsh/zdotdir. Rewrite compiled-in module paths BEFORE anything
+# tries to zmodload zsh/zle.
+if [[ ! -e /nix/var/nix/db && -d $HOME/.nix/store ]]; then
+    _host_store=$HOME/.nix/store
+    module_path=( ${module_path/#\/nix\/store/$_host_store} )
+    fpath=( ${fpath/#\/nix\/store/$_host_store} )
+    unset _host_store
+fi
+
 # Under home-manager, ~/.zshenv is a multi-hop symlink into the nix store, so
 # deriving this via `readlink` (single-level) breaks. Pin it; the nix config
 # also assumes ~/dotfiles. Override by exporting DOTFILES before this is sourced.
@@ -19,6 +29,13 @@ fpath=(
     /usr/local/share/zsh/site-functions
     $fpath
 )
+
+if [[ ! -e /nix/var/nix/db && -d $HOME/.nix/store ]]; then
+    _host_store=$HOME/.nix/store
+    fpath=( ${fpath/#\/nix\/store/$_host_store} )
+    unset _host_store
+fi
+
 
 typeset -aU path
 

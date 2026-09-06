@@ -46,9 +46,11 @@ prepend_path $HOME/.lmstudio/bin
 prepend_path $HOME/.grok/bin
 
 
-# Nix / home-manager paths
-prepend_path $HOME/.nix-profile/bin
-prepend_path /nix/var/nix/profiles/default/bin
+# Nix / home-manager paths (dangling on the host without /nix)
+if [[ -e /nix/var/nix/db ]]; then
+    prepend_path $HOME/.nix-profile/bin
+    prepend_path /nix/var/nix/profiles/default/bin
+fi
 
 # macOS-only extras
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -149,7 +151,7 @@ export TEZOS_ALPHANET_DO_NOT_PULL=yes
 ########################################################
 
 # reload zsh config
-alias reload!='RELOAD=1 source ~/.zshrc'
+alias reload!='RELOAD=1 source ${ZDOTDIR:-$HOME}/.zshrc'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -276,6 +278,34 @@ source "$DOTFILES/zsh/prompt.zsh"
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$PATH:$NPM_PACKAGES/bin"
+
+# Host SSH: Nix packages live behind nix-user-chroot. Missing commands
+# (htop, jq, ...) are run via the wrap so the login shell stays on the
+# real host and `su` still reaches real root.
+if [[ ! -e /nix/var/nix/db ]]; then
+    [[ -x $DOTFILES/bin/nix-sync-wraps ]] && "$DOTFILES/bin/nix-sync-wraps"
+    command_not_found_handler() {
+        local cmd=$1
+        shift
+        local chroot=$HOME/.local/bin/nix-user-chroot
+        if [[ ! -x $chroot ]]; then
+            print -u2 "zsh: command not found: $cmd"
+            return 127
+        fi
+        "$chroot" "${NIX_ROOT:-$HOME/.nix}" /bin/bash -c '
+            if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+                . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+            fi
+            cmd="$1"
+            shift
+            if [ ! -x "$HOME/.nix-profile/bin/$cmd" ]; then
+                echo "zsh: command not found: $cmd" >&2
+                exit 127
+            fi
+            exec "$HOME/.nix-profile/bin/$cmd" "$@"
+        ' _ "$cmd" "$@"
+    }
+fi
 
 # If a local zshrc exists, source it
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

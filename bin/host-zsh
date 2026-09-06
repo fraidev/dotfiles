@@ -1,0 +1,110 @@
+#!/bin/sh
+# Run home-manager zsh on the real host — no nix-user-chroot.
+#
+# ~/.nix-profile -> ... -> /nix/store/... is dangling outside the chroot.
+# Walk each path component and rewrite /nix/store -> ~/.nix/store so we
+# can exec the same binary with the matching glibc loader. That keeps us
+# in the host namespace, so `su` is real root.
+set -eu
+
+STORE="${HOME}/.nix/store"
+
+to_host() {
+    case "$1" in
+        /nix/store/*) printf '%s\n' "${STORE}/${1#/nix/store/}" ;;
+        *) printf '%s\n' "$1" ;;
+    esac
+}
+
+follow() {
+    cur=$1
+    n=0
+    while [ -L "$cur" ]; do
+        n=$((n + 1))
+        [ "$n" -lt 30 ] || return 1
+        next=$(readlink "$cur") || return 1
+        case "$next" in
+            /*) cur=$(to_host "$next") ;;
+            *) cur=$(to_host "$(dirname "$cur")/$next") ;;
+        esac
+    done
+    printf '%s\n' "$cur"
+}
+
+# Resolve a path that hops through dangling /nix/store links.
+resolve_path() {
+    raw=$1
+    case "$raw" in
+        /*) ;;
+        *) raw="$(pwd)/$raw" ;;
+    esac
+
+    current=""
+    oldifs=$IFS
+    IFS=/
+    # shellcheck disable=SC2086
+    set -- $raw
+    IFS=$oldifs
+    for comp; do
+        [ -z "$comp" ] && continue
+        if [ -z "$current" ]; then
+            current="/$comp"
+        else
+            current="$current/$comp"
+        fi
+        current=$(to_host "$current")
+        current=$(follow "$current") || return 1
+    done
+    [ -n "$current" ] && [ -e "$current" ] || return 1
+    printf '%s\n' "$current"
+}
+
+fail() {
+    echo "host-zsh: $*" >&2
+    # Login bash would re-enter this wrapper; stop the loop.
+    export NO_ZSH=1
+    exec /bin/bash -l
+}
+
+find_zsh() {
+    z=$(resolve_path "${HOME}/.nix-profile/bin/zsh") && { printf '%s\n' "$z"; return 0; }
+    z=$(resolve_path "${HOME}/.local/state/nix/profiles/home-manager/home-path/bin/zsh") && { printf '%s\n' "$z"; return 0; }
+    last=""
+    for cand in "${STORE}"/*-zsh-*/bin/zsh; do
+        [ -e "$cand" ] || continue
+        last=$cand
+    done
+    [ -n "$last" ] && resolve_path "$last"
+}
+
+host_zsh=$(find_zsh) || fail "cannot find zsh under ${STORE}"
+
+interp=$(tr '\0' '\n' < "$host_zsh" | grep 'ld-linux-x86-64.so.2$' | head -1)
+rpath=$(tr '\0' '\n' < "$host_zsh" | grep '^/nix/store/.*/lib:' | head -1)
+if [ -z "$interp" ] || [ -z "$rpath" ]; then
+    fail "failed to read ELF interp/rpath from $host_zsh"
+fi
+
+host_interp=$(to_host "$interp")
+host_rpath=$(printf '%s' "$rpath" | sed "s#/nix/store/#${STORE}/#g")
+
+[ -x "$host_interp" ] || fail "missing loader $host_interp"
+
+if [ "$#" -eq 0 ]; then
+    set -- -l
+fi
+
+# ~/.zshenv ~/.zshrc ~/.zprofile are home-manager links into /nix/store —
+# dangling on the host. Point zsh at repo-local copies instead.
+export ZDOTDIR="${HOME}/dotfiles/zsh/zdotdir"
+# Keep children on this wrapper, not ~/.local/bin/zsh (nix-chroot-wrap).
+export SHELL="${HOME}/dotfiles/bin/host-zsh"
+
+if [ -x "${HOME}/dotfiles/bin/host-relink-hm" ]; then
+    "${HOME}/dotfiles/bin/host-relink-hm" || true
+fi
+if [ -x "${HOME}/dotfiles/bin/nix-sync-wraps" ]; then
+    "${HOME}/dotfiles/bin/nix-sync-wraps" || true
+fi
+
+exec "$host_interp" --library-path "$host_rpath" "$host_zsh" "$@"

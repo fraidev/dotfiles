@@ -1,0 +1,40 @@
+#!/bin/sh
+# Create ~/.local/bin/<cmd> -> nix-chroot-wrap for Nix profile tools that
+# are not already on the host. Skips names that exist in /bin or /usr/bin
+# so we do not shadow Debian coreutils. Safe to run on the host (no /nix).
+set -eu
+
+WRAP="${HOME}/.local/bin/nix-chroot-wrap"
+DEST="${HOME}/.local/bin"
+PROFILES="${HOME}/.local/state/nix/profiles/profile"
+STORE="${HOME}/.nix/store"
+
+[ -x "$WRAP" ] || exit 0
+mkdir -p "$DEST"
+
+cur=$PROFILES
+n=0
+while [ -L "$cur" ]; do
+    n=$((n + 1))
+    [ "$n" -lt 20 ] || exit 0
+    next=$(readlink "$cur") || exit 0
+    case "$next" in
+        /nix/store/*) cur="${STORE}/${next#/nix/store/}"; break ;;
+        /*) cur=$next ;;
+        *) cur="$(dirname "$cur")/$next" ;;
+    esac
+done
+
+[ -d "$cur/bin" ] || exit 0
+
+for bin in "$cur/bin"/*; do
+    [ -e "$bin" ] || continue
+    name=$(basename "$bin")
+    case "$name" in
+        zsh|host-zsh|nix-chroot-wrap|nix-user-chroot|nix-enter) continue ;;
+    esac
+    [ -e "$DEST/$name" ] && continue
+    [ -e "/usr/bin/$name" ] && continue
+    [ -e "/bin/$name" ] && continue
+    ln -s nix-chroot-wrap "$DEST/$name"
+done

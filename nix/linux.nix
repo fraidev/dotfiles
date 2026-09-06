@@ -12,6 +12,18 @@
     samba
   ];
 
+  home.activation.hostRelinkHm = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "$HOME/dotfiles/bin/host-relink-hm" ]; then
+      run "$HOME/dotfiles/bin/host-relink-hm" || true
+    fi
+  '';
+
+  home.activation.nixSyncWraps = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "$HOME/dotfiles/bin/nix-sync-wraps" ]; then
+      run "$HOME/dotfiles/bin/nix-sync-wraps" || true
+    fi
+  '';
+
   home.activation.smbdUnit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     unit_dir="$HOME/.config/systemd/user"
     unit="$unit_dir/smbd.service"

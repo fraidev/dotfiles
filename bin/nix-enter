@@ -1,0 +1,14 @@
+#!/bin/sh
+# Start a login zsh with /nix available (user-owned store via nix-user-chroot).
+# Does not change the host login shell, so `su` still reaches real root.
+set -eu
+NIX_ROOT="${NIX_ROOT:-$HOME/.nix}"
+# Resolve zsh after the chroot mounts /nix. Do not exec ~/.local/bin/zsh
+# (that wrapper would nest a second user namespace).
+exec "$HOME/.local/bin/nix-user-chroot" "$NIX_ROOT" /bin/bash -lc '
+    if [ -x "$HOME/.nix-profile/bin/zsh" ]; then
+        export SHELL="$HOME/.nix-profile/bin/zsh"
+        exec "$SHELL" -l
+    fi
+    exec /bin/bash --login
+'
