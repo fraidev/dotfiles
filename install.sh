@@ -135,6 +135,21 @@ setup_home_manager() {
 setup_shell() {
     title "Configuring shell"
 
+    # This Debian box has no official /nix. Login stays /bin/bash; interactive
+    # bash execs host-zsh (Nix zsh, real namespace, sudo works). Do not chsh
+    # to ~/.nix-profile/bin/zsh — that path is dangling on the host, and the
+    # ~/.local/bin/zsh wrap enters nix-user-chroot (breaks sudo).
+    if [ "$(uname -s)" = Linux ] && [ -x "$HOME/dotfiles/bin/host-zsh" ]; then
+        if [ -x "$HOME/dotfiles/bin/nix-sync-wraps" ]; then
+            "$HOME/dotfiles/bin/nix-sync-wraps" || true
+        fi
+        if [ -x "$HOME/dotfiles/bin/host-relink-hm" ]; then
+            "$HOME/dotfiles/bin/host-relink-hm" || true
+        fi
+        info "interactive login uses $HOME/dotfiles/bin/host-zsh (login shell stays $(getent passwd "$USER" | awk -F: '{print $NF}'))"
+        return
+    fi
+
     local zsh_path
     if [ -x "$HOME/.nix-profile/bin/zsh" ]; then
         zsh_path="$HOME/.nix-profile/bin/zsh"

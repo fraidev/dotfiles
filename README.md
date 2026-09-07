@@ -35,7 +35,7 @@ cd ~/dotfiles
 ./install.sh link        # symlink *.symlink → $HOME, config/* → ~/.config
 ./install.sh macos       # apply macOS defaults (Finder, key repeat, etc.)
 ./install.sh terminfo    # install tmux + xterm-256color-italic terminfo entries
-./install.sh shell       # chsh to nix-provided zsh
+./install.sh shell       # macOS: chsh to nix zsh. Linux (this host): keep /bin/bash, exec host-zsh so Nix packages work and sudo still reaches real root. Use `nix-enter` only when you need a mounted /nix.
 ./install.sh git         # write ~/.gitconfig-local
 ./install.sh rust        # install rustup (not in nixpkgs by design)
 ```

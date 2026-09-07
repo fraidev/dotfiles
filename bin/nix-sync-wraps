@@ -38,3 +38,8 @@ for bin in "$cur/bin"/*; do
     [ -e "/bin/$name" ] && continue
     ln -s nix-chroot-wrap "$DEST/$name"
 done
+
+# Typing `zsh` must stay on the host. The chroot wrap breaks sudo/su.
+if [ -x "$HOME/dotfiles/bin/host-zsh" ]; then
+    ln -sfn "$HOME/dotfiles/bin/host-zsh" "$DEST/zsh"
+fi

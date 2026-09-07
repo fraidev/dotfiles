@@ -1,0 +1,31 @@
+#!/bin/sh
+# Run a command on the real host namespace.
+#
+# Grok / nix-enter run inside nix-user-chroot. That user namespace maps
+# only uid 1000, so host root looks like nobody and setuid sudo refuses
+# to run. SSH to 127.0.0.1 starts a session outside the namespace.
+set -eu
+
+if [ "$#" -eq 0 ]; then
+    echo "usage: host-run <command> [args...]" >&2
+    exit 2
+fi
+
+# Already on the host (full uid map): just exec.
+if awk 'NR==1 && $1==0 && $2==0 { found=1 } END { exit !found }' /proc/self/uid_map 2>/dev/null; then
+    exec "$@"
+fi
+
+quote() {
+    python3 -c 'import shlex,sys; print(shlex.join(sys.argv[1:]))' "$@"
+}
+
+exec /usr/bin/ssh -F /dev/null \
+    -o BatchMode=yes \
+    -o StrictHostKeyChecking=accept-new \
+    -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
+    -o IdentitiesOnly=yes \
+    -i "${HOME}/.ssh/id_ed25519" \
+    -o ConnectTimeout=5 \
+    frai@127.0.0.1 \
+    "cd $(quote "$(pwd)") && exec $(quote "$@")"

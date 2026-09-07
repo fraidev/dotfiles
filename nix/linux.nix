@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 # Linux-only extras.
 #
@@ -6,11 +6,18 @@
 # runs Nix under nix-user-chroot, so systemd --user (outside the chroot)
 # cannot follow ~/.config/systemd/user/*.service -> /nix/store/... links.
 # Activation writes a regular unit that starts bin/smbd-homelab instead.
+#
+# Login shell stays /bin/bash (no root needed to chsh). Interactive bash
+# execs bin/host-zsh so the session is Nix zsh on the real host. Packages
+# come from ~/.local/bin wraps + command_not_found_handler. Use nix-enter
+# only when you need a mounted /nix (that namespace breaks sudo).
 {
   home.packages = with pkgs; [
     xclip
     samba
   ];
+
+  home.sessionVariables.SHELL = "${config.home.homeDirectory}/dotfiles/bin/host-zsh";
 
   home.activation.hostRelinkHm = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x "$HOME/dotfiles/bin/host-relink-hm" ]; then
