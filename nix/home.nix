@@ -79,5 +79,6 @@ in
     rtk
     just
     zoxide
+    hugo
   ];
 }
