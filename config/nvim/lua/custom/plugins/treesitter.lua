@@ -35,7 +35,8 @@ return {
                 "markdown_inline",
                 "elixir",
                 "heex",
-                "eex"
+                "eex",
+                "surface"
             }
 
             require("nvim-treesitter").install(parsers)
@@ -44,7 +45,8 @@ return {
                 javascript = "javascript",
                 typescript = "typescript",
                 typescriptreact = "tsx",
-                javascriptreact = "javascript"
+                javascriptreact = "javascript",
+                eelixir = "eex"
             }
 
             vim.api.nvim_create_autocmd("FileType", {

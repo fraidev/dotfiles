@@ -9,6 +9,10 @@ return {
         vim.g.neoformat_enabled_typescript = {"denofmt"}
         vim.g.neoformat_elixir_mixformat = {exe = "mix", args = {"format", "-"}, stdin = 1}
         vim.g.neoformat_enabled_elixir = {"mixformat"}
+        vim.g.neoformat_heex_mixformat = {exe = "mix", args = {"format", "-"}, stdin = 1}
+        vim.g.neoformat_enabled_heex = {"mixformat"}
+        vim.g.neoformat_eelixir_mixformat = {exe = "mix", args = {"format", "-"}, stdin = 1}
+        vim.g.neoformat_enabled_eelixir = {"mixformat"}
 	-- vim.g.neoformat_verbose = 1
     end
 }

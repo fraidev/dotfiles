@@ -60,8 +60,8 @@ in
     zsh
     lazygit
     nodejs_24
-    beam27Packages.erlang
-    beam27Packages.elixir_1_20
+    beam28Packages.erlang
+    beam28Packages.elixir_1_20
     go
     zig_0_15 # 0.15.2
     kubectl

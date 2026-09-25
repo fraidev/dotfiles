@@ -411,28 +411,41 @@ return {
                 }
             )
 
-            -- Elixir
+            -- Elixir (Expert). Enable from after/ftplugin, like the other servers.
+            -- Do not set root_markers: a `.git` fallback starts Expert outside Mix
+            -- projects and the engine dies. Prefer the umbrella mix.exs when present.
             vim.lsp.config(
                 "expert",
                 {
                     cmd = {"expert", "--stdio"},
-                    root_markers = {"mix.exs", ".git"},
-                    filetypes = {"elixir", "eelixir", "heex"},
-                    -- handlers = {
-                    --     ["window/showMessageRequest"] = function(err, result, ctx, config)
-                    --         if result.message and result.message:find("fetch them") then
-                    --             for _, action in ipairs(result.actions or {}) do
-                    --                 if action.title:lower():find("yes") then
-                    --                     return action
-                    --                 end
-                    --             end
-                    --         end
-                    --         return vim.lsp.handlers["window/showMessageRequest"](err, result, ctx, config)
-                    --     end
-                    -- }
+                    filetypes = {"elixir", "eelixir", "heex", "surface"},
+                    workspace_required = true,
+                    root_dir = function(bufnr, on_dir)
+                        local fname = vim.api.nvim_buf_get_name(bufnr)
+                        if fname == "" then
+                            return
+                        end
+                        local matches = vim.fs.find({"mix.exs"}, {upward = true, limit = 2, path = fname})
+                        local child_or_root_path, maybe_umbrella_path = unpack(matches)
+                        local mix_path = maybe_umbrella_path or child_or_root_path
+                        if not mix_path then
+                            return
+                        end
+                        on_dir(vim.fs.dirname(mix_path))
+                    end,
+                    -- Expert incremental sync has historically drifted from the buffer
+                    -- (false diagnostics, goto/hover going silent until restart).
+                    flags = {
+                        allow_incremental_sync = false,
+                        debounce_text_changes = 150
+                    },
+                    settings = {
+                        workspaceSymbols = {
+                            minQueryLength = 2
+                        }
+                    }
                 }
             )
-            vim.lsp.enable("expert")
 
             -- Setup Cursor highlight
             -- vim.api.nvim_command([[ hi def link LspReferenceText CursorLine ]])
@@ -463,7 +476,7 @@ return {
             for _, method in ipairs({"textDocument/diagnostic", "workspace/diagnostic"}) do
                 local default_diagnostic_handler = vim.lsp.handlers[method]
                 vim.lsp.handlers[method] = function(err, result, context, config)
-                    if err ~= nil and err.code == -32802 then
+                    if err ~= nil and (err.code == -32802 or err.code == -32801) then
                         return
                     end
                     return default_diagnostic_handler(err, result, context, config)
